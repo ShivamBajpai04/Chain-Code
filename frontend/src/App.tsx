@@ -17,7 +17,7 @@ function App() {
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      const response = await axios.post("process.env.DOMAIN/auth/login", {
+      const response = await axios.post(process.env.DOMAIN + "/auth/login", {
         email: email,
         password: password,
       });
@@ -42,7 +42,7 @@ function App() {
     walletAddress: string
   ) => {
     try {
-      const response = await fetch("process.env.DOMAIN/auth/register", {
+      const response = await fetch(process.env.DOMAIN + "/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

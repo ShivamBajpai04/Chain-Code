@@ -10,7 +10,7 @@ interface NFTData {
 
 async function getNFT(id: string): Promise<NFTData> {
   try {
-    const response = await axios.get(`process.env.DOMAIN/submissions/${id}`, {
+    const response = await axios.get(`${process.env.DOMAIN}/submissions/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,

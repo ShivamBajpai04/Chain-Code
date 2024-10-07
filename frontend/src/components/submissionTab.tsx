@@ -10,7 +10,7 @@ export default function SubmissionsTab() {
 
   const fetchRecentSubmissions = async () => {
     try {
-      const response = await axios.get("process.env.DOMAIN/submissions/user");
+      const response = await axios.get(process.env.DOMAIN+"/submissions/user");
       console.log(response.data);
       setSubmissions(response.data);
     } catch (error) {
