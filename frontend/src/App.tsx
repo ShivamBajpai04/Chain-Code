@@ -4,9 +4,9 @@ import Login from "./components/pages/login";
 import Signup from "./components/pages/signup";
 import Problems from "./components/pages/problems";
 import { ProblemProvider } from "./context/ProblemContext";
-import LandingPage from "./components/pages/landingPage";
+// import LandingPage from "./components/pages/landingPage";
 import LandingPage2 from "./components/pages/landingPage2";
-import NFTPage from "./components/pages/nftPage";
+import NFTPage from "./components/pages/nftpage";
 import axios from "axios";
 import { DNFT } from "./components/pages/dnft";
 
