@@ -14,6 +14,20 @@ function formatCode(input: string) {
 }
 const token = localStorage.getItem("token");
 
+async function mintNFT(submissionId: string) {
+  const mint = await axios.post(
+    `http://localhost:5000/nft/mint/${submissionId}`,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return mint;
+}
+
 async function judge(
   problemId: string | undefined,
   language: number,
@@ -44,11 +58,11 @@ async function judge(
         }
       );
 
-      const { token } = response.data;
-      console.log("Submission token:", token);
+      const Judgetoken = response.data.token;
+      console.log("Submission token:", Judgetoken);
 
       // Poll for the result
-      return await pollForResult(token);
+      return await pollForResult(Judgetoken);
     })
   );
 
@@ -111,22 +125,13 @@ export async function submitCode(
         );
         return { error: "Failed to save submission" };
       }
-      //   const mint = await axios.post(
-      //     `http://localhost:5000/nft/mint/${saveSubmissionResponse.data.submissionId}`,
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `Bearer ${token}`,
-      //       },
-      //     }
-      //   );
+      const mint = await mintNFT(saveSubmissionResponse.data.submissionId);
 
-      //   if (mint.status === 201) {
-      //     console.log("NFT minted successfully:", mint.data);
-      //   } else {
-      //     console.error("Failed to mint NFT:", mint.data);
-      //   }
-      // }
+      if (mint.status === 201) {
+        console.log("NFT minted successfully:", mint.data);
+      } else {
+        return { error: "All testcases not passed" };
+      }
 
       return { results, allTestsPassed };
     } else {
@@ -141,7 +146,7 @@ export async function submitCode(
   }
 }
 
-async function pollForResult(token: string) {
+async function pollForResult(Judgetoken: string) {
   let result;
   let attempts = 0;
   const maxAttempts = 10;
@@ -149,7 +154,7 @@ async function pollForResult(token: string) {
 
   while (attempts < maxAttempts) {
     const response = await axios.get(
-      `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
+      `https://judge0-ce.p.rapidapi.com/submissions/${Judgetoken}`,
       {
         headers: {
           "X-RapidAPI-Key": import.meta.env.VITE_JUDGE0_API_KEY,

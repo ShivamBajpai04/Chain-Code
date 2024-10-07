@@ -5,7 +5,6 @@ dotenv.config();
 
 const auth = (req, res, next) => {
   const token = req.header('Authorization')?.split(" ")[1]; // Bearer token
-  
   if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
 
   try {

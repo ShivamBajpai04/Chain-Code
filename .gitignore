@@ -20,7 +20,6 @@ Thumbs.db
 # Ignore environment variables files
 frontend/.env
 backend/.env
-*/.env
 
 # Ignore package-lock.json or yarn.lock depending on what you use
 frontend/package-lock.json
