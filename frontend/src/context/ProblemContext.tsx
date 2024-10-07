@@ -1,5 +1,11 @@
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import axios from 'axios';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
+import axios from "axios";
 
 interface TestCase {
   input: string;
@@ -7,11 +13,11 @@ interface TestCase {
 }
 
 interface Problem {
-  _id: string;  // Changed from 'id' to '_id'
+  _id: string; // Changed from 'id' to '_id'
   title: string;
   description: string;
   testCases: TestCase[];
-  difficulty: 'Easy' | 'Medium' | 'Hard';
+  difficulty: "Easy" | "Medium" | "Hard";
 }
 
 interface ProblemContextType {
@@ -29,11 +35,13 @@ interface ProblemContextType {
 
 const ProblemContext = createContext<ProblemContextType | undefined>(undefined);
 
-export const ProblemProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [problems, setProblems] = useState<Problem[]>([]);
   const [selectedProblem, setSelectedProblem] = useState<Problem | null>(null);
-  const [code, setCode] = useState<string>('');
-  const [language, setLanguage] = useState<string>('javascript');
+  const [code, setCode] = useState<string>("");
+  const [language, setLanguage] = useState<string>("javascript");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,11 +49,11 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({ children })
     const fetchProblems = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get('http://localhost:5000/problems');
+        const response = await axios.get("process.env.DOMAIN/problems");
         setProblems(response.data);
       } catch (error) {
-        setError('Error fetching problems. Please try again later.');
-        console.error('Error fetching problems:', error);
+        setError("Error fetching problems. Please try again later.");
+        console.error("Error fetching problems:", error);
       } finally {
         setIsLoading(false);
       }
@@ -57,29 +65,31 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({ children })
   const fetchProblemById = async (id: string) => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`http://localhost:5000/problems/${id}`);
+      const response = await axios.get(`process.env.DOMAIN/problems/${id}`);
       setSelectedProblem(response.data);
     } catch (error) {
-      setError('Error fetching problem. Please try again later.');
-      console.error('Error fetching problem:', error);
+      setError("Error fetching problem. Please try again later.");
+      console.error("Error fetching problem:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <ProblemContext.Provider value={{ 
-      problems,
-      selectedProblem, 
-      setSelectedProblem,
-      fetchProblemById,
-      code, 
-      setCode,
-      language,
-      setLanguage,
-      isLoading,
-      error,
-    }}>
+    <ProblemContext.Provider
+      value={{
+        problems,
+        selectedProblem,
+        setSelectedProblem,
+        fetchProblemById,
+        code,
+        setCode,
+        language,
+        setLanguage,
+        isLoading,
+        error,
+      }}
+    >
       {children}
     </ProblemContext.Provider>
   );
@@ -88,7 +98,7 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({ children })
 export const useProblemContext = () => {
   const context = useContext(ProblemContext);
   if (context === undefined) {
-    throw new Error('useProblemContext must be used within a ProblemProvider');
+    throw new Error("useProblemContext must be used within a ProblemProvider");
   }
   return context;
 };

@@ -17,7 +17,7 @@ function App() {
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      const response = await axios.post("process.env.DOMAIN/auth/login", {
         email: email,
         password: password,
       });
@@ -42,7 +42,7 @@ function App() {
     walletAddress: string
   ) => {
     try {
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch("process.env.DOMAIN/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,14 @@ function App() {
         <Route path="/" element={<LandingPage2 />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
-        <Route path="/:id" element={<div><DNFT/></div>} />
+        <Route
+          path="/:id"
+          element={
+            <div>
+              <DNFT />
+            </div>
+          }
+        />
         <Route
           path="/problems"
           element={
