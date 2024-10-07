@@ -10,6 +10,9 @@ import NFTPage from "./components/pages/nftpage";
 import axios from "axios";
 import { DNFT } from "./components/pages/dnft";
 
+
+
+
 function App() {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
@@ -17,7 +20,7 @@ function App() {
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      const response = await axios.post(process.env.DOMAIN + "/auth/login", {
+      const response = await axios.post(import.meta.env.VITE_DOMAIN + "/auth/login", {
         email: email,
         password: password,
       });
@@ -41,8 +44,9 @@ function App() {
     password: string,
     walletAddress: string
   ) => {
+    console.log(import.meta.env.VITE_DOMAIN);
     try {
-      const response = await fetch(process.env.DOMAIN + "/auth/register", {
+      const response = await fetch(import.meta.env.VITE_DOMAIN + "/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

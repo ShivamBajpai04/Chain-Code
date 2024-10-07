@@ -49,7 +49,7 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
     const fetchProblems = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(process.env.DOMAIN+"/problems");
+        const response = await axios.get(import.meta.env.VITE_DOMAIN+"/problems");
         setProblems(response.data);
       } catch (error) {
         setError("Error fetching problems. Please try again later.");
@@ -65,7 +65,7 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
   const fetchProblemById = async (id: string) => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`${process.env.DOMAIN}/problems/${id}`);
+      const response = await axios.get(`${import.meta.env.VITE_DOMAIN}/problems/${id}`);
       setSelectedProblem(response.data);
     } catch (error) {
       setError("Error fetching problem. Please try again later.");

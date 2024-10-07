@@ -4,7 +4,7 @@ import AnimatedCard from "@/components/ui/animatedCard.tsx";
 
 async function getNFTs() {
   const result = (
-    await axios.get(`process.env.DOMAIN/submissions/user`, {
+    await axios.get(`${import.meta.env.VITE_DOMAIN}/submissions/user`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
