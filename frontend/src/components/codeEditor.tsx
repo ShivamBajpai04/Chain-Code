@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Editor from "@monaco-editor/react";
 import { useProblemContext } from "@/context/ProblemContext";
 import { submitCode } from "@/utils/submitCode";
 import { useNavigate } from "react-router-dom";
-// import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 // Map of our language identifiers to Monaco Editor language identifiers
 const languageMap = {
@@ -36,7 +36,25 @@ export default function CodeEditor() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<ResultType | null>(null);
   const navigate = useNavigate();
-  // const { toast } = useToast();
+  const { toast } = useToast();
+  useEffect(() => {
+    if (result?.error) {
+      toast({
+        title: "error",
+        description: result.error.toString(),
+        variant: "destructive",
+      });
+    }
+  }, [result?.error]);
+  useEffect(() => {
+    if (result?.results) {
+      toast({
+        title: "Success",
+        description:"Code submitted Successfully" ,
+        variant: "success",
+      });
+    }
+  }, [result?.results]);
 
   // Get the correct language identifier for Monaco Editor
   const editorLanguage =
@@ -58,9 +76,11 @@ export default function CodeEditor() {
       setResult(data);
     } catch (error: any) {
       console.error("Error submitting code:", error);
-      const errorMessage = error.response?.data?.message || "An error occurred while submitting your code. Please try again.";
-      console.log("Error message:", errorMessage); // Log the error message
-      setResult({ error: errorMessage });
+      // const errorMessage =
+      //   error.response?.data?.message ||
+      //   "An error occurred while submitting your code. Please try again.";
+      // console.log("Error message:", errorMessage); // Log the error message
+      // setResult({ error: errorMessage });
     } finally {
       setIsSubmitting(false);
     }
@@ -71,7 +91,7 @@ export default function CodeEditor() {
   };
 
   return (
-    <div className="fflex flex-col">
+    <div className="flex flex-col">
       <Editor
         height="65vh"
         language={editorLanguage}
@@ -96,16 +116,13 @@ export default function CodeEditor() {
         </div>
         {result && (
           <div>
-            {result.results ? (
+            {result.results &&
               result.results.map((r, index) => (
                 <p key={index}>
                   Test Case {index + 1}: {r.status?.description}, Time: {r.time}{" "}
                   seconds, Memory: {r.memory} KB
                 </p>
-              ))
-            ) : (
-              <div>{result.error}</div> // Display error if present
-            )}
+              ))}
           </div>
         )}
       </div>

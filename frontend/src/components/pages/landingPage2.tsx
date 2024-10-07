@@ -3,27 +3,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Spline from '@splinetool/react-spline';
+import Spline from "@splinetool/react-spline";
 
 export default function LandingPage2() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
+        const payload = JSON.parse(atob(token.split(".")[1]));
         const exp = payload.exp * 1000;
         if (Date.now() < exp) {
-          navigate('/problems');
+          navigate("/problems");
           return;
         }
       } catch (error) {
-        console.error('Error parsing token:', error);
+        console.error("Error parsing token:", error);
       }
     }
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -31,7 +31,7 @@ export default function LandingPage2() {
       <div className="absolute inset-0 z-0">
         <Spline scene="https://prod.spline.design/saKLL2c05PEJzu6j/scene.splinecode" />
       </div>
-      
+
       <div className="relative z-10 text-white">
         <header className="container mx-auto px-4 py-8 flex justify-between items-center">
           <motion.h1
@@ -80,8 +80,8 @@ export default function LandingPage2() {
               Master Coding, Own Your Solutions
             </h2>
             <p className="text-xl mb-8">
-              Solve coding challenges and claim ownership of your unique solutions
-              on the blockchain.
+              Solve coding challenges and claim ownership of your unique
+              solutions on the blockchain.
             </p>
             <motion.div
               className="flex justify-center space-x-4"
@@ -90,7 +90,12 @@ export default function LandingPage2() {
               transition={{ duration: 0.5, delay: 0.6 }}
             >
               <Button onClick={handleGetStarted}>Get Started</Button>
-              <Button variant="outline" className="text-black hover:text-blue-300">Learn More</Button>
+              <Button
+                variant="outline"
+                className="text-black hover:text-blue-300"
+              >
+                Learn More
+              </Button>
             </motion.div>
           </motion.div>
 
@@ -103,7 +108,8 @@ export default function LandingPage2() {
             <div className="bg-opacity-30 backdrop-blur-sm bg-white p-6 rounded-lg">
               <h3 className="text-2xl font-bold mb-4">Practice</h3>
               <p>
-                Sharpen your coding skills with our vast collection of challenges.
+                Sharpen your coding skills with our vast collection of
+                challenges.
               </p>
             </div>
             <div className="bg-opacity-30 backdrop-blur-sm bg-white p-6 rounded-lg">

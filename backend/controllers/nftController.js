@@ -38,7 +38,7 @@ export const mintNFT = async (req, res) => {
       return res.status(404).json({ error: "Submission not found" });
     }
 
-    const tokenId = `${submission.user}-${submission._id}-${Date.now()}`;
+    // const tokenId = `${submission.user}-${submission._id}-${Date.now()}`;
 
     const tokenURI = "localhost:5000/" + submission._id.toString();
   }catch(error){

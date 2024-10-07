@@ -82,7 +82,11 @@ async function addToDB(
   return saveSubmissionResponse;
 }
 
-export async function submitCode(selectedProblem: any, language: number, code: string) {
+export async function submitCode(
+  selectedProblem: any,
+  language: number,
+  code: string
+) {
   try {
     // Check if all test cases passed
     const results = await judge(selectedProblem?._id, language, code);
@@ -105,6 +109,7 @@ export async function submitCode(selectedProblem: any, language: number, code: s
           "Failed to save submission:",
           saveSubmissionResponse.data
         );
+        return { error: "Failed to save submission" };
       }
       //   const mint = await axios.post(
       //     `http://localhost:5000/nft/mint/${saveSubmissionResponse.data.submissionId}`,
@@ -124,8 +129,13 @@ export async function submitCode(selectedProblem: any, language: number, code: s
       // }
 
       return { results, allTestsPassed };
+    } else {
+      return { error: "All testcases not passed" };
     }
-  } catch (error) {
+  } catch (error: any) {
+    if (error.status == 400) {
+      return { error: "Your Solution is not unique" };
+    }
     console.error("Error submitting code:", error);
     return { error: "An error occurred while submitting your code." };
   }
