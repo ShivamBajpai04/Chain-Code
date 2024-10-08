@@ -16,7 +16,7 @@ const token = localStorage.getItem("token");
 
 async function mintNFT(submissionId: string) {
   const mint = await axios.post(
-    `${process.env.VITE_DOMAIN}/nft/mint/${submissionId}`,
+    `${import.meta.env.VITE_DOMAIN}/nft/mint/${submissionId}`,
     {},
     {
       headers: {
@@ -34,7 +34,7 @@ async function judge(
   code: string
 ) {
   const testCasesResponse = await axios.get(
-    `${process.env.VITE_DOMAIN}/problems/${problemId}`
+    `${import.meta.env.VITE_DOMAIN}/problems/${problemId}`
   );
   const testCases = testCasesResponse.data.testcases;
 
@@ -80,7 +80,7 @@ async function addToDB(
   }
 
   const saveSubmissionResponse = await axios.post(
-    process.env.VITE_DOMAIN+"/submissions/submit",
+    import.meta.env.VITE_DOMAIN+"/submissions/submit",
     {
       problemId: problemId,
       code: formatCode(code),
