@@ -1,7 +1,6 @@
 import Submission from "../models/Submission.js";
 import User from "../models/User.js";
 import Problem from "../models/Problem.js";
-import axios from "axios";
 
 export const submitSolution = async (req, res) => {
   const { problemId, code, language } = req.body;

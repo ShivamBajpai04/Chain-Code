@@ -10,9 +10,6 @@ import NFTPage from "./components/pages/nftpage";
 import axios from "axios";
 import { DNFT } from "./components/pages/dnft";
 
-
-
-
 function App() {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
@@ -20,10 +17,13 @@ function App() {
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      const response = await axios.post(import.meta.env.VITE_DOMAIN + "/auth/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        import.meta.env.VITE_DOMAIN + "/auth/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
       console.log(response);
 
       const data = response.data;
@@ -32,10 +32,13 @@ function App() {
       localStorage.setItem("token", data.token);
       setToken(data.token);
       window.location.href = "/problems";
+      return false;
     } catch (error) {
       console.error("Login error:", error);
       alert("Login failed. Please try again.");
     }
+    return false;
+
   };
 
   const handleSignup = async (
@@ -46,13 +49,16 @@ function App() {
   ) => {
     console.log(import.meta.env.VITE_DOMAIN);
     try {
-      const response = await fetch(import.meta.env.VITE_DOMAIN + "/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password, walletAddress }),
-      });
+      const response = await fetch(
+        import.meta.env.VITE_DOMAIN + "/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, email, password, walletAddress }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Signup failed");
