@@ -13,7 +13,7 @@ export default function SubmissionsTab() {
 
   const fetchRecentSubmissions = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_DOMAIN}+/submissions/${selectedProblem?._id}`);
+      const response = await axios.get(`${import.meta.env.VITE_DOMAIN}+/submissions/problem/${selectedProblem?._id}`);
       console.log(response.data);
       setSubmissions(response.data);
     } catch (error) {
