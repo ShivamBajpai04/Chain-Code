@@ -64,7 +64,7 @@ export const DNFT: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <AnimatedCard title={nft.title} code={nft.code} language={nft.language} />
+      <AnimatedCard problemId="0" title={nft.title} code={nft.code} language={nft.language} />
     </div>
   );
 };

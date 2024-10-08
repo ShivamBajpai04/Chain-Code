@@ -38,8 +38,10 @@ export const getSubmissions = async (req, res) => {
   const userId = req.user.user.id; // Assuming you have authentication middleware
 
   try {
-    const submissions = await Submission.find({ user: userId })
-      .populate("problem", "title") // Populate problem title
+    const submissions = await Submission.find({ user: userId }).populate(
+      "problem",
+      "title"
+    ); // Populate problem title
 
     res.json(submissions);
   } catch (error) {
@@ -52,7 +54,10 @@ export const getSubmissionById = async (req, res) => {
   const { submissionId } = req.params;
 
   try {
-    const submission = await Submission.findById(submissionId).populate("problem", "title");
+    const submission = await Submission.findById(submissionId).populate(
+      "problem",
+      "title"
+    );
 
     if (!submission) {
       return res.status(404).json({ error: "Submission not found" });
@@ -62,5 +67,17 @@ export const getSubmissionById = async (req, res) => {
   } catch (error) {
     console.error("Error fetching submission:", error);
     res.status(500).json({ error: "Failed to fetch submission" });
+  }
+};
+
+export const getSubmissionsByProblemId = async (req, res) => {
+  const { problemId } = req.params; // Get problem ID from request parameters
+
+  try {
+    const submissions = await Submission.find({ problem: problemId }); // Populate user info if needed
+    res.status(200).json(submissions);
+  } catch (error) {
+    console.error("Error fetching submissions:", error);
+    res.status(500).json({ error: "Failed to fetch submissions" });
   }
 };
