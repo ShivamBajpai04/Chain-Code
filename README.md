@@ -21,11 +21,11 @@
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
-![https://ibb.co/WHqPtFV](https://ibb.co/WHqPtFV)
-![ChainCode Logo](frontend\2.png)
-![ChainCode Logo](frontend\3.png)
-![ChainCode Logo](frontend\4.png)
-![ChainCode Logo](frontend\5.png)
+![https://ibb.co/WHqPtFV](frontend/public/1.jpg)
+![ChainCode Logo](frontend/public/2.jpg)
+![https://ibb.co/WHqPtFV](frontend/public/3.jpg)
+![ChainCode Logo](frontend/public/4.jpg)
+![https://ibb.co/WHqPtFV](frontend/public/5.jpg)
 
 ## Overview
 
