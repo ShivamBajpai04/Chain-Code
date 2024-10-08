@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Login from "./components/pages/login";
 import Signup from "./components/pages/signup";
@@ -21,7 +16,6 @@ function App() {
   );
 
   const handleLogin = async (email: string, password: string) => {
-    const navigate = useNavigate()
     try {
       const response = await axios.post(
         import.meta.env.VITE_DOMAIN + "/auth/login",
@@ -37,7 +31,7 @@ function App() {
 
       localStorage.setItem("token", data.token);
       setToken(data.token);
-      navigate("/problems")
+      window.location.href = "/problems";
     } catch (error) {
       console.error("Login error:", error);
       alert("Login failed. Please try again.");
@@ -82,7 +76,6 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    // Redirect to landing page
     window.location.href = "/";
   };
 

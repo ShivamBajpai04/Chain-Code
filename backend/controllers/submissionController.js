@@ -69,3 +69,20 @@ export const getSubmissionById = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch submission" });
   }
 };
+
+export const getSubmissionsByProblemId = async (req, res) => {
+  const { problemId } = req.params;
+
+  try {
+    const submissions = await Submission.find({ problem: problemId })
+
+    if (!submissions.length) {
+      return res.status(404).json({ message: "No submissions found for this problem" });
+    }
+
+    res.json(submissions);
+  } catch (error) {
+    console.error("Error fetching submissions for problem:", error);
+    res.status(500).json({ error: "Failed to fetch submissions for the problem" });
+  }
+};
