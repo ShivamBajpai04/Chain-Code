@@ -23,7 +23,7 @@ export const getAllProblems = async (req, res) => {
 
 export const getProblemById = async (req, res) => {
   try {
-    const problem = await Problem.findById(req.params.id)
+    const problem = await Problem.findById(req.params.id);
     if (!problem) return res.status(404).json({ msg: "Problem not found" });
     res.json(problem);
   } catch (err) {

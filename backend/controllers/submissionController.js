@@ -69,15 +69,3 @@ export const getSubmissionById = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch submission" });
   }
 };
-
-export const getSubmissionsByProblemId = async (req, res) => {
-  const { problemId } = req.params; // Get problem ID from request parameters
-
-  try {
-    const submissions = await Submission.find({ problem: problemId }); // Populate user info if needed
-    res.status(200).json(submissions);
-  } catch (error) {
-    console.error("Error fetching submissions:", error);
-    res.status(500).json({ error: "Failed to fetch submissions" });
-  }
-};
