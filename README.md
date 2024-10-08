@@ -21,7 +21,7 @@
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
-![ChainCode Logo](https://ibb.co/WHqPtFV)
+![https://ibb.co/WHqPtFV](https://ibb.co/WHqPtFV)
 ![ChainCode Logo](frontend\2.png)
 ![ChainCode Logo](frontend\3.png)
 ![ChainCode Logo](frontend\4.png)
