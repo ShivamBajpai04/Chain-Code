@@ -44,7 +44,7 @@ export const login = async (req, res) => {
     // Generate JWT
     const payload = { user: { id: user.id, walletAddress:user.walletAddress } };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "24h",
     });
 
     res.json({ token });
