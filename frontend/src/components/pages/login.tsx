@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useNavigate } from 'react-router-dom'
+import Spline from "@splinetool/react-spline"
 
 interface LoginProps {
   onLogin: (email: string, password: string) => void
@@ -20,9 +21,13 @@ export default function Login({ onLogin }: LoginProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white flex items-center justify-center">
+    <div className="relative min-h-screen overflow-hidden bg-black text-white flex items-center justify-center">
+      <div className="absolute inset-0 z-0">
+        <Spline scene="https://prod.spline.design/saKLL2c05PEJzu6j/scene.splinecode" />
+      </div>
+      
       <motion.div 
-        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
+        className="relative z-10 bg-opacity-30 backdrop-blur-sm bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

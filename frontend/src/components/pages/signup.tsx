@@ -27,9 +27,9 @@ export default function Signup({ onSignup }: SignupProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white flex items-center justify-center">
+    <div className="min-h-screen bg-[#0D0D0D] text-white flex items-center justify-center">
       <motion.div 
-        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
+        className="bg-opacity-30 backdrop-blur-sm bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
