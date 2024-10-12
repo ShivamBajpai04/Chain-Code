@@ -11,8 +11,11 @@ const auth = async (req, res, next) => {
   try {
     console.log("try", token)
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
     req.user = decoded;
+    console.log("aaa");
     next();
+    console.log("aaa11");
   } catch (err) {
     console.log("catch", token)
     res.status(401).json({ msg: 'Token is not valid' });
