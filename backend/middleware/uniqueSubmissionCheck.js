@@ -4,14 +4,12 @@ import Submission from "../models/Submission.js"; // Add this import
 
 async function uniqueSubmissionCheck(req, res, next) {
   const { problemId, code } = req.body;
-
   try {
     // Fetch the problem to get the submission IDs
     const problem = await Problem.findOne({ _id: problemId });
     if (!problem) {
       return res.status(404).json({ message: "Problem not found" });
     }
-    // console.log(problem.submissions);
 
     // Fetch all submissions for the given problem, excluding the current submission
     const existingSubmissions = await Submission.find({
@@ -39,7 +37,7 @@ async function uniqueSubmissionCheck(req, res, next) {
     // If we've made it through all comparisons, the submission is unique
     next();
   } catch (error) {
-    console.error("Error in uniqueSubmissionCheck middleware:", error);
+    // console.error("Error in uniqueSubmissionCheck middleware:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

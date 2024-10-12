@@ -1,13 +1,10 @@
 import axios from "axios";
 
 function formatCode(input: string) {
-  // Replace escaped newline (\n) with actual newlines
   let formattedCode = input.replace(/\\n/g, "\n");
 
-  // Replace escaped backslashes (\\) with a single backslash (\)
   formattedCode = formattedCode.replace(/\\\\/g, "\\");
 
-  // Replace escaped quotes (\") with regular quotes (")
   formattedCode = formattedCode.replace(/\\"/g, '"');
 
   return formattedCode;
@@ -15,6 +12,7 @@ function formatCode(input: string) {
 const token = localStorage.getItem("token");
 
 async function mintNFT(submissionId: string) {
+  console.log("token in mint",token);
   const mint = await axios.post(
     `${import.meta.env.VITE_DOMAIN}/nft/mint/${submissionId}`,
     {},
@@ -33,6 +31,7 @@ async function judge(
   language: number,
   code: string
 ) {
+  console.log("token in judge",token);
   const testCasesResponse = await axios.get(
     `${import.meta.env.VITE_DOMAIN}/problems/${problemId}`
   );
@@ -75,12 +74,14 @@ async function addToDB(
   code: string,
   language: number
 ) {
+  console.log("token in db",token);
   if (!token) {
+    console.log("abcde",token);
     throw new Error("Login to save your submission");
   }
 
   const saveSubmissionResponse = await axios.post(
-    import.meta.env.VITE_DOMAIN+"/submissions/submit",
+    import.meta.env.VITE_DOMAIN + "/submissions/submit",
     {
       problemId: problemId,
       code: formatCode(code),

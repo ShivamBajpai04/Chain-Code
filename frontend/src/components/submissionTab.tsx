@@ -9,7 +9,7 @@ export default function SubmissionsTab() {
 
   useEffect(() => {
     fetchRecentSubmissions();
-  }, []);
+  }, [selectedProblem]);
 
   const fetchRecentSubmissions = async () => {
     try {
