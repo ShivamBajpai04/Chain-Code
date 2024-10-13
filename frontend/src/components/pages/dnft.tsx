@@ -16,7 +16,7 @@ async function getNFT(id: string): Promise<NFTData> {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    console.log(response.data);
+    // console.log(response.data);
     return {
       title: response.data.problem.title,
       code: response.data.code,

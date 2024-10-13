@@ -12,7 +12,7 @@ function formatCode(input: string) {
 const token = localStorage.getItem("token");
 
 async function mintNFT(submissionId: string) {
-  console.log("token in mint",token);
+  console.log("token in mint", token);
   const mint = await axios.post(
     `${import.meta.env.VITE_DOMAIN}/nft/mint/${submissionId}`,
     {},
@@ -31,7 +31,7 @@ async function judge(
   language: number,
   code: string
 ) {
-  console.log("token in judge",token);
+  // console.log("token in judge",token);
   const testCasesResponse = await axios.get(
     `${import.meta.env.VITE_DOMAIN}/problems/${problemId}`
   );
@@ -58,14 +58,14 @@ async function judge(
       );
 
       const Judgetoken = response.data.token;
-      console.log("Submission token:", Judgetoken);
+      // console.log("Submission token:", Judgetoken);
 
       // Poll for the result
       return await pollForResult(Judgetoken);
     })
   );
 
-  console.log("Judge results:", results);
+  // console.log("Judge results:", results);
   return results;
 }
 
@@ -74,9 +74,9 @@ async function addToDB(
   code: string,
   language: number
 ) {
-  console.log("token in db",token);
+  // console.log("token in db",token);
   if (!token) {
-    console.log("abcde",token);
+    // console.log("abcde",token);
     throw new Error("Login to save your submission");
   }
 
@@ -114,12 +114,7 @@ export async function submitCode(
         code,
         language
       );
-      if (saveSubmissionResponse.status === 201) {
-        console.log(
-          "Submission saved successfully:",
-          saveSubmissionResponse.data
-        );
-      } else {
+      if (saveSubmissionResponse.status !== 201) {
         console.error(
           "Failed to save submission:",
           saveSubmissionResponse.data

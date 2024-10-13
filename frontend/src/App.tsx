@@ -28,10 +28,10 @@ function App() {
           password: password,
         }
       );
-      console.log(response);
+      // console.log(response);
 
       const data = response.data;
-      console.log(data);
+      // console.log(data);
 
       localStorage.setItem("token", data.token);
       setToken(data.token);
@@ -49,7 +49,7 @@ function App() {
     password: string,
     walletAddress: string
   ) => {
-    console.log(import.meta.env.VITE_DOMAIN);
+    // console.log(import.meta.env.VITE_DOMAIN);
     try {
       const response = await fetch(
         import.meta.env.VITE_DOMAIN + "/auth/register",

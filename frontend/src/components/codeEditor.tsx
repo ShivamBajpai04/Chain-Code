@@ -72,7 +72,7 @@ export default function CodeEditor() {
         judge0LanguageMap[language as keyof typeof judge0LanguageMap],
         code
       );
-      console.log(data);
+      // console.log(data);
       setResult(data);
     } catch (error: any) {
       console.error("Error submitting code:", error);
