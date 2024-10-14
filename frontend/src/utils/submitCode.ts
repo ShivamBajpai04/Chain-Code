@@ -75,10 +75,6 @@ async function addToDB(
   language: number
 ) {
   // console.log("token in db",token);
-  if (!token) {
-    // console.log("abcde",token);
-    throw new Error("Login to save your submission");
-  }
 
   const saveSubmissionResponse = await axios.post(
     import.meta.env.VITE_DOMAIN + "/submissions/submit",

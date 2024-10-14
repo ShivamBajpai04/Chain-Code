@@ -123,6 +123,7 @@ export default function CodeEditor() {
                   seconds, Memory: {r.memory} KB
                 </p>
               ))}
+              {result.error && <p>{result.error}</p>}
           </div>
         )}
       </div>
