@@ -10,12 +10,15 @@ interface NFTData {
 
 async function getNFT(id: string): Promise<NFTData> {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_DOMAIN}/submissions/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await axios.get(
+      `${import.meta.env.VITE_DOMAIN}/submissions/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     // console.log(response.data);
     return {
       title: response.data.problem.title,
@@ -64,7 +67,7 @@ export const DNFT: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <AnimatedCard problemId="0" title={nft.title} code={nft.code} language={nft.language} />
+      <AnimatedCard title={nft.title} code={nft.code} />
     </div>
   );
 };

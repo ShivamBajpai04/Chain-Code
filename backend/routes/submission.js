@@ -13,6 +13,6 @@ const router = express.Router();
 router.post("/submit", auth, uniqueSubmissionCheck, submitSolution);
 router.get("/user", auth, getSubmissions);
 router.get("/:submissionId", auth, getSubmissionById);
-router.get("/problem/:problemId", auth, getSubmissionsByProblemId);
+router.get("/problem/:problemId", getSubmissionsByProblemId);
 
 export default router;

@@ -68,7 +68,7 @@ export default function Problems({ handleLogout }: ProblemsProps) {
           <TabsContent value="solution">
             <CodeEditor />
           </TabsContent>
-          <TabsContent value="submission">
+          <TabsContent value="submissions">
             <SubmissionsTab />
           </TabsContent>
         </Tabs>

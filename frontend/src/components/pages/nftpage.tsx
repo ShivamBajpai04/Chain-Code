@@ -11,7 +11,6 @@ async function getNFTs() {
       },
     })
   ).data;
-  console.log(result);
   return result;
 }
 const NFTPage: React.FC = () => {
@@ -30,10 +29,8 @@ const NFTPage: React.FC = () => {
         {nfts.map((nft: any, index: number) => (
           <div key={nft._id} className="flex flex-col items-center">
             <AnimatedCard
-              problemId={nft.problem._id}
               title={nft.problem.title}
               code={nft.code}
-              language={nft.language}
             />
             <p className="text-white mt-2">NFT {index + 1}</p>
           </div>
