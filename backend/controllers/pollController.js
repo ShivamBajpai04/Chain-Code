@@ -1,5 +1,5 @@
 //create poll
-import Poll from "../models/Poll";
+import Poll from "../models/Poll.js";
 
 export const createPoll = async (req, res) => {
   try {
@@ -30,7 +30,12 @@ export const vote = async (req, res) => {
     if (option < 0 || option > 2) {
       return res.status(400).json({ message: "Invalid vote option" });
     }
+    if (poll.voters.includes(req.user.user.id)) {
+      return res.status(400).json({ message: "User already voted" });
+    }
     poll.votes[option]++;
+    poll.voters.push(req.user.user.id);
+    console.log(poll.votes, poll.votes[option]);
     await poll.save();
     res.status(200).json({
       message: "Vote submitted successfully",

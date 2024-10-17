@@ -27,8 +27,8 @@ const pollSchema = new Schema({
   },
   voters: [
     {
-      user: { type: Schema.Types.ObjectId, ref: "User" },
-      option: { type: Number, enum: [0, 1, 2] },
+      type: Schema.ObjectId,
+      ref: "User",
     },
   ],
   createdAt: {
