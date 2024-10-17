@@ -27,7 +27,7 @@ export default function Navbar({ onLogout }: NavbarProps) {
     <nav className="bg-white shadow-md p-4 flex justify-between items-center">
       <h1 className="text-2xl font-bold">ChainCode</h1>
       <div className="flex items-center space-x-4">
-        <Button onClick={() => navigate("/poll")} variant="outline">
+        <Button onClick={() => navigate("/polls")} variant="outline">
           Polls
         </Button>
         <Button onClick={() => navigate("/nft")} variant="outline">

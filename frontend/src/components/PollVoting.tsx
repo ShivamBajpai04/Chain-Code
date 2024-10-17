@@ -44,7 +44,7 @@ export function PollVoting() {
     // Simulating API call to submit vote
     setTimeout(() => {
       setIsSubmitting(false);
-      navigate("/poll");
+      navigate("/polls");
     }, 1500);
   };
 
