@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import Login from "./components/pages/login";
 import Signup from "./components/pages/signup";
@@ -8,6 +13,9 @@ import LandingPage2 from "./components/pages/landingPage2";
 import NFTPage from "./components/pages/nftpage";
 import axios from "axios";
 import { DNFT } from "./components/pages/dnft";
+// import Polling from "./components/pages/polling";
+import { PollList } from "./components/PollList";
+import { PollVoting } from "./components/PollVoting";
 
 function App() {
   const [token, setToken] = useState<string | null>(null);
@@ -86,17 +94,25 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage2 />} />
-        <Route 
-          path="/login" 
+        <Route
+          path="/login"
           element={
-            token ? <Navigate to="/problems" /> : <Login onLogin={handleLogin} />
-          } 
+            token ? (
+              <Navigate to="/problems" />
+            ) : (
+              <Login onLogin={handleLogin} />
+            )
+          }
         />
-        <Route 
-          path="/signup" 
+        <Route
+          path="/signup"
           element={
-            token ? <Navigate to="/problems" /> : <Signup onSignup={handleSignup} />
-          } 
+            token ? (
+              <Navigate to="/problems" />
+            ) : (
+              <Signup onSignup={handleSignup} />
+            )
+          }
         />
         <Route path="/:id" element={<DNFT />} />
         <Route
@@ -111,7 +127,18 @@ function App() {
             )
           }
         />
-        <Route path="/nft" element={<NFTPage />} />
+        <Route
+          path="/polls"
+          element={token ? <PollList /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/polls/:id"
+          element={token ? <PollVoting /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/nft"
+          element={token ? <NFTPage /> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );

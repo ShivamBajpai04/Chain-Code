@@ -86,9 +86,9 @@ export default function CodeEditor() {
     }
   };
 
-  const handleCreateNFT = () => {
-    navigate("/nft");
-  };
+    // const handleCreateNFT = () => {
+    //   navigate("/nft");
+    // };
 
   return (
     <div className="flex flex-col">
@@ -112,7 +112,7 @@ export default function CodeEditor() {
           >
             {isSubmitting ? "Submitting..." : "Submit Solution"}
           </Button>
-          <Button onClick={handleCreateNFT}>My NFTs</Button>
+          {/* <Button onClick={handleCreateNFT}>My NFTs</Button> */}
         </div>
         {result && (
           <div>

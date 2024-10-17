@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { MenuIcon } from 'lucide-react'
-import ProblemList from './problemList'
-import { useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { MenuIcon } from "lucide-react";
+import ProblemList from "./problemList";
+import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   onLogout?: () => void;
@@ -18,8 +18,8 @@ export default function Navbar({ onLogout }: NavbarProps) {
       onLogout();
     } else {
       // Fallback logout logic if onLogout is not provided
-      localStorage.removeItem('token');
-      navigate('/');
+      localStorage.removeItem("token");
+      navigate("/");
     }
   };
 
@@ -27,6 +27,12 @@ export default function Navbar({ onLogout }: NavbarProps) {
     <nav className="bg-white shadow-md p-4 flex justify-between items-center">
       <h1 className="text-2xl font-bold">ChainCode</h1>
       <div className="flex items-center space-x-4">
+        <Button onClick={() => navigate("/poll")} variant="outline">
+          Polls
+        </Button>
+        <Button onClick={() => navigate("/nft")} variant="outline">
+          My NFTs
+        </Button>
         <Button onClick={handleLogout} variant="outline">
           Logout
         </Button>
@@ -42,5 +48,5 @@ export default function Navbar({ onLogout }: NavbarProps) {
         </Sheet>
       </div>
     </nav>
-  )
+  );
 }
