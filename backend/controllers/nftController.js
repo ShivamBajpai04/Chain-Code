@@ -1,4 +1,3 @@
-import axios from "axios";
 import Submission from "../models/Submission.js";
 import { ethers } from "ethers";
 import { contractAbi } from "../abi.js";
@@ -54,6 +53,8 @@ export const mintNFT = async (req, res) => {
     }
     const tx = await MyToken.safeMint(walletAddress, tokenURI);
     const recipt = await tx.wait();
+
+
     const data = await MyToken.tokensOfOwner(walletAddress);
     console.log(recipt);
     console.log(data);

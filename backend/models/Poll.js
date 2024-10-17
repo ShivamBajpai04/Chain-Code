@@ -2,7 +2,7 @@
 //the polls will have a status field which would either be ongoing or completed
 //a votes field that refrences the votes collection
 
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const pollSchema = new Schema({
   title: {
@@ -23,7 +23,10 @@ const pollSchema = new Schema({
   votes: {
     agree: { type: Number, default: 0 },
     decline: { type: Number, default: 0 },
-    abstain: { type: Number, default: 0 },
+  },
+  proposalId: {
+    type: String,
+    required: true,
   },
   voters: [
     {

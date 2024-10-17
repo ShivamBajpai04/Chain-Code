@@ -8,6 +8,7 @@ import problemRoutes from "./routes/problem.js";
 import submissionRoutes from "./routes/submission.js";
 import nftRoutes from "./routes/nft.js";
 import pollRoutes from "./routes/poll.js";
+import govRoutes from "./routes/gov.js";
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use("/problems", problemRoutes);
 app.use("/submissions", submissionRoutes);
 app.use("/nft", nftRoutes);
 app.use("/poll", pollRoutes);
+app.use("/gov", govRoutes);
 
 // Set the server to listen on a port
 const PORT = process.env.PORT || 5000;
