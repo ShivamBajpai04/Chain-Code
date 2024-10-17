@@ -21,14 +21,16 @@ const pollSchema = new Schema({
     default: "ongoing",
   },
   votes: {
-    option0: { type: Number, default: 0 },
-    option1: { type: Number, default: 0 },
-    option2: { type: Number, default: 0 },
+    agree: { type: Number, default: 0 },
+    decline: { type: Number, default: 0 },
+    abstain: { type: Number, default: 0 },
   },
-  voters: [{ 
-    user: { type: Schema.Types.ObjectId, ref: "User" },
-    option: { type: Number, enum: [0, 1, 2] }
-  }],
+  voters: [
+    {
+      user: { type: Schema.Types.ObjectId, ref: "User" },
+      option: { type: Number, enum: [0, 1, 2] },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
