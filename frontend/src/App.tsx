@@ -16,6 +16,7 @@ import { DNFT } from "./components/pages/dnft";
 // import Polling from "./components/pages/polling";
 import { PollList } from "./components/PollList";
 import { PollVoting } from "./components/PollVoting";
+import { PollProvider } from "./context/PollContext";
 
 function App() {
   const [token, setToken] = useState<string | null>(null);
@@ -119,9 +120,7 @@ function App() {
           path="/problems"
           element={
             token ? (
-              <ProblemProvider>
-                <Problems handleLogout={handleLogout} />
-              </ProblemProvider>
+              <Problems handleLogout={handleLogout} />
             ) : (
               <Navigate to="/login" />
             )

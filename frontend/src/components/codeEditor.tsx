@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Editor from "@monaco-editor/react";
 import { useProblemContext } from "@/context/ProblemContext";
 import { submitCode } from "@/utils/submitCode";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 // Map of our language identifiers to Monaco Editor language identifiers
@@ -35,7 +35,7 @@ export default function CodeEditor() {
   const { code, setCode, selectedProblem, language } = useProblemContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<ResultType | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { toast } = useToast();
   useEffect(() => {
     if (result?.error) {

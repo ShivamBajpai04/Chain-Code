@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/create", auth, createPoll);
 router.post("/vote", auth, vote);
-router.get("/all", auth, getAllPolls);
+router.get("/all", getAllPolls);
 router.get("/:pollId", auth, getPollById);
 
 export default router;

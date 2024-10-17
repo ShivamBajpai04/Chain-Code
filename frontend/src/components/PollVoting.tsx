@@ -11,52 +11,57 @@ import {
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-
-interface Poll {
-  id: number;
-  title: string;
-  description: string;
-}
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 export function PollVoting() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [poll, setPoll] = useState<Poll | null>(null);
   const [vote, setVote] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const toast = useToast();
 
-  useEffect(() => {
-    // Simulating API call to fetch poll details
-    setTimeout(() => {
-      setPoll({
-        id: Number(id),
-        title: "Sample Poll",
-        description: "This is a sample poll description.",
+  const castVote = async () => {
+    try {
+      console.log("vote ===========", vote);
+      const response = await axios.post(
+        `${import.meta.env.VITE_DOMAIN}/poll/vote`,
+        {
+          pollId: id,
+          option: vote,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      toast.toast({
+        title: "Oops...",
+        description: "You've already voted",
+        variant: "destructive",
       });
-    }, 1000);
-  }, [id]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!vote) return;
-
-    setIsSubmitting(true);
-    // Simulating API call to submit vote
-    setTimeout(() => {
-      setIsSubmitting(false);
-      navigate("/polls");
-    }, 1500);
+      console.error("Error fetching poll:", error);
+    }
   };
 
-  if (!poll) {
-    return <div className="text-center">Loading...</div>;
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    if (!vote) return;
+    e.preventDefault();
+
+    setIsSubmitting(true);
+    castVote();
+    setIsSubmitting(false);
+    navigate("/polls");
+  };
 
   return (
     <Card className="max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>{poll.title}</CardTitle>
-        <CardDescription>{poll.description}</CardDescription>
+        <CardTitle>Cast Your Vote</CardTitle>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent>
@@ -76,10 +81,14 @@ export function PollVoting() {
           </RadioGroup>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={() => navigate("/poll")}>
+          <Button variant="outline" onClick={() => navigate("/polls")}>
             Cancel
           </Button>
-          <Button type="submit" disabled={!vote || isSubmitting}>
+          <Button
+            type="submit"
+            disabled={!vote || isSubmitting}
+            onClick={handleSubmit}
+          >
             {isSubmitting ? "Submitting..." : "Submit Vote"}
           </Button>
         </CardFooter>
