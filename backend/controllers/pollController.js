@@ -1,20 +1,14 @@
 //create poll
 import Poll from "../models/Poll.js";
 
-export const createPoll = async (req, res) => {
+export const createPoll = async (title, description, proposalId) => {
   try {
-    const { title, description } = req.body;
-    const poll = new Poll({ title, description });
+    // const  = req.body;
+    const poll = new Poll({ title, description, proposalId });
     await poll.save();
-    res.status(201).json({
-      message: "Poll created successfully",
-      poll,
-    });
+    return poll;
   } catch (error) {
-    res.status(500).json({
-      message: "Error while creating poll",
-      error: error.message,
-    });
+    return null;
   }
 };
 

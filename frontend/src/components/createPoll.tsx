@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import { toast } from "@/hooks/use-toast";
 
 export function CreatePoll() {
   const [title, setTitle] = useState("");
@@ -18,17 +20,35 @@ export function CreatePoll() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !description) return;
 
     setIsSubmitting(true);
     // Simulating API call to create a new poll
-    setTimeout(() => {
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_DOMAIN + "/vote/propose",
+        {
+          title,
+          description,
+        }
+      );
       setIsSubmitting(false);
-      // Redirect to the poll list after creating the poll
-      navigate("/polls");
-    }, 1500);
+      toast({
+        title: "Poll created successfully",
+        description: "Refresh to vote on the poll",
+        variant: "success",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error creating poll",
+        description: "Please try again",
+        variant: "destructive",
+      });
+    }
+    // navigate("/polls");
   };
 
   return (

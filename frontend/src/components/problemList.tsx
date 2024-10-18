@@ -52,7 +52,7 @@ export default function ProblemList() {
           )
           .map((problem) => (
             <Button
-              key={problem._id}  // Changed from problem.id to problem._id
+              key={problem._id}
               variant="ghost"
               className="w-full justify-start mb-2"
               onClick={() => handleProblemSelect(problem._id)}

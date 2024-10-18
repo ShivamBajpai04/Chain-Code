@@ -21,13 +21,20 @@ export function PollVoting() {
   const toast = useToast();
 
   const castVote = async () => {
+    setIsSubmitting(true);
     try {
-      console.log("vote ===========", vote);
+      let voteBool = false;
+      if (vote === "agree") {
+        voteBool = true;
+      } else if (vote === "decline") {
+        voteBool = false;
+      }
+      console.log("vote ===========", voteBool);
       const response = await axios.post(
-        `${import.meta.env.VITE_DOMAIN}/poll/vote`,
+        `${import.meta.env.VITE_DOMAIN}/vote/vote`,
         {
-          pollId: id,
-          option: vote,
+          proposalId: id,
+          support: voteBool,
         },
         {
           headers: {
@@ -37,7 +44,15 @@ export function PollVoting() {
         }
       );
       console.log(response.data);
+      setIsSubmitting(false);
+      toast.toast({
+        title: "Vote casted successfully",
+        description: "Refresh to see the results",
+        variant: "success",
+      });
     } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
       toast.toast({
         title: "Oops...",
         description: "You've already voted",
@@ -47,14 +62,14 @@ export function PollVoting() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     if (!vote) return;
     e.preventDefault();
 
     setIsSubmitting(true);
-    castVote();
-    setIsSubmitting(false);
+    await castVote();
     navigate("/polls");
+    setIsSubmitting(false);
   };
 
   return (
@@ -72,10 +87,6 @@ export function PollVoting() {
             <div className="flex items-center space-x-2 mb-2">
               <RadioGroupItem value="decline" id="decline" />
               <Label htmlFor="decline">Decline</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="abstain" id="abstain" />
-              <Label htmlFor="abstain">Abstain</Label>
             </div>
           </RadioGroup>
         </CardContent>

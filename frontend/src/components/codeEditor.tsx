@@ -50,7 +50,7 @@ export default function CodeEditor() {
     if (result?.results) {
       toast({
         title: "Success",
-        description:"Code submitted Successfully" ,
+        description: "Code submitted Successfully",
         variant: "success",
       });
     }
@@ -86,9 +86,9 @@ export default function CodeEditor() {
     }
   };
 
-    // const handleCreateNFT = () => {
-    //   navigate("/nft");
-    // };
+  // const handleCreateNFT = () => {
+  //   navigate("/nft");
+  // };
 
   return (
     <div className="flex flex-col">
@@ -123,7 +123,7 @@ export default function CodeEditor() {
                   seconds, Memory: {r.memory} KB
                 </p>
               ))}
-              {result.error && <p>{result.error}</p>}
+            {result.error && <p>{result.error}</p>}
           </div>
         )}
       </div>

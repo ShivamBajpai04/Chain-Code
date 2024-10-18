@@ -35,10 +35,7 @@ const NFTPage: React.FC = () => {
         <div className="flex flex-wrap justify-center gap-8 md:gap-16">
           {nfts.map((nft: any, index: number) => (
             <div key={nft._id} className="flex flex-col items-center">
-              <AnimatedCard
-                title={nft.problem.title}
-                code={nft.code}
-              />
+              <AnimatedCard title={nft.problem.title} code={nft.code} />
               <p className="text-neutral-500 mt-2">NFT {index + 1}</p>
             </div>
           ))}

@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { voteAbi } from "../voteAbi.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { createPoll } from "./pollController.js";
+
 const privateKey = process.env.PRIVATE_KEY;
 const api = process.env.API;
 
@@ -12,7 +12,7 @@ const provider = new ethers.JsonRpcProvider(api);
 provider.pollingInterval = 1000; // Adjust polling interval
 const wallet = new ethers.Wallet(privateKey, provider);
 
-export async function proposeNewValue() {
+export async function proposeNewValue(req, res) {
   try {
     console.log("Connecting to contract at address:", contractAddress);
     const MyToken = new ethers.Contract(contractAddress, voteAbi, wallet);
@@ -31,9 +31,15 @@ export async function proposeNewValue() {
       `Attempting to create a proposal from account: ${wallet.address}`
     );
 
-    const tx = await MyToken.propose(targets, values, [calldata], "description", {
-      gasLimit: 1000000,
-    });
+    const tx = await MyToken.propose(
+      targets,
+      values,
+      [calldata],
+      "description",
+      {
+        gasLimit: 1000000,
+      }
+    );
     console.log("Transaction sent. Hash:", tx.hash);
     console.log("Waiting for transaction to be mined...");
 
@@ -47,21 +53,24 @@ export async function proposeNewValue() {
     if (proposalCreatedEvent) {
       const proposalId = proposalCreatedEvent.args[0];
       console.log("Proposal created with ID:", proposalId.toString());
-      return proposalId.toString();
+      await createPoll(req.body.title, req.body.description, proposalId.toString());
+
+      res.status(200).json({ proposalId: proposalId.toString(), poll });
     } else {
       console.log("ProposalCreated event not found in the logs");
       console.log("All events:", receipt.logs);
-      return null;
+      res.status(500).json({ error: "Proposal creation failed" });
     }
   } catch (error) {
     console.error("Error creating proposal:", error);
     if (error.reason) console.error("Error reason:", error.reason);
     if (error.data) console.error("Error data:", error.data);
-    return null;
+    res.status(500).json({ error: error.message });
   }
 }
 
-export async function getProposalState(proposalId) {
+export async function getProposalState(req, res) {
+  const proposalId = req.body.proposalId;
   try {
     const MyToken = new ethers.Contract(contractAddress, voteAbi, wallet);
 
@@ -81,14 +90,17 @@ export async function getProposalState(proposalId) {
     ];
 
     console.log(`Proposal state: ${stateMap[state]} (${state})`);
-    return state;
+    res.status(200).json({ state: stateMap[state] });
   } catch (error) {
     console.error("Error getting proposal state:", error);
+    res.status(500).json({ error: "Error getting proposal state:" });
   }
 }
 
-export async function castVote(proposalId, support) {
+export async function castVote(req, res) {
   // support -> vote is a boolean
+  const proposalId = req.body.proposalId;
+  const support = req.body.support;
   try {
     const MyToken = new ethers.Contract(contractAddress, voteAbi, wallet);
 
@@ -116,44 +128,11 @@ export async function castVote(proposalId, support) {
       console.log("VoteCast event not found in the logs");
     }
 
-    return true;
+    res.status(200).json({ success: true });
   } catch (error) {
     console.error("Error casting vote:", error);
     if (error.reason) console.error("Error reason:", error.reason);
     if (error.data) console.error("Error data:", error.data);
-    return false;
+    res.status(500).json({ success: false });
   }
 }
-
-async function main() {
-  try {
-    const proposalId = await proposeNewValue();
-
-    if (proposalId) {
-      console.log("Waiting for 30 seconds before checking proposal state...");
-      await new Promise((resolve) => setTimeout(resolve, 30000));
-
-      await getProposalState(proposalId);
-
-      // Cast a vote (true for 'For', false for 'Against')
-      console.log("Casting a vote...");
-      const voteSuccess = await castVote(proposalId, true);
-
-      if (voteSuccess) {
-        console.log("Vote cast successfully");
-        // Check the proposal state again after voting
-        await getProposalState(proposalId);
-      } else {
-        console.log("Failed to cast vote");
-      }
-    } else {
-      console.log(
-        "No proposal ID was returned. Unable to proceed with voting."
-      );
-    }
-  } catch (error) {
-    console.error("Error in main function:", error);
-  }
-}
-
-main();

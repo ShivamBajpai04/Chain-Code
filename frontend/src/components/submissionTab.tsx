@@ -9,7 +9,7 @@ export default function SubmissionsTab() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { selectedProblem } = useProblemContext();
-  const {toast} = useToast();
+  const { toast } = useToast();
   useEffect(() => {
     fetchRecentSubmissions();
   }, [selectedProblem]);

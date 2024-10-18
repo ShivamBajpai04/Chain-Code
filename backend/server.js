@@ -9,7 +9,7 @@ import submissionRoutes from "./routes/submission.js";
 import nftRoutes from "./routes/nft.js";
 import pollRoutes from "./routes/poll.js";
 import govRoutes from "./routes/gov.js";
-
+import voteRoutes from "./routes/vote.js";
 dotenv.config();
 
 const app = express();
@@ -39,6 +39,7 @@ app.use("/submissions", submissionRoutes);
 app.use("/nft", nftRoutes);
 app.use("/poll", pollRoutes);
 app.use("/gov", govRoutes);
+app.use("/vote", voteRoutes);
 
 // Set the server to listen on a port
 const PORT = process.env.PORT || 5000;

@@ -9,23 +9,23 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       // If token exists, verify it (you may want to add more robust token validation)
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
+        const payload = JSON.parse(atob(token.split(".")[1]));
         const exp = payload.exp * 1000; // Convert to milliseconds
         if (Date.now() < exp) {
           // Token is valid, redirect to problems page
-          navigate('/problems');
+          navigate("/problems");
           return;
         }
       } catch (error) {
-        console.error('Error parsing token:', error);
+        console.error("Error parsing token:", error);
       }
     }
     // If no token or invalid token, navigate to signup page
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -87,7 +87,12 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Button onClick={handleGetStarted}>Get Started</Button>
-            <Button variant="outline" className="text-black hover:text-blue-300">Learn More</Button>
+            <Button
+              variant="outline"
+              className="text-black hover:text-blue-300"
+            >
+              Learn More
+            </Button>
           </motion.div>
         </motion.div>
 
