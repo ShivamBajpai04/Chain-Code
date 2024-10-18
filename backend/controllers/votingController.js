@@ -55,7 +55,7 @@ export async function proposeNewValue(req, res) {
       console.log("Proposal created with ID:", proposalId.toString());
       await createPoll(req.body.title, req.body.description, proposalId.toString());
 
-      res.status(200).json({ proposalId: proposalId.toString(), poll });
+      res.status(200).json({ proposalId: proposalId.toString() });
     } else {
       console.log("ProposalCreated event not found in the logs");
       console.log("All events:", receipt.logs);

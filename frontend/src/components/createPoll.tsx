@@ -43,9 +43,9 @@ export function CreatePoll() {
     } catch (error) {
       console.log(error);
       toast({
-        title: "Poll created successfully",
-        description: "Refresh to vote on the poll",
-        variant: "success",
+        title: "Error creating poll",
+        description: "Please try again",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
