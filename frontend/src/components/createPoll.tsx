@@ -47,8 +47,9 @@ export function CreatePoll() {
         description: "Please try again",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
-    // navigate("/polls");
   };
 
   return (
@@ -80,7 +81,7 @@ export function CreatePoll() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={() => navigate("/")}>
+          <Button variant="outline" onClick={() => navigate("/polls")}>
             Cancel
           </Button>
           <Button type="submit" disabled={isSubmitting}>
