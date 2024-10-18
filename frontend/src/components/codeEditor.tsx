@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Editor from "@monaco-editor/react";
 import { useProblemContext } from "@/context/ProblemContext";
 import { submitCode } from "@/utils/submitCode";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 // Map of our language identifiers to Monaco Editor language identifiers
@@ -35,7 +35,7 @@ export default function CodeEditor() {
   const { code, setCode, selectedProblem, language } = useProblemContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<ResultType | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { toast } = useToast();
   useEffect(() => {
     if (result?.error) {
@@ -50,7 +50,7 @@ export default function CodeEditor() {
     if (result?.results) {
       toast({
         title: "Success",
-        description:"Code submitted Successfully" ,
+        description: "Code submitted Successfully",
         variant: "success",
       });
     }
@@ -86,9 +86,9 @@ export default function CodeEditor() {
     }
   };
 
-  const handleCreateNFT = () => {
-    navigate("/nft");
-  };
+  // const handleCreateNFT = () => {
+  //   navigate("/nft");
+  // };
 
   return (
     <div className="flex flex-col">
@@ -112,7 +112,7 @@ export default function CodeEditor() {
           >
             {isSubmitting ? "Submitting..." : "Submit Solution"}
           </Button>
-          <Button onClick={handleCreateNFT}>My NFTs</Button>
+          {/* <Button onClick={handleCreateNFT}>My NFTs</Button> */}
         </div>
         {result && (
           <div>
@@ -123,7 +123,7 @@ export default function CodeEditor() {
                   seconds, Memory: {r.memory} KB
                 </p>
               ))}
-              {result.error && <p>{result.error}</p>}
+            {result.error && <p>{result.error}</p>}
           </div>
         )}
       </div>

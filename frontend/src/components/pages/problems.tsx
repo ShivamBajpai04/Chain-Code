@@ -47,7 +47,7 @@ export default function Problems({ handleLogout }: ProblemsProps) {
             <TabsList>
               <TabsTrigger value="description">Description</TabsTrigger>
               <TabsTrigger value="solution">Solution</TabsTrigger>
-              <TabsTrigger value="submissions">Submissions</TabsTrigger>
+              <TabsTrigger value="submissions">All Submissions</TabsTrigger>
             </TabsList>
             <Select value={language} onValueChange={handleLanguageChange}>
               <SelectTrigger className="w-[180px]">

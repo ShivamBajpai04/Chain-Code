@@ -1,0 +1,125 @@
+body {
+  background-color: #f0f4f8;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 50;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 15%;
+}
+
+.navbar-nav {
+  position: absolute;
+  right: 15%;
+}
+
+.logout-btn {
+  background-color: black;
+  padding: 5px;
+  color: white;
+  border-radius: 7px;
+}
+
+.main-heading {
+  margin-top: 80px;
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1em;
+  margin-bottom: 50px;
+}
+
+.highlight {
+  display: block;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Poppins", sans-serif;
+}
+
+.section-cards {
+  background-color: white;
+  padding: 20px;
+}
+
+.card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.practice-card,
+.innovate-card,
+.own-card {
+  font-size: 1.25rem;
+  background: #f8fafc;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.practice-card:hover,
+.innovate-card:hover,
+.own-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.laptop-image {
+  width: 100%;
+  margin-top: 20px;
+  transition: transform 0.3s ease;
+}
+
+.laptop-image:hover {
+  transform: scale(1.05);
+}
+
+.email-subscription {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.email-subscription form {
+  display: flex;
+  justify-content: center;
+}
+
+.email-subscription input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.email-subscription button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
