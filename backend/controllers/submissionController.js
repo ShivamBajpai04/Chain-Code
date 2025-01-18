@@ -4,7 +4,9 @@ import Problem from "../models/Problem.js";
 
 export const submitSolution = async (req, res) => {
   const { problemId, code, language } = req.body;
+  console.log(req.user);
   const userId = req.user.user.id;
+  console.log(userId);
   try {
     // Create new submission
     const submission = new Submission({

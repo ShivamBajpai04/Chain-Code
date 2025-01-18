@@ -19,7 +19,7 @@ async function mintNFT(submissionId: string) {
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `${token}`,
       },
     }
   );
@@ -86,7 +86,7 @@ async function addToDB(
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `${token}`,
       },
     }
   );
@@ -133,7 +133,7 @@ export async function submitCode(
     if (error.status == 400) {
       return { error: "Your Solution is not unique" };
     }
-    console.error("Error submitting code:", error);
+    console.error("Error submitting code:", error.message);
     return { error: "An error occurred while submitting your code." };
   }
 }
