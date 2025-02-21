@@ -15,7 +15,7 @@ async function getNFT(id: string): Promise<NFTData> {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `${localStorage.getItem("token")}`,
         },
       }
     );

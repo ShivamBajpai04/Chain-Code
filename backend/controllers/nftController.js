@@ -11,32 +11,32 @@ const contractAddress = process.env.CONTRACT_ADDRESS;
 const provider = new ethers.JsonRpcProvider(api);
 const wallet = new ethers.Wallet(privateKey, provider);
 
-// export const getTokenURI = async (req, res) => {
-//   const { tokenId } = req.params;
-//   const { walletAddress } = req.user;
+export const getTokenURI = async (req, res) => {
+  const { tokenId } = req.params;
+  const { walletAddress } = req.user;
 
-//   try {
-//     const response = await axios.post(
-//       `${API_BASE_URL}/query/${CONTRACT_ADDRESS}/TokenURI`,
-//       {
-//         network: "TESTNET",
-//         blockchain: "KALP",
-//         walletAddress: walletAddress,
-//         args: {
-//           tokenId: tokenId,
-//         },
-//       }
-//     );
+  try {
+    const response = await axios.post(
+      `${api}/query/${contractAddress}/TokenURI`,
+      {
+        network: "TESTNET",
+        blockchain: "KALP",
+        walletAddress: walletAddress,
+        args: {
+          tokenId: tokenId,
+        },
+      }
+    );
 
-//     res.json(response.data);
-//   } catch (error) {
-//     console.error(
-//       "Error fetching TokenURI:",
-//       error.response ? error.response.data : error.message
-//     );
-//     res.status(500).json({ error: "Failed to fetch TokenURI" });
-//   }
-// };
+    res.json(response.data);
+  } catch (error) {
+    console.error(
+      "Error fetching TokenURI:",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).json({ error: "Failed to fetch TokenURI" });
+  }
+};
 
 /////
 export const mintNFT = async (req, res) => {

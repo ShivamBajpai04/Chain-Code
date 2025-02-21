@@ -39,7 +39,7 @@ export function PollVoting() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            Authorization: `${window.localStorage.getItem("token")}`,
           },
         }
       );

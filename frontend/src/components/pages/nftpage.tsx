@@ -10,7 +10,7 @@ async function getNFTs() {
     await axios.get(`${import.meta.env.VITE_DOMAIN}/submissions/user`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `${localStorage.getItem("token")}`,
       },
     })
   ).data;

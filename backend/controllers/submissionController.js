@@ -2,9 +2,44 @@ import Submission from "../models/Submission.js";
 import User from "../models/User.js";
 import Problem from "../models/Problem.js";
 
+// export const submitSolution = async (req, res) => {
+//   const { problemId, code, language } = req.body;
+//   console.log(req.user);
+//   const userId = req.user.user.id;
+//   console.log(userId);
+//   try {
+//     // Create new submission
+//     const submission = new Submission({
+//       user: userId,
+//       problem: problemId,
+//       code,
+//       language,
+//     });
+
+//     await submission.save();
+
+//     // Update user's submissions
+//     await User.findByIdAndUpdate(userId, {
+//       $push: { submissions: submission._id },
+//     });
+
+//     // Update problem's submissions
+//     await Problem.findByIdAndUpdate(problemId, {
+//       $push: { submissions: submission._id },
+//     });
+//     res
+//       .status(201)
+//       .json({ message: "Submission received", submissionId: submission._id });
+//   } catch (error) {
+//     console.error("Submission error:", error);
+//     res.status(500).json({ error: "Failed to submit solution" });
+//   }
+// };
+
 export const submitSolution = async (req, res) => {
   const { problemId, code, language } = req.body;
-  const userId = req.user.user.id;
+  const userId = req.user.user.id; // Ensure this is correctly set from the auth middleware
+
   try {
     // Create new submission
     const submission = new Submission({
@@ -25,11 +60,10 @@ export const submitSolution = async (req, res) => {
     await Problem.findByIdAndUpdate(problemId, {
       $push: { submissions: submission._id },
     });
-    res
-      .status(201)
-      .json({ message: "Submission received", submissionId: submission._id });
+
+    res.status(201).json({ message: "Submission received", submissionId: submission._id });
   } catch (error) {
-    console.error("Submission error:", error);
+    console.error("Submission error:", error); // Log the error for debugging
     res.status(500).json({ error: "Failed to submit solution" });
   }
 };
