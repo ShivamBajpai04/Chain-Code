@@ -184,7 +184,7 @@ export default function UpdatedLandingPage() {
               <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-2 rounded-full glow-line"></div>
             </div>
             <div className="flex justify-center items-center space-x-10 md:space-x-16">
-              {['/react-logo.svg', '/blockchain-logo.svg', '/typescript-logo.svg'].map((logo, index) => (
+              {['/react-logo.svg', '/go-logo.svg', '/gemini-logo.svg','/ether-logo.svg'].map((logo, index) => (
                 <div key={index} className="h-8 flex items-center grayscale hover:grayscale-0 transition-all hover:scale-110 hover:-translate-y-1 duration-300">
                   <img
                     src={logo}

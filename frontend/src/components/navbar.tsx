@@ -31,7 +31,7 @@ export default function Navbar({ onLogout }: NavbarProps) {
   };
 
   const handleProblemListClick = () => {
-    if (location.pathname !== "/problems") {
+    if (!location.pathname.startsWith("/problems")) {
       navigate("/problems");
     }
   };

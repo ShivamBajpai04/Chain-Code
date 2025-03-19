@@ -41,37 +41,37 @@ export default function Problems({ handleLogout }: ProblemsProps) {
   return (
     <div className="flex flex-col h-screen">
       <Navbar onLogout={handleLogout} />
-      <div className="flex-1 p-4">
-        <Tabs defaultValue="description" className="h-full flex flex-col">
-          <div className="flex justify-between items-center mb-4">
-            <TabsList>
-              <TabsTrigger value="description">Description</TabsTrigger>
-              <TabsTrigger value="solution">Solution</TabsTrigger>
-              <TabsTrigger value="submissions">All Submissions</TabsTrigger>
-            </TabsList>
-            <Select value={language} onValueChange={handleLanguageChange}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select Language" />
-              </SelectTrigger>
-              <SelectContent>
-                {languages.map((lang) => (
-                  <SelectItem key={lang.value} value={lang.value}>
-                    {lang.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <TabsContent value="description">
-            <DescriptionTab />
-          </TabsContent>
-          <TabsContent value="solution">
-            <CodeEditor />
-          </TabsContent>
-          <TabsContent value="submissions">
-            <SubmissionsTab />
-          </TabsContent>
-        </Tabs>
+      <div className="flex-1 p-4 overflow-auto">
+      <Tabs defaultValue="description" className="h-full flex flex-col">
+        <div className="flex justify-between items-center mb-4">
+        <TabsList>
+          <TabsTrigger value="description">Description</TabsTrigger>
+          <TabsTrigger value="solution">Solution</TabsTrigger>
+          <TabsTrigger value="submissions">All Submissions</TabsTrigger>
+        </TabsList>
+        <Select value={language} onValueChange={handleLanguageChange}>
+          <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select Language" />
+          </SelectTrigger>
+          <SelectContent>
+          {languages.map((lang) => (
+            <SelectItem key={lang.value} value={lang.value}>
+            {lang.label}
+            </SelectItem>
+          ))}
+          </SelectContent>
+        </Select>
+        </div>
+        <TabsContent value="description" className="flex-1 overflow-auto">
+        <DescriptionTab />
+        </TabsContent>
+        <TabsContent value="solution" className="flex-1 overflow-auto">
+        <CodeEditor />
+        </TabsContent>
+        <TabsContent value="submissions" className="flex-1 overflow-auto">
+        <SubmissionsTab />
+        </TabsContent>
+      </Tabs>
       </div>
     </div>
   );
