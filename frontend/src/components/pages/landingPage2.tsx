@@ -184,14 +184,20 @@ export default function UpdatedLandingPage() {
               <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-2 rounded-full glow-line"></div>
             </div>
             <div className="flex justify-center items-center space-x-10 md:space-x-16">
-              {['/react-logo.svg', '/go-logo.svg', '/gemini-logo.svg','/ether-logo.svg'].map((logo, index) => (
-                <div key={index} className="h-8 flex items-center grayscale hover:grayscale-0 transition-all hover:scale-110 hover:-translate-y-1 duration-300">
-                  <img
-                    src={logo}
-                    alt={`Technology ${index + 1}`}
-                    className="h-6 md:h-8 w-auto"
-                  />
-                </div>
+              {[
+              { src: '/react.svg', name: 'React' },
+              { src: '/go.svg', name: 'Go' },
+              { src: '/gemini.svg', name: 'Gemini' },
+              { src: '/ethers.svg', name: 'Ethers Js' }
+              ].map((tech, index) => (
+              <div key={index} className="flex flex-col items-center grayscale hover:grayscale-0 transition-all hover:scale-110 hover:-translate-y-1 duration-300">
+                <img
+                src={tech.src}
+                alt={`Technology ${tech.name}`}
+                className="h-6 md:h-8 w-auto"
+                />
+                <span className="mt-2 text-xs md:text-sm text-gray-700 font-semibold" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>{tech.name}</span>
+              </div>
               ))}
             </div>
           </div>
