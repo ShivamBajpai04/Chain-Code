@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import Login from "./components/pages/login";
 import Signup from "./components/pages/signup";
 import Problems from "./components/pages/problems";
-import { ProblemProvider } from "./context/ProblemContext";
+// import { ProblemProvider } from "./context/ProblemContext";
 import LandingPage2 from "./components/pages/landingPage2";
 import NFTPage from "./components/pages/nftpage";
 import axios from "axios";
@@ -16,7 +16,7 @@ import { DNFT } from "./components/pages/dnft";
 // import Polling from "./components/pages/polling";
 import { PollList } from "./components/PollList";
 import { PollVoting } from "./components/PollVoting";
-import { PollProvider } from "./context/PollContext";
+// import { PollProvider } from "./context/PollContext";
 
 function App() {
   const [token, setToken] = useState<string | null>(null);

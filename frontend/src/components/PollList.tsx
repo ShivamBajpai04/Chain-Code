@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { CreatePoll } from "./createPoll";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
+import  Navbar  from "./navbar";
 
 export function PollList() {
   const [polls, setPolls] = useState<Array<any>>([]);
@@ -53,13 +54,17 @@ export function PollList() {
 
   return (
     <div className="max-h-screen overflow-hidden">
-      {/* <Navbar /> */}
-      <div className="grid grid-cols-5">
-        <div className=" col-span-3  gap-5 p-5 overflow-y-scroll max-h-screen">
-          {polls &&
-            polls.map((poll) => <PollCard key={poll.proposalId} poll={poll} />)}
+      
+      <div className="grid grid-cols-5 gap-5 p-5">
+        <div className="col-span-5 mb-1"> 
+          <Navbar  />
         </div>
-        <div className="col-span-2 justify-items-center content-center p-5">
+        
+        <div className="col-span-3 overflow-y-scroll max-h-screen">
+          {polls &&
+        polls.map((poll) => <PollCard key={poll.proposalId} poll={poll} />)}
+        </div>
+        <div className="col-span-2 justify-items-center content-center">
           <CreatePoll />
         </div>
       </div>

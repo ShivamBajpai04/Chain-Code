@@ -4,13 +4,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AnimatedCard from "@/components/ui/animatedCard.tsx";
 import { BackgroundBeams } from "../ui/background-beams";
+import Navbar from "../navbar";
 
 async function getNFTs() {
   const result = (
     await axios.get(`${import.meta.env.VITE_DOMAIN}/submissions/user`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `${localStorage.getItem("token")}`,
       },
     })
   ).data;
@@ -29,6 +30,7 @@ const NFTPage: React.FC = () => {
   return (
     <div className="min-h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased overflow-hidden">
       <div className="relative z-10 p-8 w-full">
+        <Navbar/>
         <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 mb-8">
           MY NFTS
         </h1>

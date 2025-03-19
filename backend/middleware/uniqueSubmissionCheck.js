@@ -60,7 +60,7 @@ async function compareSubmissions(code1, code2) {
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAXP0d1YSWe4c99DvXouVobtpdOKGFaE4k",
+    url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
     headers: {
       "Content-Type": "application/json",
     },

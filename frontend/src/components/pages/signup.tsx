@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
+import Header from "../Header";
 
 interface SignupProps {
   onSignup: (
@@ -33,6 +34,7 @@ export default function Signup({ onSignup }: SignupProps) {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
+      <Header />
       <motion.div
         className="bg-opacity-30 backdrop-blur-sm bg-gray-400 p-8 rounded-lg shadow-lg w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}
