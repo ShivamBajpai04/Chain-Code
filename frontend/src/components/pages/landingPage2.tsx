@@ -119,7 +119,7 @@ export default function UpdatedLandingPage() {
               <div className="bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all mt-2 border border-gray-100 hover:border-blue-100 hover:-translate-y-2 duration-300 group">
                 <div className="rounded-xl mb-4 w-full overflow-hidden">
                   <img
-                    src="lpa3.png"
+                    src="left.png"
                     alt="Solution Analysis"
                     className="rounded-xl mb-4 w-full hover:scale-105 transition-transform duration-500"
                   />
@@ -164,7 +164,7 @@ export default function UpdatedLandingPage() {
               <div className="bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all mt-2 border border-gray-100 hover:border-blue-100 hover:-translate-y-2 duration-300 group">
                 <div className="rounded-xl mb-4 w-full overflow-hidden">
                   <img
-                    src="lpa3.png"
+                    src="right.png"
                     alt="Rewards System"
                     className="rounded-xl mb-4 w-full hover:scale-105 transition-transform duration-500"
                   />
