@@ -1,9 +1,34 @@
-import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { LogOut } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import ProblemList from "./problemList";
 
-export default function Header() {
+const loggedOutLinks = [
+  { to: "/#features", label: "Features" },
+  { to: "/login", label: "Practice" },
+];
+
+const loggedInLinks = [
+  { to: "/polls", label: "Polls" },
+  { to: "/nft", label: "My NFTs" },
+];
+
+function getToken(): string | null {
+  return localStorage.getItem("token");
+}
+
+export default function Header({ onLogout }: { onLogout?: () => void }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [token, setToken] = useState<string | null>(getToken());
+
+  // keep auth state fresh across client-side navigations
+  useEffect(() => {
+    setToken(getToken());
+  }, [location]);
 
   useEffect(() => {
     if (location.hash) {
@@ -14,55 +39,161 @@ export default function Header() {
     }
   }, [location]);
 
-  return (
-    <header className="fixed top-5 left-0 right-0 z-50">
-      <div className="container">
-        <div className="flex h-16 items-center justify-between bg-white/80 backdrop-blur-md rounded-full border border-gray-200 shadow-md px-6 hover:shadow-lg transition-shadow duration-300">
-          <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center space-x-2 group" aria-label="ChainCode Home">
-              {/* Logo removed, only keeping text */}
-              <span className="text-xl font-bold text-[#241e58] group-hover:text-blue-600 transition-colors">ChainCode</span>
-            </Link>
-            <nav className="hidden md:flex gap-8" aria-label="Main Navigation">
-              <Button variant="link" className="text-[#241e58]/80 hover:text-blue-600 px-0 h-8 relative">
-                <Link to="/#features" className="nav-link">
-                  Features
-                  {/* Simplified single underline effect */}
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 scale-x-0 transition-transform duration-300 origin-left group-hover:scale-x-100"></span>
-                </Link>
-              </Button>
-              <Button variant="link" className="text-[#241e58]/80 hover:text-blue-600 px-0 h-8 relative">
-                <Link to="/login" className="nav-link">
-                  Practice
-                  {/* Simplified single underline effect */}
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 scale-x-0 transition-transform duration-300 origin-left group-hover:scale-x-100"></span>
-                </Link>
-              </Button>
-            </nav>
-          </div>
+  const handleLogout = () => {
+    if (onLogout) {
+      onLogout();
+    } else {
+      localStorage.removeItem("token");
+      navigate("/");
+    }
+    setToken(null);
+    setOpen(false);
+  };
 
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              className="hidden md:flex rounded-full text-[#241e58] border border-gray-200 bg-transparent hover:bg-gray-50 hover:border-blue-300 hover:text-blue-600 px-6 transition-all hover:scale-105"
+  const links = token ? loggedInLinks : loggedOutLinks;
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#14102e]/90 backdrop-blur-md">
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center gap-8 md:gap-10">
+          <Link
+            to="/"
+            className="f-display text-lg font-bold tracking-tight text-[#f5f1e8] sm:text-xl"
+            aria-label="ChainCode Home"
+            onClick={() => setOpen(false)}
+          >
+            ChainCode
+          </Link>
+          <nav className="hidden items-center gap-6 md:flex" aria-label="Main Navigation">
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="text-sm font-medium text-white/55 transition-colors duration-200 hover:text-[#d4a017]"
+              >
+                {link.label}
+              </Link>
+            ))}
+            {token && (
+              <Sheet>
+                <SheetTrigger asChild>
+                  <button className="text-sm font-medium text-white/55 transition-colors duration-200 hover:text-[#d4a017]">
+                    Problem List
+                  </button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                  <ProblemList />
+                </SheetContent>
+              </Sheet>
+            )}
+          </nav>
+        </div>
+
+        <div className="flex items-center gap-2 sm:gap-3">
+          {token ? (
+            <button
+              onClick={handleLogout}
+              className="hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white md:inline-flex"
             >
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700 rounded-full px-6 text-white shadow-lg hover:shadow-blue-200/50 transition-all hover:scale-105">
-              <Link to="/signup" className="text-white">Get Started</Link>
-            </Button>
-            <div className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-[#241e58]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="4" x2="20" y1="12" y2="12" />
-                  <line x1="4" x2="20" y1="6" y2="6" />
-                  <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-              </Button>
-            </div>
-          </div>
+              <LogOut className="h-4 w-4" />
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="hidden rounded-md px-3 py-2 text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white sm:inline-block"
+            >
+              Log in
+            </Link>
+          )}
+
+          {token ? (
+            <Link
+              to="/problems"
+              className="whitespace-nowrap rounded-md bg-gradient-to-b from-[#ecc76a] to-[#c89d4a] px-3.5 py-2 text-xs font-semibold text-[#14102e] transition-all duration-200 hover:-translate-y-px hover:shadow-[0_8px_22px_-6px_rgba(200,157,74,0.55)] sm:px-5 sm:text-sm"
+            >
+              Solve now
+            </Link>
+          ) : (
+            <Link
+              to="/signup"
+              className="whitespace-nowrap rounded-md bg-gradient-to-b from-[#ecc76a] to-[#c89d4a] px-3.5 py-2 text-xs font-semibold text-[#14102e] transition-all duration-200 hover:-translate-y-px hover:shadow-[0_8px_22px_-6px_rgba(200,157,74,0.55)] sm:px-5 sm:text-sm"
+            >
+              Create account
+            </Link>
+          )}
+
+          {/* mobile toggle */}
+          <button
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-md transition-colors duration-200 hover:bg-white/[0.05] md:hidden"
+          >
+            <motion.span
+              animate={open ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }}
+              className="block h-px w-4 bg-white/80"
+            />
+            <motion.span
+              animate={open ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }}
+              className="block h-px w-4 bg-white/80"
+            />
+          </button>
         </div>
       </div>
+
+      {/* mobile dropdown */}
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="overflow-hidden border-t border-white/[0.08] md:hidden"
+            aria-label="Mobile Navigation"
+          >
+            <div className="container flex flex-col py-2">
+              {links.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              {token ? (
+                <>
+                  <Link
+                    to="/problems"
+                    onClick={() => setOpen(false)}
+                    className="py-3 text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"
+                  >
+                    Problems
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-1.5 border-t border-white/[0.06] py-3 text-left text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setOpen(false)}
+                  className="border-t border-white/[0.06] py-3 text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"
+                >
+                  Log in
+                </Link>
+              )}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

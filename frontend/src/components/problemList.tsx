@@ -28,16 +28,20 @@ export default function ProblemList() {
   };
 
   if (isLoading) {
-    return <div>Loading problems...</div>;
+    return (
+      <div className="py-10 text-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+        Loading problems…
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <div className="py-10 text-center text-sm text-[#c0392b]">{error}</div>;
   }
 
   return (
     <>
-      <h2 className="text-lg font-semibold mb-4">Problem List</h2>
+      <h2 className="f-mono mb-4 text-[10px] uppercase tracking-[0.25em] text-white/45">Problem list</h2>
       <Input
         className="mb-4"
         placeholder="Search problems..."
@@ -60,12 +64,12 @@ export default function ProblemList() {
               {/* <span className="mr-2">{problem.title}.</span> */}
               <span className="flex-grow text-left">{problem.title}</span>
               <span
-                className={`text-xs ${
+                className={`rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-widest ${
                   problem.difficulty === "Easy"
-                    ? "text-green-500"
+                    ? "border-[#7fb069]/40 bg-[#7fb069]/10 text-[#7fb069]"
                     : problem.difficulty === "Medium"
-                    ? "text-yellow-500"
-                    : "text-red-500"
+                    ? "border-[#d4a017]/40 bg-[#d4a017]/10 text-[#e8c664]"
+                    : "border-[#c0392b]/40 bg-[#c0392b]/10 text-[#d98880]"
                 }`}
               >
                 {problem.difficulty}

@@ -53,18 +53,19 @@ export function PollList() {
   };
 
   return (
-    <div className="max-h-screen overflow-hidden">
-      
-      <div className="grid grid-cols-5 gap-5 p-5">
-        <div className="col-span-5 mb-1"> 
-          <Navbar  />
-        </div>
-        
-        <div className="col-span-3 overflow-y-scroll max-h-screen">
+    <div className="min-h-screen bg-[#14102e] text-[#f5f1e8]">
+      <Navbar />
+      <div className="grid grid-cols-1 gap-5 p-4 md:p-6 lg:grid-cols-5">
+        <div className="lg:col-span-3 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1">
           {polls &&
         polls.map((poll) => <PollCard key={poll.proposalId} poll={poll} />)}
+          {!loading && polls.length === 0 && !error && (
+            <p className="py-16 text-center text-sm text-white/45">
+              No polls yet. Create the first one.
+            </p>
+          )}
         </div>
-        <div className="col-span-2 justify-items-center content-center">
+        <div className="lg:col-span-2 flex justify-center items-start pt-6 lg:pt-12">
           <CreatePoll />
         </div>
       </div>
@@ -75,23 +76,23 @@ export function PollList() {
 function PollCard({ poll }: { poll: any }) {
   return (
     <Card
-      className="hover:shadow-lg transition-shadow m-5"
+      className="m-4 border-white/[0.09] bg-[#1a1530] text-[#f5f1e8] shadow-none transition-colors duration-200 hover:border-white/20"
     >
       <CardHeader>
-        <CardTitle className="flex justify-between">
+        <CardTitle className="flex items-start justify-between gap-3 text-base font-semibold">
           {poll.title}{" "}
           <Badge variant={poll.status === "ongoing" ? "default" : "secondary"}>
             {poll.status === "ongoing" ? "Ongoing" : "Completed"}
           </Badge>
         </CardTitle>
-        <CardDescription>{poll.description}</CardDescription>
+        <CardDescription className="text-white/50">{poll.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex justify-between items-center w-96">
+        <div className="flex w-full items-center justify-between">
           {poll.status === "ongoing" && (
             <Link
               to={`/polls/${poll.proposalId}`}
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+              className="inline-flex h-9 items-center rounded-md border border-[#c89d4a]/40 bg-[#c89d4a]/10 px-4 py-2 text-sm font-medium text-[#e8c664] transition-colors duration-200 hover:bg-[#c89d4a]/20"
             >
               Vote
             </Link>

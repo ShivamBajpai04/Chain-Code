@@ -1,22 +1,39 @@
 .deck-item {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  padding: 30px;
-  border-radius: 15px;
+  position: relative;
+  background: linear-gradient(to bottom, #1a1530f2, #131020f2);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(8px);
+  padding: 24px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  color: white;
+  transition:
+    transform 0.25s ease-out,
+    border-color 0.2s ease-out;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.7);
+  color: #f5f1e8;
   width: 300px;
   margin: 20px auto;
 }
 
+.deck-item::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(200, 157, 74, 0.45),
+    transparent
+  );
+}
+
 .deck-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  border-color: rgba(200, 157, 74, 0.35);
 }
 
 .deck-item h3 {

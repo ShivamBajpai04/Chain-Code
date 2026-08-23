@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
+import dns from "dns";
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 import authRoutes from "./routes/auth.js";
 import problemRoutes from "./routes/problem.js";
 import submissionRoutes from "./routes/submission.js";

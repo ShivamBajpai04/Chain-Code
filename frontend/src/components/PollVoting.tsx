@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 
@@ -73,25 +72,42 @@ export function PollVoting() {
   };
 
   return (
-    <Card className="max-w-md mx-auto">
+    <Card className="mx-auto max-w-md border-white/[0.09] bg-[#1a1530] text-[#f5f1e8] shadow-none">
       <CardHeader>
-        <CardTitle>Cast Your Vote</CardTitle>
+        <div>
+          <p className="f-mono text-[10px] uppercase tracking-[0.25em] text-white/45">Governance</p>
+          <CardTitle className="mt-2 f-display text-xl font-semibold tracking-tight">Cast your vote</CardTitle>
+        </div>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent>
           <RadioGroup value={vote || ""} onValueChange={setVote}>
-            <div className="flex items-center space-x-2 mb-2">
-              <RadioGroupItem value="agree" id="agree" />
-              <Label htmlFor="agree">Agree</Label>
-            </div>
-            <div className="flex items-center space-x-2 mb-2">
-              <RadioGroupItem value="decline" id="decline" />
-              <Label htmlFor="decline">Decline</Label>
-            </div>
+            <label
+                htmlFor="agree"
+                className={`mb-2 flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition-colors duration-200 ${
+                  vote === "agree"
+                    ? "border-[#7fb069]/50 bg-[#7fb069]/10 text-[#7fb069]"
+                    : "border-white/[0.09] hover:bg-white/[0.04]"
+                }`}
+              >
+                <RadioGroupItem value="agree" id="agree" />
+                <span className="text-sm font-medium">Agree</span>
+              </label>
+            <label
+                htmlFor="decline"
+                className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition-colors duration-200 ${
+                  vote === "decline"
+                    ? "border-[#c0392b]/50 bg-[#c0392b]/10 text-[#d98880]"
+                    : "border-white/[0.09] hover:bg-white/[0.04]"
+                }`}
+              >
+                <RadioGroupItem value="decline" id="decline" />
+                <span className="text-sm font-medium">Decline</span>
+              </label>
           </RadioGroup>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={() => navigate("/polls")}>
+          <Button variant="outline" onClick={() => navigate("/polls")} className="border-white/[0.12] bg-transparent hover:bg-white/[0.06] hover:text-white">
             Cancel
           </Button>
           <Button

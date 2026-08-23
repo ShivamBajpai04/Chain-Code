@@ -53,14 +53,17 @@ export function CreatePoll() {
   };
 
   return (
-    <Card className="max-w-md mx-auto">
+    <Card className="mx-auto max-w-md border-white/[0.09] bg-[#1a1530] text-[#f5f1e8] shadow-none">
       <CardHeader>
-        <CardTitle>Create New Poll</CardTitle>
+        <div>
+          <p className="f-mono text-[10px] uppercase tracking-[0.25em] text-white/45">Governance</p>
+          <CardTitle className="mt-2 f-display text-xl font-semibold tracking-tight">Create new poll</CardTitle>
+        </div>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="title">Poll Title</Label>
+            <Label htmlFor="title" className="f-mono text-[10px] uppercase tracking-[0.2em] text-white/55">Poll title</Label>
             <Input
               id="title"
               placeholder="Enter poll title"
@@ -70,7 +73,7 @@ export function CreatePoll() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="description">Poll Description</Label>
+            <Label htmlFor="description" className="f-mono text-[10px] uppercase tracking-[0.2em] text-white/55">Description</Label>
             <Textarea
               id="description"
               placeholder="Enter poll description"
@@ -81,7 +84,7 @@ export function CreatePoll() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={() => navigate("/polls")}>
+          <Button variant="outline" onClick={() => navigate("/polls")} className="border-white/[0.12] bg-transparent hover:bg-white/[0.06] hover:text-white">
             Cancel
           </Button>
           <Button type="submit" disabled={isSubmitting}>

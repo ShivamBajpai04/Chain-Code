@@ -45,30 +45,30 @@ export default function SubmissionsTab() {
   }
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        Loading submissions...
+      <div className="flex flex-1 items-center justify-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+        Loading submissions…
       </div>
     );
   }
 
   if (!selectedProblem?._id) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        Please select a problem to view submissions.
+      <div className="flex flex-1 items-center justify-center py-16 text-sm text-white/45">
+        Select a problem to view its submissions.
       </div>
     );
   }
 
   if (submissions.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        No submissions found for this problem.
+      <div className="flex flex-1 items-center justify-center py-16 text-sm text-white/45">
+        No submissions yet for this problem.
       </div>
     );
   }
 
   return (
-    <div className="flex overflow-auto">
+    <div className="flex flex-wrap justify-center gap-6 overflow-auto p-2 lg:justify-start">
       {submissions.map((submission: any) => (
         <AnimatedCard
           key={submission._id}

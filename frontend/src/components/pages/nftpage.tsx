@@ -28,17 +28,17 @@ const NFTPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased overflow-hidden">
+    <div className="relative flex min-h-screen w-full flex-col items-center overflow-hidden bg-[#14102e] antialiased">
       <div className="relative z-10 p-8 w-full">
         <Navbar/>
-        <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 mb-8">
+        <h1 className="f-display mb-10 mt-6 text-center text-[clamp(2.25rem,5vw,4rem)] font-semibold tracking-tight text-[#f5f1e8]">
           MY NFTS
         </h1>
         <div className="flex flex-wrap justify-center gap-8 md:gap-16">
           {nfts.map((nft: any, index: number) => (
             <div key={nft._id} className="flex flex-col items-center">
               <AnimatedCard title={nft.problem.title} code={nft.code} />
-              <p className="text-neutral-500 mt-2">NFT {index + 1}</p>
+              <p className="mt-2.5 f-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Certificate {String(index + 1).padStart(2, "0")}</p>
             </div>
           ))}
         </div>
