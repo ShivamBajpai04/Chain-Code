@@ -2,8 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LogOut } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import ProblemList from "./problemList";
+import { useAuthToken, setAuthToken } from "@/utils/auth";
 
 const loggedOutLinks = [
   { to: "/#features", label: "Features" },
@@ -11,24 +10,16 @@ const loggedOutLinks = [
 ];
 
 const loggedInLinks = [
+  { to: "/problems", label: "Problems" },
   { to: "/polls", label: "Polls" },
   { to: "/nft", label: "My NFTs" },
 ];
-
-function getToken(): string | null {
-  return localStorage.getItem("token");
-}
 
 export default function Header({ onLogout }: { onLogout?: () => void }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [token, setToken] = useState<string | null>(getToken());
-
-  // keep auth state fresh across client-side navigations
-  useEffect(() => {
-    setToken(getToken());
-  }, [location]);
+  const token = useAuthToken();
 
   useEffect(() => {
     if (location.hash) {
@@ -43,10 +34,9 @@ export default function Header({ onLogout }: { onLogout?: () => void }) {
     if (onLogout) {
       onLogout();
     } else {
-      localStorage.removeItem("token");
+      setAuthToken(null);
       navigate("/");
     }
-    setToken(null);
     setOpen(false);
   };
 
@@ -74,18 +64,6 @@ export default function Header({ onLogout }: { onLogout?: () => void }) {
                 {link.label}
               </Link>
             ))}
-            {token && (
-              <Sheet>
-                <SheetTrigger asChild>
-                  <button className="text-sm font-medium text-white/55 transition-colors duration-200 hover:text-[#d4a017]">
-                    Problem List
-                  </button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                  <ProblemList />
-                </SheetContent>
-              </Sheet>
-            )}
           </nav>
         </div>
 
@@ -166,13 +144,6 @@ export default function Header({ onLogout }: { onLogout?: () => void }) {
               ))}
               {token ? (
                 <>
-                  <Link
-                    to="/problems"
-                    onClick={() => setOpen(false)}
-                    className="py-3 text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"
-                  >
-                    Problems
-                  </Link>
                   <button
                     onClick={handleLogout}
                     className="flex items-center gap-1.5 border-t border-white/[0.06] py-3 text-left text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"

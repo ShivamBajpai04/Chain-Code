@@ -18,6 +18,8 @@ interface Problem {
   description: string;
   testCases: TestCase[];
   difficulty: "Easy" | "Medium" | "Hard";
+  topics: string[];
+  skipUniqueCheck: boolean;
 }
 
 interface ProblemContextType {
@@ -30,6 +32,7 @@ interface ProblemContextType {
   language: string;
   setLanguage: (language: string) => void;
   isLoading: boolean;
+  isFetchingProblem: boolean;
   error: string | null;
 }
 
@@ -43,12 +46,14 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
   const [code, setCode] = useState<string>("");
   const [language, setLanguage] = useState<string>("javascript");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isFetchingProblem, setIsFetchingProblem] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProblems = async () => {
       try {
         setIsLoading(true);
+        setError(null);
         const response = await axios.get(import.meta.env.VITE_DOMAIN+"/problems");
         setProblems(response.data);
       } catch (error) {
@@ -64,14 +69,14 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
 
   const fetchProblemById = async (id: string) => {
     try {
-      setIsLoading(true);
+      setIsFetchingProblem(true);
       const response = await axios.get(`${import.meta.env.VITE_DOMAIN}/problems/${id}`);
       setSelectedProblem(response.data);
     } catch (error) {
       setError("Error fetching problem. Please try again later.");
       console.error("Error fetching problem:", error);
     } finally {
-      setIsLoading(false);
+      setIsFetchingProblem(false);
     }
   };
 
@@ -87,6 +92,7 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
         language,
         setLanguage,
         isLoading,
+        isFetchingProblem,
         error,
       }}
     >

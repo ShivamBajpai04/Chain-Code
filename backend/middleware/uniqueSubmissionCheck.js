@@ -185,6 +185,10 @@ async function uniqueSubmissionCheck(req, res, next) {
       return res.status(404).json({ message: "Problem not found" });
     }
 
+    if (problem.skipUniqueCheck) {
+      return next();
+    }
+
     const existingSubmissions = await Submission.find({
       _id: { $in: problem.submissions },
     });

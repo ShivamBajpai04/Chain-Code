@@ -1,3 +1,4 @@
+import { getAddress } from "ethers";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -23,11 +24,23 @@ export const register = async (req, res) => {
   if (!walletAddress || !WALLET_RE.test(walletAddress))
     return res.status(400).json({ msg: "Wallet address must be a valid Ethereum address (0x + 40 hex characters)." });
 
+  // hex format alone isn't enough — a mixed-case address with a bad EIP-55
+  // checksum passes WALLET_RE but fails every mint later with no earlier
+  // warning. getAddress() also normalizes to the canonical checksummed form.
+  let checksummedWallet;
+  try {
+    checksummedWallet = getAddress(walletAddress);
+  } catch {
+    return res.status(400).json({
+      msg: "That wallet address has an invalid checksum — copy it directly from your wallet app rather than typing it.",
+    });
+  }
+
   try {
     let user = await User.findOne({ email });
     if (user) return res.status(409).json({ msg: "An account with this email already exists." });
 
-    user = new User({ username: username.trim(), email, password, walletAddress });
+    user = new User({ username: username.trim(), email, password, walletAddress: checksummedWallet });
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
@@ -36,7 +49,7 @@ export const register = async (req, res) => {
     await user.save();
 
     // Generate JWT
-    const payload = { user: { id: user.id, walletAddress } };
+    const payload = { user: { id: user.id, walletAddress: checksummedWallet } };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 
     res.json({ token });

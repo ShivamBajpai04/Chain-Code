@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import ProductMockup from "@/components/ProductMockup";
 import HeroSection from "@/components/HeroSection";
+import { setAuthToken } from "@/utils/auth";
 import "./newStyle.css";
 
 const rise = {
@@ -47,8 +48,10 @@ export default function UpdatedLandingPage() {
           return;
         }
       } catch {
-        localStorage.removeItem("token");
+        // malformed token — fall through
       }
+      // expired/malformed: clear via the auth util so every listener updates
+      setAuthToken(null);
     }
     navigate("/signup");
   };

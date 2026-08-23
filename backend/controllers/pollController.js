@@ -58,12 +58,13 @@ export const getAllPolls = async (req, res) => {
   }
 };
 
-//get poll by id
+//get poll by its on-chain proposalId — every /polls/:id link in the app
+//uses proposalId, not the Mongo _id, so look up the same way
 
 export const getPollById = async (req, res) => {
   try {
     const { pollId } = req.params;
-    const poll = await Poll.findById(pollId);
+    const poll = await Poll.findOne({ proposalId: pollId });
     if (!poll) {
       return res.status(404).json({ message: "Poll not found" });
     }

@@ -13,29 +13,17 @@ import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import  Navbar  from "./navbar";
 
-export function PollList() {
+export function PollList({ onLogout }: { onLogout?: () => void }) {
   const [polls, setPolls] = useState<Array<any>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+
   useEffect(() => {
     fetchPolls();
   }, []);
 
-  const fetchPolls = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const url = `${import.meta.env.VITE_DOMAIN}/poll/all`;
-      const response = await axios.get(url);
-      console.log(response.data);
-      setPolls(response.data.polls);
-    } catch (error: any) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-
+  useEffect(() => {
     if (error) {
       toast({
         title: "Error",
@@ -43,22 +31,34 @@ export function PollList() {
         variant: "destructive",
       });
     }
-    if (loading) {
-      return (
-        <div className="flex-1 flex items-center justify-center">
-          Loading polls...
-        </div>
-      );
+  }, [error]);
+
+  const fetchPolls = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const url = `${import.meta.env.VITE_DOMAIN}/poll/all`;
+      const response = await axios.get(url);
+      setPolls(response.data.polls);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-[#14102e] text-[#f5f1e8]">
-      <Navbar />
+      <Navbar onLogout={onLogout} />
       <div className="grid grid-cols-1 gap-5 p-4 md:p-6 lg:grid-cols-5">
         <div className="lg:col-span-3 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1">
-          {polls &&
-        polls.map((poll) => <PollCard key={poll.proposalId} poll={poll} />)}
+          {loading && (
+            <div className="py-16 text-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+              Loading polls…
+            </div>
+          )}
+          {!loading && !error &&
+            polls.map((poll) => <PollCard key={poll.proposalId} poll={poll} />)}
           {!loading && polls.length === 0 && !error && (
             <p className="py-16 text-center text-sm text-white/45">
               No polls yet. Create the first one.

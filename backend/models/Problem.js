@@ -15,6 +15,14 @@ const problemSchema = new mongoose.Schema(
       enum: ["Easy", "Medium", "Hard"],
       required: true,
     },
+    topics: {
+      type: [String],
+      default: [],
+    },
+    skipUniqueCheck: {
+      type: Boolean,
+      default: false,
+    },
     testcases: [
       {
         input: { type: String, required: true },

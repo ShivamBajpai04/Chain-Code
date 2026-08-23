@@ -44,7 +44,7 @@ export const mintNFT = async (req, res) => {
   const walletAddress = req.user.user.walletAddress;
   const MyToken = new ethers.Contract(contractAddress, contractAbi, wallet);
 
-  const tokenURI = "localhost:5173/" + submissionId.toString();
+  const tokenURI = "localhost:5173/nft/" + submissionId.toString();
 
   try {
     const submission = await Submission.findById(submissionId);

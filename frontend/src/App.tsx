@@ -3,30 +3,41 @@ import {
   Routes,
   Route,
   Navigate,
+  Link,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Login from "./components/pages/login";
 import Signup from "./components/pages/signup";
 import Problems from "./components/pages/problems";
-// import { ProblemProvider } from "./context/ProblemContext";
+import ProblemsListPage from "./components/pages/problemsList";
 import LandingPage2 from "./components/pages/landingPage2";
 import NFTPage from "./components/pages/nftpage";
 import axios from "axios";
 import { DNFT } from "./components/pages/dnft";
-// import Polling from "./components/pages/polling";
 import { PollList } from "./components/PollList";
 import { PollVoting } from "./components/PollVoting";
-// import { PollProvider } from "./context/PollContext";
+import { useAuthToken, setAuthToken } from "./utils/auth";
+
+function NotFound() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#14102e] text-[#f5f1e8]">
+      <p className="f-mono text-[11px] uppercase tracking-[0.25em] text-[#d4a017]">
+        404
+      </p>
+      <h1 className="f-display mt-3 text-2xl font-semibold tracking-tight">
+        This page isn't on the ledger
+      </h1>
+      <Link
+        to="/"
+        className="mt-8 rounded-md border border-white/[0.12] px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/[0.06]"
+      >
+        Back home
+      </Link>
+    </div>
+  );
+}
 
 function App() {
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+  const token = useAuthToken();
 
   const handleLogin = async (email: string, password: string) => {
     try {
@@ -37,13 +48,10 @@ function App() {
           password: password,
         }
       );
-      // console.log(response);
 
       const data = response.data;
-      // console.log(data);
 
-      localStorage.setItem("token", data.token);
-      setToken(data.token);
+      setAuthToken(data.token);
       return true; // Indicate successful login
     } catch (error: any) {
       console.error("Login error:", error);
@@ -60,7 +68,6 @@ function App() {
     password: string,
     walletAddress: string
   ) => {
-    // console.log(import.meta.env.VITE_DOMAIN);
     try {
       const response = await fetch(
         import.meta.env.VITE_DOMAIN + "/auth/register",
@@ -80,8 +87,7 @@ function App() {
         throw new Error(data.msg || "Signup failed. Please try again.");
       }
 
-      localStorage.setItem("token", data.token);
-      setToken(data.token);
+      setAuthToken(data.token);
       return true; // Indicate successful signup
     } catch (error: any) {
       console.error("Signup error:", error);
@@ -90,8 +96,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
+    setAuthToken(null);
   };
 
   return (
@@ -102,7 +107,7 @@ function App() {
           path="/login"
           element={
             token ? (
-              <Navigate to="/problems" />
+              <Navigate to="/problems" replace />
             ) : (
               <Login onLogin={handleLogin} />
             )
@@ -112,35 +117,48 @@ function App() {
           path="/signup"
           element={
             token ? (
-              <Navigate to="/problems" />
+              <Navigate to="/problems" replace />
             ) : (
               <Signup onSignup={handleSignup} />
             )
           }
         />
-        <Route path="/:id" element={<DNFT />} />
         <Route
           path="/problems"
           element={
             token ? (
+              <ProblemsListPage handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/problems/:id"
+          element={
+            token ? (
               <Problems handleLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
         <Route
           path="/polls"
-          element={token ? <PollList /> : <Navigate to="/login" />}
+          element={token ? <PollList onLogout={handleLogout} /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/polls/:id"
-          element={token ? <PollVoting /> : <Navigate to="/login" />}
+          element={token ? <PollVoting /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/nft"
-          element={token ? <NFTPage /> : <Navigate to="/login" />}
+          element={token ? <NFTPage onLogout={handleLogout} /> : <Navigate to="/login" replace />}
         />
+        {/* NFT certificate detail — moved off the /:id catch-all so unknown
+            single-segment URLs get a real 404 instead of a broken NFT fetch */}
+        <Route path="/nft/:id" element={<DNFT />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

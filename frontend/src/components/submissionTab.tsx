@@ -36,13 +36,16 @@ export default function SubmissionsTab() {
     }
   };
 
-  if (error) {
-    toast({
-      title: "Error",
-      description: error,
-      variant: "destructive",
-    });
-  }
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error,
+        variant: "destructive",
+      });
+    }
+  }, [error]);
+
   if (loading) {
     return (
       <div className="flex flex-1 items-center justify-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
@@ -53,8 +56,8 @@ export default function SubmissionsTab() {
 
   if (!selectedProblem?._id) {
     return (
-      <div className="flex flex-1 items-center justify-center py-16 text-sm text-white/45">
-        Select a problem to view its submissions.
+      <div className="flex flex-1 items-center justify-center py-16 f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+        Loading problem…
       </div>
     );
   }
@@ -62,20 +65,26 @@ export default function SubmissionsTab() {
   if (submissions.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center py-16 text-sm text-white/45">
-        No submissions yet for this problem.
+        No accepted submissions yet — be the first to solve this one.
       </div>
     );
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-6 overflow-auto p-2 lg:justify-start">
-      {submissions.map((submission: any) => (
-        <AnimatedCard
-          key={submission._id}
-          title={selectedProblem?.title || "Untitled Problem"}
-          code={submission.code}
-        />
-      ))}
+    <div className="flex flex-1 flex-col gap-4 overflow-auto p-2">
+      <p className="text-[11px] text-white/40">
+        Every accepted solution from every user, minted as a certificate — click one to view it.
+      </p>
+      <div className="flex flex-wrap justify-center gap-6 lg:justify-start">
+        {submissions.map((submission: any) => (
+          <AnimatedCard
+            key={submission._id}
+            title={selectedProblem?.title || "Untitled Problem"}
+            code={submission.code}
+            to={`/nft/${submission._id}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
