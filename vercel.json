@@ -1,14 +1,21 @@
 {
-  "experimentalServices": {
+  "services": {
     "frontend": {
       "root": "frontend",
-      "routePrefix": "/",
       "framework": "vite"
     },
     "backend": {
-      "root": "backend",
-      "routePrefix": "/_/backend",
-      "entrypoint": "server.js"
+      "root": "backend"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api(/.*)?",
+      "destination": { "type": "service", "service": "backend" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "type": "service", "service": "frontend" }
+    }
+  ]
 }
