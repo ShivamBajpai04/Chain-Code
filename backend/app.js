@@ -42,17 +42,17 @@ export function connectDB() {
   return cached.conn;
 }
 
-// Routes
-app.use("/auth", authRoutes);
-app.use("/problems", problemRoutes);
-app.use("/submissions", submissionRoutes);
-app.use("/nft", nftRoutes);
-app.use("/poll", pollRoutes);
-app.use("/gov", govRoutes);
-app.use("/vote", voteRoutes);
+// Routes — mounted under /api since Vercel's rewrite forwards the full path
+app.use("/api/auth", authRoutes);
+app.use("/api/problems", problemRoutes);
+app.use("/api/submissions", submissionRoutes);
+app.use("/api/nft", nftRoutes);
+app.use("/api/poll", pollRoutes);
+app.use("/api/gov", govRoutes);
+app.use("/api/vote", voteRoutes);
 
 // Health check
-app.get("/", (req, res) => res.json({ ok: true, service: "chaincode-api" }));
+app.get("/api", (req, res) => res.json({ ok: true, service: "chaincode-api" }));
 
 // Ensure a connection attempt has started before the request handler runs
 await connectDB().catch(() => {});
