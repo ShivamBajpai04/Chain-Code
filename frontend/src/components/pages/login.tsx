@@ -14,18 +14,22 @@ export default function Login({ onLogin }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const canSubmit = emailValid && password.length >= 1;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!canSubmit) {
       setError("Enter a valid email and your password to continue.");
       return;
     }
     setError(null);
-    onLogin(email, password);
+    try {
+      await onLogin(email, password);
+      navigate("/problems");
+    } catch (err: any) {
+      setError(err?.message || "Login failed. Please try again.");
+    }
   };
 
   return (

@@ -45,10 +45,12 @@ function App() {
       localStorage.setItem("token", data.token);
       setToken(data.token);
       return true; // Indicate successful login
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
-      alert("Login failed. Please try again.");
-      return false;
+      // surface the server's reason (axios puts it on response.data.msg)
+      const msg =
+        error?.response?.data?.msg || "Login failed. Please try again.";
+      throw new Error(msg);
     }
   };
 
@@ -71,18 +73,19 @@ function App() {
         }
       );
 
+      const data = await response.json().catch(() => ({}));
+
       if (!response.ok) {
-        throw new Error("Signup failed");
+        // surface the server's reason to the form
+        throw new Error(data.msg || "Signup failed. Please try again.");
       }
 
-      const data = await response.json();
       localStorage.setItem("token", data.token);
       setToken(data.token);
       return true; // Indicate successful signup
-    } catch (error) {
+    } catch (error: any) {
       console.error("Signup error:", error);
-      alert("Signup failed. Please try again.");
-      return false;
+      throw new Error(error?.message || "Signup failed. Please try again.");
     }
   };
 

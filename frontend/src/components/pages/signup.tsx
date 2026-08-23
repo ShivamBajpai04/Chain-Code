@@ -33,6 +33,7 @@ export default function Signup({ onSignup }: SignupProps) {
   const [walletAddress, setWalletAddress] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [touchedSubmit, setTouchedSubmit] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   // password rules, checked live
@@ -58,11 +59,16 @@ export default function Signup({ onSignup }: SignupProps) {
   const canSubmit =
     usernameValid && emailValid && strength === 3 && passwordsMatch && walletValid;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouchedSubmit(true);
     if (!canSubmit) return;
-    onSignup(username.trim(), email, password, walletAddress);
+    try {
+      setServerError(null);
+      await onSignup(username.trim(), email, password, walletAddress);
+    } catch (err: any) {
+      setServerError(err?.message || "Signup failed. Please try again.");
+    }
   };
 
   const field =
@@ -117,6 +123,18 @@ export default function Signup({ onSignup }: SignupProps) {
           <p className="mt-2 text-sm leading-relaxed text-[#14102e]/60">
             Three steps and your solves start minting as certificates.
           </p>
+
+          {serverError && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-5 flex items-start gap-2 rounded-lg border border-[#c0392b]/30 bg-[#c0392b]/[0.07] px-3.5 py-2.5 text-sm text-[#a93226]"
+              role="alert"
+            >
+              <X className="mt-0.5 h-4 w-4 shrink-0" />
+              {serverError}
+            </motion.div>
+          )}
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-5" noValidate>
             {/* username */}
