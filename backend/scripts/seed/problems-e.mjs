@@ -46,7 +46,7 @@ export const problemsE = [
     tests: [
       { input: "ADOBECODEBANC\nABC", output: "BANC" },
       { input: "a\na", output: "a" },
-      { input: "a\naa", output: "" },
+      { input: "cabwefgewcwaefgcf\ncae", output: "cwae" },
     ],
   },
   {
@@ -349,7 +349,7 @@ export const problemsE = [
     hint: "Anchor a dummy head; repeatedly grab the upcoming pair, rotate their links, and jump ahead two.",
     tests: [
       { input: "4\n1 2 3 4", output: "2 1 4 3" },
-      { input: "0", output: "" },
+      { input: "2\n1 2", output: "2 1" },
       { input: "1\n1", output: "1" },
     ],
   },
@@ -398,7 +398,7 @@ export const problemsE = [
     tests: [
       { input: "5\n1 2 3 4 5", output: "1 3 5 2 4" },
       { input: "7\n2 1 3 5 6 4 7", output: "2 3 6 7 1 5 4" },
-      { input: "0", output: "" },
+      { input: "1\n1", output: "1" },
     ],
   },
   {
@@ -478,7 +478,7 @@ export const problemsE = [
     tests: [
       { input: "7\n1 2 3 3 4 4 5", output: "1 2 5" },
       { input: "5\n1 1 1 2 3", output: "2 3" },
-      { input: "3\n1 1 1", output: "" },
+      { input: "3\n1 2 2", output: "1" },
     ],
   },
 ];

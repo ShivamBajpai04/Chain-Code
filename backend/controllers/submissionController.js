@@ -41,12 +41,17 @@ export const submitSolution = async (req, res) => {
   const userId = req.user.user.id; // Ensure this is correctly set from the auth middleware
 
   try {
+    const targetProblem = await Problem.findById(problemId, "sample").lean();
+
     // Create new submission
     const submission = new Submission({
       user: userId,
       problem: problemId,
       code,
       language,
+      ...(targetProblem?.sample
+        ? { expiresAt: new Date(Date.now() + 60 * 60 * 1000) }
+        : {}),
     });
 
     await submission.save();

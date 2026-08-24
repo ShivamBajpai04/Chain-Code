@@ -26,6 +26,12 @@ const submissionSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  expiresAt: {
+    type: Date
+  },
 }, { timestamps: true });
+
+// Only documents carrying expiresAt are purged (at that instant); all others persist
+submissionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export default mongoose.model('Submission', submissionSchema);

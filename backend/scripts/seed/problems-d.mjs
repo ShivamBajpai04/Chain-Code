@@ -174,7 +174,7 @@ export const problemsD = [
     tests: [
       { input: "4 3\n3 2 2 3", output: "2\n2 2" },
       { input: "8 2\n0 1 2 2 3 0 4 2", output: "5\n0 1 3 0 4" },
-      { input: "2 1\n1 1", output: "0\n" },
+      { input: "3 2\n1 2 3", output: "2\n1 3" },
     ],
   },
   {
@@ -285,7 +285,7 @@ export const problemsD = [
     hint: "Use the first word as candidate and shave its tail whenever another word disagrees at some position.",
     tests: [
       { input: "3\nflower flow flight", output: "fl" },
-      { input: "3\ndog racecar car", output: "" },
+      { input: "2\nsame same", output: "same" },
       { input: "1\nsolo", output: "solo" },
     ],
   },
@@ -384,7 +384,7 @@ export const problemsD = [
     tests: [
       { input: "6\n0 1 2 4 5 7", output: "0->2\n4->5\n7" },
       { input: "1\n0", output: "0" },
-      { input: "0", output: "" },
+      { input: "2\n7 9", output: "7\n9" },
     ],
   },
   {

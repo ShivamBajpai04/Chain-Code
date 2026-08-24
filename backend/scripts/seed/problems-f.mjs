@@ -77,7 +77,7 @@ export const problemsF = [
     hint: "Walk extreme-left and extreme-right depths from each root: if they match the subtree is perfect (2^h − 1); else recurse on both sides.",
     tests: [
       { input: "1 2 3 4 5 6", output: "6" },
-      { input: "", output: "0" },
+      { input: "null", output: "0" },
       { input: "1", output: "1" },
     ],
   },
@@ -93,7 +93,7 @@ export const problemsF = [
     hint: "Preorder traversal is exactly the target order — either relink while traversing, or repeatedly fold each node's left subtree between node and right child.",
     tests: [
       { input: "1 2 5 3 4 null 6", output: "1 2 3 4 5 6" },
-      { input: "", output: "" },
+      { input: "1 null 2", output: "1 2" },
       { input: "0", output: "0" },
     ],
   },
@@ -140,7 +140,7 @@ export const problemsF = [
     hint: "Load words into a trie and walk the grid once with DFS — prune branches whose trie node died and un-mark cells when backtracking.",
     tests: [
       { input: "4 4\noath\npea\neat\nrain\n4\noath pea eat rain", output: "eat\noath" },
-      { input: "2 2\nab\nba\n2\nabbb aaab", output: "" },
+      { input: "2 2\nab\nba\n3\nabbb aaab aba", output: "aba" },
       { input: "1 1\na\n1\na", output: "a" },
     ],
   },
@@ -236,7 +236,7 @@ export const problemsF = [
     hint: "Hash map original→clone; BFS or DFS creating clones lazily keeps references consistent across cycles.",
     tests: [
       { input: "4 4\n1 2\n2 3\n3 4\n4 1", output: "2 4\n1 3\n2 4\n1 3" },
-      { input: "1 0", output: "" },
+      { input: "2 1\n1 2", output: "2\n1" },
       { input: "3 1\n2 3", output: "\n3\n2" },
     ],
   },

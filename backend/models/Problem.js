@@ -23,6 +23,10 @@ const problemSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    sample: {
+      type: Boolean,
+      default: false,
+    },
     testcases: [
       {
         input: { type: String, required: true },
