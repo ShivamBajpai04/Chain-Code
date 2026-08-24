@@ -4,12 +4,35 @@ import { contractAbi } from "../abi.js";
 
 const privateKey = process.env.PRIVATE_KEY;
 const api = process.env.API;
-
 const contractAddress = process.env.CONTRACT_ADDRESS;
+const publicSepoliaRpc = "https://ethereum-sepolia-rpc.publicnode.com";
 
-// Ethereum provider
-const provider = new ethers.JsonRpcProvider(api);
-const wallet = new ethers.Wallet(privateKey, provider);
+export async function getSepoliaProvider() {
+  const urls = [...new Set([api, process.env.FALLBACK_API, publicSepoliaRpc].filter(Boolean))];
+
+  for (const url of urls) {
+    try {
+      const provider = new ethers.JsonRpcProvider(url, 11155111, { staticNetwork: true });
+      const chainId = await provider.send("eth_chainId", []);
+      if (BigInt(chainId) !== 11155111n) throw new Error("RPC is not connected to Sepolia");
+      if ((await provider.getCode(contractAddress)) === "0x") {
+        throw new Error("NFT contract is not deployed on this RPC");
+      }
+      return provider;
+    } catch (error) {
+      const host = (() => {
+        try {
+          return new URL(url).host;
+        } catch {
+          return "configured RPC";
+        }
+      })();
+      console.warn(`Sepolia RPC ${host} unavailable:`, error.shortMessage || error.code || error.message);
+    }
+  }
+
+  throw new Error("No working Sepolia RPC endpoint");
+}
 
 export const getTokenURI = async (req, res) => {
   const { tokenId } = req.params;
@@ -41,11 +64,18 @@ export const getTokenURI = async (req, res) => {
 /////
 export const mintNFT = async (req, res) => {
   const { submissionId } = req.params;
-  const MyToken = new ethers.Contract(contractAddress, contractAbi, wallet);
-
   const tokenURI = "localhost:5173/nft/" + submissionId.toString();
+  let MyToken;
 
   try {
+    if (!privateKey || !contractAddress) {
+      return res.status(500).json({ error: "NFT minting is not configured on the server." });
+    }
+
+    const provider = await getSepoliaProvider();
+    const wallet = new ethers.Wallet(privateKey, provider);
+    MyToken = new ethers.Contract(contractAddress, contractAbi, wallet);
+
     // accounts registered before signup validated the wallet checksum can
     // still carry a wrong-case (or outright invalid) address in their JWT —
     // re-checksum here rather than crash on ethers' cryptic "bad address
@@ -86,7 +116,7 @@ export const mintNFT = async (req, res) => {
     // the contract interface for decoding, so ABI-known custom errors can
     // still show up as "unknown custom error" — decode manually so the
     // actual on-chain reason surfaces instead of that dead end
-    if (error.data) {
+    if (error.data && MyToken) {
       try {
         const parsed = MyToken.interface.parseError(error.data);
         if (parsed?.name === "ERC721InvalidReceiver") {
@@ -96,7 +126,14 @@ export const mintNFT = async (req, res) => {
         }
       } catch {}
     }
-    res.status(500).json({ error: error.shortMessage || error.message || "Minting failed" });
+    const rpcRejected = /403|forbidden|no working sepolia rpc/i.test(
+      `${error.shortMessage || ""} ${error.message || ""}`
+    );
+    res.status(rpcRejected ? 503 : 500).json({
+      error: rpcRejected
+        ? "The Sepolia network rejected the mint request. Please retry in a moment."
+        : error.shortMessage || "Minting failed on Sepolia.",
+    });
   }
 };
 
