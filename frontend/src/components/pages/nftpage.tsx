@@ -68,6 +68,17 @@ const NFTPage: React.FC<{ onLogout?: () => void }> = ({ onLogout }) => {
               <div key={nft._id} className="flex flex-col items-center">
                 <AnimatedCard title={nft.problem.title} code={nft.code} to={`/nft/${nft._id}`} />
                 <p className="mt-2.5 f-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Certificate {String(index + 1).padStart(2, "0")}</p>
+                {nft.mintTxHash && (
+                  <a
+                    href={`https://sepolia.etherscan.io/tx/${nft.mintTxHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-1 text-[10px] text-[#e8c664] hover:underline"
+                  >
+                    View on Etherscan
+                  </a>
+                )}
               </div>
             ))}
           </div>

@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema(
     },
     walletAddress: {
       type: String,
-      unique: true,
       required: true,
     },
     submissions: [

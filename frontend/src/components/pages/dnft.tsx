@@ -6,6 +6,7 @@ interface NFTData {
   title: string;
   code: string;
   language: string;
+  mintTxHash?: string;
 }
 
 async function getNFT(id: string): Promise<NFTData> {
@@ -24,6 +25,7 @@ async function getNFT(id: string): Promise<NFTData> {
       title: response.data.problem.title,
       code: response.data.code,
       language: response.data.language,
+      mintTxHash: response.data.mintTxHash,
     };
   } catch (error) {
     console.error("Error fetching NFT data:", error);
@@ -66,8 +68,18 @@ export const DNFT: React.FC = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-screen gap-3">
       <AnimatedCard title={nft.title} code={nft.code} />
+      {nft.mintTxHash && (
+        <a
+          href={`https://sepolia.etherscan.io/tx/${nft.mintTxHash}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#e8c664] text-sm hover:underline"
+        >
+          View on Etherscan
+        </a>
+      )}
     </div>
   );
 };

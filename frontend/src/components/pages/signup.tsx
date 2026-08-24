@@ -8,8 +8,11 @@ import {
   User,
   Wallet,
   Check,
+  Copy,
   X,
 } from "lucide-react";
+
+const DEMO_WALLET = "0x70F480b7EbC27e8CE127B910Ce89035B8fE50EB5";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 
@@ -34,6 +37,7 @@ export default function Signup({ onSignup }: SignupProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [touchedSubmit, setTouchedSubmit] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
 
   // password rules, checked live
@@ -302,6 +306,35 @@ export default function Signup({ onSignup }: SignupProps) {
               <label htmlFor="walletAddress" className={labelCls}>
                 Wallet address
               </label>
+              <div className="mt-2 flex items-center justify-between gap-2 rounded-lg border border-[#14102e]/15 bg-[#14102e]/[0.03] px-3 py-2">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.15em] text-[#14102e]/45">
+                    Don't have a wallet? Use the demo address
+                  </p>
+                  <p className="font-mono text-xs text-[#14102e]/80">{DEMO_WALLET}</p>
+                </div>
+                <div className="flex shrink-0 items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(DEMO_WALLET);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 1500);
+                    }}
+                    title="Copy to clipboard"
+                    className="rounded-md p-1.5 text-[#14102e]/50 transition-colors duration-200 hover:bg-[#14102e]/10 hover:text-[#14102e]"
+                  >
+                    {copied ? <Check className="h-3.5 w-3.5 text-[#2e7d32]" /> : <Copy className="h-3.5 w-3.5" />}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setWalletAddress(DEMO_WALLET)}
+                    className="rounded-md bg-[#14102e]/10 px-2.5 py-1.5 text-xs font-medium text-[#14102e]/80 transition-colors duration-200 hover:bg-[#14102e]/15"
+                  >
+                    Use this
+                  </button>
+                </div>
+              </div>
               <div className="relative mt-2">
                 <Wallet className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#14102e]/35" />
                 <input
@@ -326,6 +359,8 @@ export default function Signup({ onSignup }: SignupProps) {
               <p className="mt-1.5 text-xs text-[#14102e]/45">
                 Where your NFT certificates are minted. A standard Ethereum
                 address (0x + 40 hex characters). We never ask for a seed phrase.
+                Multiple accounts can share the same address — certificates just
+                all mint to that one wallet.
               </p>
             </div>
 

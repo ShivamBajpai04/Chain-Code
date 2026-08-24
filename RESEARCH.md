@@ -250,6 +250,57 @@ Implementation notes:
 
 ---
 
+## Holesky → Sepolia migration + sandbox mint problem (2026-08-23/24)
+
+### What broke
+
+Holesky (the testnet `API`/`CONTRACT_ADDRESS`/`GOV_CONTRACT_ADDRESS`/`VOTING_CONTRACT_ADDRESS`
+were pointed at) was shut down by the Ethereum Foundation in September 2025. Every mint was
+hanging or throwing `JsonRpcProvider failed to detect network`. Confirmed via Alchemy
+(`ETH_HOLESKY is not enabled for this app`) and by trying three different Holesky block
+explorers (Etherscan, Blockscout, Routescan) — all decommissioned or unreachable, so there's
+no way to even inspect the old contracts anymore.
+
+### What's fixed
+
+- **NFT contract only** (governance/voting explicitly skipped for now — still pointed at the
+  dead Holesky addresses, still broken, not touched).
+- Contract source recovered from `github.com/smresponsibilities/NFTMINT` (`MyToken.sol`, plain
+  OpenZeppelin 5.x ERC721 + Enumerable + URIStorage + Ownable — byte-identical to a local copy
+  found in `Downloads/ether js/governance token 100%/MyToken.sol`).
+- Same Alchemy API key works for Sepolia (`eth-holesky` → `eth-sepolia` in the URL, no
+  dashboard changes needed). Deployer wallet already had testnet ETH, no faucet needed.
+- Redeployed via a plain `solc` compile + `ethers.ContractFactory` deploy (no Hardhat/Foundry
+  — mirrors the reference repo's own tooling). Scripts kept at `backend/scripts/deploy-nft/`
+  (`MyToken.sol`, `compile.js`, `deploy.js`) as a record / for redeploying again if needed.
+- New contract: `0x313fC618ddcC0912f7Ad1aB50E5e12C3AE2d046E` on Sepolia (chain id 11155111).
+  Deploy cost 2,675,117 gas (~0.0029 ETH); a single mint costs ~198,600 gas (~0.0002 ETH) at
+  current gas prices. Verified end-to-end with a real mint (`status: 1` receipt,
+  `tokensOfOwner` returned the new token id).
+- Fixed a related bug: `nftController.js`'s `tokenURI` was hardcoded to
+  `localhost:5173/<submissionId>` (the app's old flat route, before `/nft/:id` existed) —
+  every certificate's on-chain URI was already dead on mint. Now `localhost:5173/nft/<id>`.
+- Fixed the class of bug that caused this: `.env`'s wallet checksum was never validated at
+  signup, so a malformed address (random mixed case, not real EIP-55) could register and then
+  crash every mint with `bad address checksum` and zero warning at signup time. Now
+  `authController.js` validates + normalizes with `ethers.getAddress()` at registration.
+
+### Sandbox mint problem
+
+Added a seeded problem ("Sandbox: Mint Test", topic `Sandbox`, `skipUniqueCheck: true`) that
+bypasses `uniqueSubmissionCheck`'s whole AI-judge chain — lets you test/demo the mint flow
+without tripping the originality gate or burning judge quota on a trivial submission. Reachable
+from the nav via "Try it yourself" (`/try`, resolves the sandbox problem dynamically rather
+than hardcoding its id — stays correct across reseeds).
+
+### Env vars — updated
+
+`API` is now a Sepolia RPC URL (was Holesky); `CONTRACT_ADDRESS` is the new deploy above.
+`GOV_CONTRACT_ADDRESS` / `VOTING_CONTRACT_ADDRESS` are unchanged (still Holesky, still dead) —
+same treatment needed if governance/voting ever gets migrated too.
+
+---
+
 ## Vercel deployment notes (2026-08-23)
 
 Structure: two services — `frontend` (Vite) and `backend` (Express at `backend/api/index.js`).

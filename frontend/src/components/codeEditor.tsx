@@ -27,18 +27,13 @@ const judge0LanguageMap = {
 interface ResultType {
   error?: string;
   submissionId?: string;
+  mintTxHash?: string;
   results?: Array<{
     status?: { description: string };
     time?: number;
     memory?: number;
   }>;
 }
-
-const stages: { key: SubmitPhase; label: string }[] = [
-  { key: "judging", label: "Running test cases" },
-  { key: "verifying", label: "Verifying originality" },
-  { key: "minting", label: "Minting certificate" },
-];
 
 export default function CodeEditor() {
   const { code, setCode, selectedProblem, language } = useProblemContext();
@@ -47,13 +42,52 @@ export default function CodeEditor() {
   const [result, setResult] = useState<ResultType | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [mintTakingLong, setMintTakingLong] = useState(false);
+
+  // the "verifying" step is honest about what actually happens for a
+  // sandbox problem — the backend skips the AI check entirely, so don't
+  // imply a real originality check is running
+  const stages: { key: SubmitPhase; label: string }[] = [
+    { key: "judging", label: `Running ${selectedProblem?.title ?? "the"} test cases` },
+    {
+      key: "verifying",
+      label: selectedProblem?.skipUniqueCheck
+        ? "Saving submission (originality check skipped — sandbox)"
+        : "Verifying originality",
+    },
+    {
+      key: "minting",
+      label: mintTakingLong
+        ? "Minting certificate — still working, this can take a couple minutes"
+        : "Minting certificate",
+    },
+  ];
+
   useEffect(() => {
     setResult(null);
   }, [selectedProblem?._id]);
+
+  // a normal mint confirms in ~20-25s on Sepolia. Past that, let the user
+  // know it's not stuck — testnets stall under congestion and the request
+  // itself now waits up to 5 minutes before giving up, so silence that long
+  // would just look broken.
+  useEffect(() => {
+    setMintTakingLong(false);
+    if (phase !== "minting") return;
+    const timer = setTimeout(() => {
+      setMintTakingLong(true);
+      toast({
+        title: "Still minting…",
+        description:
+          "This is taking longer than usual — Sepolia confirmations can stall under network congestion. Still working, no need to resubmit.",
+      });
+    }, 30_000);
+    return () => clearTimeout(timer);
+  }, [phase]);
   useEffect(() => {
     if (result?.error) {
       toast({
-        title: "error",
+        title: `${selectedProblem?.title ?? "Submission"} didn't go through`,
         description: result.error.toString(),
         variant: "destructive",
       });
@@ -63,15 +97,30 @@ export default function CodeEditor() {
     if (result?.submissionId) {
       toast({
         title: "Certificate minted",
-        description: "Your accepted solution is now sealed on-chain.",
+        description: `Your accepted solution for "${selectedProblem?.title}" is now sealed on-chain.`,
         variant: "success",
         action: (
-          <ToastAction
-            altText="View certificate"
-            onClick={() => navigate(`/nft/${result.submissionId}`)}
-          >
-            View certificate
-          </ToastAction>
+          <div className="flex flex-col gap-1.5">
+            <ToastAction
+              altText="View certificate"
+              onClick={() => navigate(`/nft/${result.submissionId}`)}
+            >
+              View certificate
+            </ToastAction>
+            {result.mintTxHash && (
+              <ToastAction
+                altText="View on Etherscan"
+                onClick={() =>
+                  window.open(
+                    `https://sepolia.etherscan.io/tx/${result.mintTxHash}`,
+                    "_blank"
+                  )
+                }
+              >
+                View on Etherscan
+              </ToastAction>
+            )}
+          </div>
         ),
       });
     }

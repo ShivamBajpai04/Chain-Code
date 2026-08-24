@@ -19,6 +19,13 @@ const submissionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  mintTxHash: {
+    type: String
+  },
+  minted: {
+    type: Boolean,
+    default: false
+  },
 }, { timestamps: true });
 
 export default mongoose.model('Submission', submissionSchema);

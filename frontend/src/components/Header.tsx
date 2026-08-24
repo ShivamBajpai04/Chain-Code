@@ -11,6 +11,7 @@ const loggedOutLinks = [
 
 const loggedInLinks = [
   { to: "/problems", label: "Problems" },
+  { to: "/try", label: "Try it yourself" },
   { to: "/polls", label: "Polls" },
   { to: "/nft", label: "My NFTs" },
 ];

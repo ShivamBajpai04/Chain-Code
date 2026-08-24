@@ -9,6 +9,7 @@ import Login from "./components/pages/login";
 import Signup from "./components/pages/signup";
 import Problems from "./components/pages/problems";
 import ProblemsListPage from "./components/pages/problemsList";
+import TryIt from "./components/pages/tryIt";
 import LandingPage2 from "./components/pages/landingPage2";
 import NFTPage from "./components/pages/nftpage";
 import axios from "axios";
@@ -132,6 +133,10 @@ function App() {
               <Navigate to="/login" replace />
             )
           }
+        />
+        <Route
+          path="/try"
+          element={token ? <TryIt /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/problems/:id"

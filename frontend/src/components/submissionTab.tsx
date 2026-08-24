@@ -77,12 +77,24 @@ export default function SubmissionsTab() {
       </p>
       <div className="flex flex-wrap justify-center gap-6 lg:justify-start">
         {submissions.map((submission: any) => (
-          <AnimatedCard
-            key={submission._id}
-            title={selectedProblem?.title || "Untitled Problem"}
-            code={submission.code}
-            to={`/nft/${submission._id}`}
-          />
+          <div key={submission._id} className="flex flex-col items-center gap-1.5">
+            <AnimatedCard
+              title={selectedProblem?.title || "Untitled Problem"}
+              code={submission.code}
+              to={`/nft/${submission._id}`}
+            />
+            {submission.mintTxHash && (
+              <a
+                href={`https://sepolia.etherscan.io/tx/${submission.mintTxHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-[10px] text-[#e8c664] hover:underline"
+              >
+                View on Etherscan
+              </a>
+            )}
+          </div>
         ))}
       </div>
     </div>

@@ -18,9 +18,13 @@ async function mintNFT(submissionId: string) {
         "Content-Type": "application/json",
         Authorization: `${token}`,
       },
-      // the mint is an on-chain tx wait — without a timeout, a dead RPC node
-      // hangs this request (and the "Minting…" UI) forever with no feedback
-      timeout: 20_000,
+      // the mint is a real on-chain confirmation wait (observed ~23s on
+      // Sepolia under normal load, but testnets stall under congestion) —
+      // give it real room rather than falsely reporting failure on a mint
+      // that's actually still going to succeed. The UI shows a "taking a
+      // while" notice well before this fires, so the user isn't just staring
+      // at a spinner for up to 5 minutes with no feedback.
+      timeout: 5 * 60_000,
     }
   );
   return mint;
@@ -109,6 +113,7 @@ export async function submitCode(
       const submissionId = saveSubmissionResponse.data.submissionId;
 
       onPhaseChange?.("minting");
+      let mintTxHash: string | undefined;
       try {
         const mint = await mintNFT(submissionId);
         if (mint.status !== 201) {
@@ -116,20 +121,33 @@ export async function submitCode(
             error: "Your solution passed and was saved, but minting the certificate failed.",
           };
         }
+        mintTxHash = mint.data.mintTxHash;
       } catch (mintError: any) {
-        const reason =
-          mintError.code === "ECONNABORTED"
-            ? "the certificate network timed out"
-            : "the certificate network is unavailable";
         console.error("Error minting NFT:", mintError.message);
+        // the backend now always answers (even on a chain-level error), so a
+        // real response here means minting genuinely failed — say so plainly.
+        // A client-side timeout with no response is different: the mint may
+        // still be confirming on-chain and could still succeed, so don't
+        // assert it failed — check My NFTs is the honest answer.
+        if (mintError.response?.data?.error) {
+          return {
+            error: `Your solution passed and was saved, but minting failed: ${mintError.response.data.error}`,
+          };
+        }
         return {
-          error: `Your solution passed and was saved, but ${reason}, so it didn't mint.`,
+          error:
+            "Your solution passed and was saved, but minting is taking longer than expected. Check My NFTs in a moment — it may still complete.",
         };
       }
 
-      return { results, allTestsPassed, submissionId };
+      return { results, allTestsPassed, submissionId, mintTxHash };
     } else {
-      return { error: "All testcases not passed" };
+      const passedCount = results.filter((r) => r.status.id === 3).length;
+      return {
+        results,
+        allTestsPassed,
+        error: `${passedCount}/${results.length} test cases passed — fix the failing ones and resubmit.`,
+      };
     }
   } catch (error: any) {
     if (error.response && error.response.status === 400) {
