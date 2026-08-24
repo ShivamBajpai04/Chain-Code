@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 const DEMO_WALLET = "0x70F480b7EbC27e8CE127B910Ce89035B8fE50EB5";
+const truncateAddress = (addr: string) => `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 
@@ -36,6 +37,7 @@ export default function Signup({ onSignup }: SignupProps) {
   const [walletAddress, setWalletAddress] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [touchedSubmit, setTouchedSubmit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
@@ -66,12 +68,16 @@ export default function Signup({ onSignup }: SignupProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouchedSubmit(true);
+    if (isSubmitting) return;
     if (!canSubmit) return;
     try {
       setServerError(null);
+      setIsSubmitting(true);
       await onSignup(username.trim(), email, password, walletAddress);
     } catch (err: any) {
       setServerError(err?.message || "Signup failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -113,7 +119,7 @@ export default function Signup({ onSignup }: SignupProps) {
 
       <div className="container relative z-10 flex min-h-screen items-center justify-center px-4 pb-16 pt-28">
         <motion.div
-          className="w-full max-w-md rounded-xl border border-white/[0.09] bg-[#f5f1e8] p-8 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.7)]"
+          className="w-full max-w-lg rounded-xl border border-white/[0.09] bg-[#f5f1e8] p-8 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.7)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
@@ -311,27 +317,24 @@ export default function Signup({ onSignup }: SignupProps) {
                   <p className="text-[10px] uppercase tracking-[0.15em] text-[#14102e]/45">
                     Don't have a wallet? Use the demo address
                   </p>
-                  <p className="font-mono text-xs text-[#14102e]/80">{DEMO_WALLET}</p>
+                  <p className="font-mono text-xs text-[#14102e]/80" title={DEMO_WALLET}>
+                    {truncateAddress(DEMO_WALLET)}
+                  </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-1.5">
                   <button
                     type="button"
                     onClick={() => {
                       navigator.clipboard.writeText(DEMO_WALLET);
+                      setWalletAddress(DEMO_WALLET);
                       setCopied(true);
                       setTimeout(() => setCopied(false), 1500);
                     }}
-                    title="Copy to clipboard"
-                    className="rounded-md p-1.5 text-[#14102e]/50 transition-colors duration-200 hover:bg-[#14102e]/10 hover:text-[#14102e]"
+                    title="Copy and fill"
+                    className="flex items-center gap-1.5 rounded-md bg-[#14102e]/10 px-2.5 py-1.5 text-xs font-medium text-[#14102e]/80 transition-colors duration-200 hover:bg-[#14102e]/15"
                   >
                     {copied ? <Check className="h-3.5 w-3.5 text-[#2e7d32]" /> : <Copy className="h-3.5 w-3.5" />}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setWalletAddress(DEMO_WALLET)}
-                    className="rounded-md bg-[#14102e]/10 px-2.5 py-1.5 text-xs font-medium text-[#14102e]/80 transition-colors duration-200 hover:bg-[#14102e]/15"
-                  >
-                    Use this
+                    {copied ? "Copied" : "Use this"}
                   </button>
                 </div>
               </div>
@@ -344,7 +347,7 @@ export default function Signup({ onSignup }: SignupProps) {
                   placeholder="0x…"
                   value={walletAddress}
                   onChange={(e) => setWalletAddress(e.target.value)}
-                  className={`${field} pl-10 pr-10 font-mono text-xs ${stateBorder(walletValid, walletAddress.length > 0)}`}
+                  className={`${field} pl-8 pr-8 font-mono !text-[9px] tracking-tighter sm:pl-9 sm:pr-9 sm:!text-[11px] sm:tracking-tight ${stateBorder(walletValid, walletAddress.length > 0)}`}
                 />
                 {walletAddress.length > 0 && (
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2">
@@ -367,12 +370,12 @@ export default function Signup({ onSignup }: SignupProps) {
             {/* submit — explains itself when blocked */}
             <button
               type="submit"
-              disabled={!canSubmit}
+              disabled={!canSubmit || isSubmitting}
               onMouseEnter={() => setTouchedSubmit(true)}
               className="relative w-full overflow-hidden rounded-lg bg-gradient-to-b from-[#ecc76a] to-[#c89d4a] py-3 text-sm font-semibold text-[#14102e] shadow-[0_8px_22px_-6px_rgba(200,157,74,0.55)] transition-all duration-200 enabled:hover:-translate-y-px enabled:hover:shadow-[0_12px_28px_-6px_rgba(200,157,74,0.65)] disabled:cursor-not-allowed disabled:opacity-45"
             >
               <span className="absolute inset-x-0 top-0 h-px bg-white/40" />
-              Create account
+              {isSubmitting ? "Creating account…" : "Create account"}
             </button>
             {!canSubmit && touchedSubmit && (
               <motion.p

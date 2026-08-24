@@ -1,10 +1,10 @@
 import Problem from "../models/Problem.js";
 
 export const createProblem = async (req, res) => {
-  const { title, description, difficulty, testcases } = req.body;
+  const { title, description, difficulty, topics, testcases } = req.body;
 
   try {
-    const problem = new Problem({ title, description, difficulty, testcases });
+    const problem = new Problem({ title, description, difficulty, topics, testcases });
     await problem.save();
     res.json(problem);
   } catch (err) {
@@ -23,7 +23,9 @@ export const getAllProblems = async (req, res) => {
 
 export const getProblemById = async (req, res) => {
   try {
-    const problem = await Problem.findById(req.params.id);
+    // judging is server-side now; expected outputs (and inputs) are none of
+    // the browser's business — shipping them let users print the answer
+    const problem = await Problem.findById(req.params.id).select("-testcases");
     if (!problem) return res.status(404).json({ msg: "Problem not found" });
     res.json(problem);
   } catch (err) {
@@ -32,7 +34,7 @@ export const getProblemById = async (req, res) => {
 };
 
 export const updateProblem = async (req, res) => {
-  const { title, description, testcases } = req.body;
+  const { title, description, difficulty, topics, testcases } = req.body;
 
   try {
     let problem = await Problem.findById(req.params.id);
@@ -40,6 +42,8 @@ export const updateProblem = async (req, res) => {
 
     problem.title = title;
     problem.description = description;
+    problem.difficulty = difficulty;
+    problem.topics = topics;
     problem.testcases = testcases;
 
     await problem.save();

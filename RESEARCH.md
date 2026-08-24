@@ -243,8 +243,20 @@ Implementation notes:
 
 ## Immediate action items
 
-1. [ ] Move Judge0 calls server-side; remove `VITE_JUDGE0_API_KEY` from `.env` and the bundle
-2. [ ] Add provider interface for execution + LLM with a fallback chain
+1. [x] Move Judge0 calls server-side; remove `VITE_JUDGE0_API_KEY` from `.env` and the bundle
+   - DONE 2026-08-24: new `POST /execute/:problemId` route (`backend/routes/execute.js`) with `ExecutionProvider`
+     service (`backend/services/execution/index.js`) supporting `rapidapi` (batch create + batched polling,
+     ~2+N requests per submit regardless of testcase count) and `selfhosted` (single `wait=true` batch call;
+     set `EXECUTION_PROVIDER=selfhosted` + `SELFHOSTED_JUDGE0_URL` + `JUDGE0_AUTHN_TOKEN`). Key moved to
+     backend `.env` as `RAPIDAPI_KEY`; frontend key commented out. Language ids validated server-side
+     (63/71/62/105 only); per-user rate limit via `EXECUTE_RATE_LIMIT` (default 20/min).
+   - Cheat vector closed: expected outputs were previously shipped to the browser by `GET /problems/:id`
+     (anyone could read them from DevTools). Now testcases are stripped from that endpoint entirely and
+     judging happens behind auth.
+   - Gotchas hit during live testing: RapidAPI wraps batch GET as `{submissions:[...]}` (self-hosted returns
+     a bare array) and omits flat `status_id` on some plans (only nested `status.id`) — both handled.
+2. [ ] Add provider interface for execution + LLM with a fallback chain — LLM side done (`uniqueSubmissionCheck.js`);
+   execution side now has the interface too (rapidapi/selfhosted), but no automatic failover between them yet
 3. [ ] Add deterministic normalize-and-hash pre-filter before the LLM check
 4. [ ] Decide fail-open/fail-closed policy for the originality gate
 
@@ -314,10 +326,28 @@ Env vars to set in the Vercel dashboard:
 - backend service: `MONGO_URI`, `JWT_SECRET`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`, `GROQ_API_KEY`, `ZAI_API_KEY`, `API`, `CONTRACT_ADDRESS`, `PRIVATE_KEY`, `GOV_CONTRACT_ADDRESS`, `VOTING_CONTRACT_ADDRESS`
   - Do NOT set `PORT` (Vercel injects its own)
   - Do NOT put `.env` values in git
-- frontend service: `VITE_DOMAIN=https://<backend-service-url>` (e.g. `https://chain-code-backend.vercel.app`), plus existing `VITE_JUDGE0_API_KEY`, `VITE_JUDGE0_HOST`
+- frontend service: `VITE_DOMAIN=https://<backend-service-url>/api` (e.g. `https://chain-code-backend.vercel.app/api`) — Judge0 vars NOT needed anymore; the backend service instead needs `EXECUTION_PROVIDER`, `RAPIDAPI_KEY`, `RAPIDAPI_HOST` (or `SELFHOSTED_JUDGE0_URL` + `JUDGE0_AUTHN_TOKEN` once the VPS exists)
 
 Known caveats:
-1. Judge0 is still called from the browser with a RapidAPI key in the bundle — move to backend before any public launch
+1. ~~Judge0 is still called from the browser~~ — done, see "Judge0 scaling research" below. This item is stale, kept only for history.
 2. Serverless cold starts: first API hit after inactivity takes ~2–5s (Mongo connect); subsequent hits are fast
 3. `dns.setServers(["8.8.8.8"])` kept — harmless on Vercel, needed locally for Atlas SRV resolution
 4. If the `/api` rewrite path is used instead of the service URL, mount routes under `/api` or set `VITE_DOMAIN` to "" and change rewrites so `/auth`, `/problems` etc. route to the backend too
+
+---
+
+## Judge0 scaling research (2026-08-24)
+
+Judge0 calls are already server-side (`backend/services/execution/index.js`, `EXECUTION_PROVIDER=rapidapi|selfhosted`) — the leak is fixed. What's still unscaled is the *provider* underneath: with `EXECUTION_PROVIDER=rapidapi` (the default), every submission still burns one RapidAPI quota slot, and that quota is the real ceiling now.
+
+### Confirmed live (this session)
+
+- **RapidAPI free/basic plan**: ~50 requests/day historically cited and still the commonly-referenced figure; RapidAPI's own pricing page didn't expose exact numbers to a fetch, so treat this as "verify in your RapidAPI dashboard before relying on it."
+- **RapidAPI paid tiers** (judge0.com's official cloud pricing, confirmed live): Pro €27/mo = 2,000 submissions/day, Ultra €54/mo = 5,000/day, Mega €107/mo = 10,000/day, then €0.001/submission overage on all tiers.
+- **Self-hosting**: Judge0 CE is MIT-licensed, free, no per-execution fee ever. `EXECUTION_PROVIDER=selfhosted` + `SELFHOSTED_JUDGE0_URL` already exists in the codebase — this is a config flip, not new code, once a VPS is running the official `docker-compose`. Reported self-hosted latency is sub-50ms vs 200–500ms for the cloud API, on top of having no quota at all.
+- **Piston correction**: earlier research (Part 1 above) listed Piston's public instance as a free-forever fallback. That's now wrong — as of Feb 2026 Piston's public API requires requesting access from the maintainer on Discord, non-commercial/low-volume use only, no longer open. Cross it off as a fallback unless self-hosting Piston too.
+- **AI-agent sandboxes (E2B, Modal, Daytona, Freestyle)** are not a fit here — they're built for running arbitrary agent-generated code with inspectable workspaces, not for judging N test cases per submission with pass/fail verdicts. Judge0's batch-submission model is the right shape for this app; the fix is scaling *it*, not replacing it.
+
+### Recommendation
+
+The free RapidAPI tier is fine for solo dev/demo traffic. The moment this gets real users, the fix already exists in the code (`EXECUTION_PROVIDER=selfhosted`) — it just needs a ~$5–10/mo VPS running Judge0's official docker-compose, which was already scoped in Part 1 of this doc. No new engineering, just infra.

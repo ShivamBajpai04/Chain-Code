@@ -12,7 +12,7 @@ import ProblemsListPage from "./components/pages/problemsList";
 import TryIt from "./components/pages/tryIt";
 import LandingPage2 from "./components/pages/landingPage2";
 import NFTPage from "./components/pages/nftpage";
-import axios from "axios";
+import api from "./utils/api";
 import { DNFT } from "./components/pages/dnft";
 import { PollList } from "./components/PollList";
 import { PollVoting } from "./components/PollVoting";
@@ -20,7 +20,7 @@ import { useAuthToken, setAuthToken } from "./utils/auth";
 
 function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#14102e] text-[#f5f1e8]">
+    <div className="app-ledger-grid flex min-h-screen flex-col items-center justify-center text-[#f5f1e8]">
       <p className="f-mono text-[11px] uppercase tracking-[0.25em] text-[#d4a017]">
         404
       </p>
@@ -42,13 +42,10 @@ function App() {
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_DOMAIN + "/auth/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = await api.post("/auth/login", {
+        email: email,
+        password: password,
+      });
 
       const data = response.data;
 
@@ -70,29 +67,23 @@ function App() {
     walletAddress: string
   ) => {
     try {
-      const response = await fetch(
-        import.meta.env.VITE_DOMAIN + "/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, email, password, walletAddress }),
-        }
-      );
+      const response = await api.post("/auth/register", {
+        username,
+        email,
+        password,
+        walletAddress,
+      });
 
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        // surface the server's reason to the form
-        throw new Error(data.msg || "Signup failed. Please try again.");
-      }
+      const data = response.data;
 
       setAuthToken(data.token);
       return true; // Indicate successful signup
     } catch (error: any) {
       console.error("Signup error:", error);
-      throw new Error(error?.message || "Signup failed. Please try again.");
+      // surface the server's reason to the form
+      throw new Error(
+        error?.response?.data?.msg || "Signup failed. Please try again."
+      );
     }
   };
 
@@ -161,8 +152,12 @@ function App() {
           element={token ? <NFTPage onLogout={handleLogout} /> : <Navigate to="/login" replace />}
         />
         {/* NFT certificate detail — moved off the /:id catch-all so unknown
-            single-segment URLs get a real 404 instead of a broken NFT fetch */}
-        <Route path="/nft/:id" element={<DNFT />} />
+            single-segment URLs get a real 404 instead of a broken NFT fetch.
+            Guarded like every other data page: it fetches submission content. */}
+        <Route
+          path="/nft/:id"
+          element={token ? <DNFT /> : <Navigate to="/login" replace />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

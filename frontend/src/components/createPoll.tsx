@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import axios from "axios";
+import api from "@/utils/api";
 import { toast } from "@/hooks/use-toast";
 
 export function CreatePoll() {
@@ -27,13 +27,10 @@ export function CreatePoll() {
     setIsSubmitting(true);
     // Simulating API call to create a new poll
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_DOMAIN + "/vote/propose",
-        {
-          title,
-          description,
-        }
-      );
+      const response = await api.post("/vote/propose", {
+        title,
+        description,
+      });
       setIsSubmitting(false);
       toast({
         title: "Poll created successfully",

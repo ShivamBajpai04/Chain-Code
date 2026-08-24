@@ -33,5 +33,8 @@ const submissionSchema = new mongoose.Schema({
 
 // Only documents carrying expiresAt are purged (at that instant); all others persist
 submissionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+// hot paths: submissions by user (newest first) and by problem
+submissionSchema.index({ user: 1, createdAt: -1 });
+submissionSchema.index({ problem: 1 });
 
 export default mongoose.model('Submission', submissionSchema);

@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">ChainCode two-tone component color options</title>
+  <desc id="desc">Eight placements of ChainCode indigo and gold inside the selected interlocking-C mark.</desc>
+  <defs>
+    <filter id="invert" color-interpolation-filters="sRGB">
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="-1" intercept="1"/>
+        <feFuncG type="linear" slope="-1" intercept="1"/>
+        <feFuncB type="linear" slope="-1" intercept="1"/>
+      </feComponentTransfer>
+    </filter>
+    <mask id="mark-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000" style="mask-type:luminance">
+      <rect width="1000" height="1000" fill="#000000"/>
+      <image width="1000" height="1000" href="logo-colorways/selected-mark-source.png" filter="url(#invert)"/>
+    </mask>
+
+    <symbol id="v1" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="500" height="1000" fill="#14102E"/>
+        <rect x="500" width="500" height="1000" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="v2" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="500" height="1000" fill="#D4A017"/>
+        <rect x="500" width="500" height="1000" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="v3" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="1000" height="500" fill="#14102E"/>
+        <rect y="500" width="1000" height="500" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="v4" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="1000" height="500" fill="#D4A017"/>
+        <rect y="500" width="1000" height="500" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="v5" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="1000" height="1000" fill="#D4A017"/>
+        <path d="M0 0H500V500H0ZM500 500H1000V1000H500Z" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="v6" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="1000" height="1000" fill="#14102E"/>
+        <path d="M0 0H500V500H0ZM500 500H1000V1000H500Z" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="v7" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="1000" height="1000" fill="#14102E"/>
+        <rect x="340" width="320" height="1000" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="v8" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect width="1000" height="1000" fill="#D4A017"/>
+        <rect x="340" width="320" height="1000" fill="#14102E"/>
+      </g>
+    </symbol>
+
+    <style>
+      .kicker { font: 800 14px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: .18em; }
+      .heading { font: 750 34px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.025em; }
+      .sub { font: 450 15px Inter, ui-sans-serif, system-ui, sans-serif; }
+      .number { font: 800 14px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; }
+      .name { font: 700 18px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.01em; }
+      .meta { font: 650 11px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .03em; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="900" fill="#080A12"/>
+  <text x="48" y="42" class="kicker" fill="#D4A017">CHAINCODE / COMPONENT STUDY</text>
+  <text x="48" y="83" class="heading" fill="#F5F1E8">Blue + yellow inside the mark</text>
+  <text x="48" y="111" class="sub" fill="#9CA2B4">Same silhouette in every option · indigo #14102E · gold #D4A017</text>
+
+  <!-- Row 1 -->
+  <g transform="translate(48 145)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">01</text>
+    <text x="62" y="32" class="name" fill="#14102E">Left / Right</text>
+    <use href="#v1" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">BLUE LEFT  ·  GOLD RIGHT</text>
+  </g>
+  <g transform="translate(379 145)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">02</text>
+    <text x="62" y="32" class="name" fill="#14102E">Right / Left</text>
+    <use href="#v2" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">GOLD LEFT  ·  BLUE RIGHT</text>
+  </g>
+  <g transform="translate(710 145)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">03</text>
+    <text x="62" y="32" class="name" fill="#14102E">Top / Bottom</text>
+    <use href="#v3" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">BLUE TOP  ·  GOLD BOTTOM</text>
+  </g>
+  <g transform="translate(1041 145)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">04</text>
+    <text x="62" y="32" class="name" fill="#14102E">Bottom / Top</text>
+    <use href="#v4" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">GOLD TOP  ·  BLUE BOTTOM</text>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(48 486)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">05</text>
+    <text x="62" y="32" class="name" fill="#14102E">Diagonal Link</text>
+    <use href="#v5" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">BLUE ↘  ·  GOLD ↗</text>
+  </g>
+  <g transform="translate(379 486)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">06</text>
+    <text x="62" y="32" class="name" fill="#14102E">Diagonal Reverse</text>
+    <use href="#v6" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">GOLD ↘  ·  BLUE ↗</text>
+  </g>
+  <g transform="translate(710 486)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">07</text>
+    <text x="62" y="32" class="name" fill="#14102E">Gold Core</text>
+    <use href="#v7" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">BLUE BODY  ·  GOLD CORE</text>
+  </g>
+  <g transform="translate(1041 486)">
+    <rect width="310" height="320" rx="24" fill="#F5F1E8"/>
+    <text x="22" y="32" class="number" fill="#D4A017">08</text>
+    <text x="62" y="32" class="name" fill="#14102E">Blue Core</text>
+    <use href="#v8" x="35" y="47" width="240" height="240"/>
+    <text x="22" y="301" class="meta" fill="#14102E">GOLD BODY  ·  BLUE CORE</text>
+  </g>
+
+  <text x="48" y="858" class="sub" fill="#777E91">Pick a number; the selected layout will be rebuilt as a clean two-path vector for the final favicon and header mark.</text>
+</svg>

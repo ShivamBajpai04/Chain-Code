@@ -49,11 +49,19 @@ export default function Header({ onLogout }: { onLogout?: () => void }) {
         <div className="flex items-center gap-8 md:gap-10">
           <Link
             to="/"
-            className="f-display text-lg font-bold tracking-tight text-[#f5f1e8] sm:text-xl"
+            className="f-display inline-flex items-center gap-2.5 text-lg font-bold tracking-tight text-[#f5f1e8] sm:text-xl"
             aria-label="ChainCode Home"
             onClick={() => setOpen(false)}
           >
-            ChainCode
+            <span className="inline-flex shrink-0 rounded-[10px] border border-[#d4a017]/70 p-px">
+              <img
+                src="/logo.svg"
+                alt=""
+                aria-hidden="true"
+                className="h-9 w-9 rounded-[9px]"
+              />
+            </span>
+            <span>ChainCode</span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex" aria-label="Main Navigation">
             {links.map((link) => (
@@ -86,14 +94,7 @@ export default function Header({ onLogout }: { onLogout?: () => void }) {
             </Link>
           )}
 
-          {token ? (
-            <Link
-              to="/problems"
-              className="whitespace-nowrap rounded-md bg-gradient-to-b from-[#ecc76a] to-[#c89d4a] px-3.5 py-2 text-xs font-semibold text-[#14102e] transition-all duration-200 hover:-translate-y-px hover:shadow-[0_8px_22px_-6px_rgba(200,157,74,0.55)] sm:px-5 sm:text-sm"
-            >
-              Solve now
-            </Link>
-          ) : (
+          {!token && (
             <Link
               to="/signup"
               className="whitespace-nowrap rounded-md bg-gradient-to-b from-[#ecc76a] to-[#c89d4a] px-3.5 py-2 text-xs font-semibold text-[#14102e] transition-all duration-200 hover:-translate-y-px hover:shadow-[0_8px_22px_-6px_rgba(200,157,74,0.55)] sm:px-5 sm:text-sm"

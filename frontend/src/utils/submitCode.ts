@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./api";
 
 function formatCode(input: string) {
   let formattedCode = input.replace(/\\n/g, "\n");
@@ -8,16 +8,10 @@ function formatCode(input: string) {
 }
 
 async function mintNFT(submissionId: string) {
-  const token = window.localStorage.getItem("token");
-
-  const mint = await axios.post(
-    `${import.meta.env.VITE_DOMAIN}/nft/mint/${submissionId}`,
+  const mint = await api.post(
+    `/nft/mint/${submissionId}`,
     {},
     {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${token}`,
-      },
       // the mint is a real on-chain confirmation wait (observed ~23s on
       // Sepolia under normal load, but testnets stall under congestion) —
       // give it real room rather than falsely reporting failure on a mint
@@ -30,54 +24,40 @@ async function mintNFT(submissionId: string) {
   return mint;
 }
 
+// Judging happens entirely server-side now: the backend owns the test cases
+// (expected outputs are never sent to the browser) and talks to Judge0 via a
+// configurable execution provider. The browser just posts code and gets
+// per-testcase verdicts back.
+export interface JudgeResult {
+  status: { id: number; description?: string };
+  stdout: string | null;
+  stderr: string | null;
+  compile_output: string | null;
+  time: number | null;
+  memory: number | null;
+}
+
 async function judge(problemId: string | undefined, language: number, code: string) {
-  const testCasesResponse = await axios.get(
-    `${import.meta.env.VITE_DOMAIN}/problems/${problemId}`
-  );
-  const testCases = testCasesResponse.data.testcases;
-
-  const results = await Promise.all(
-    testCases.map(async (testCase: any) => {
-      const response = await axios.post(
-        "https://judge0-ce.p.rapidapi.com/submissions",
-        {
-          language_id: language,
-          source_code: formatCode(code),
-          stdin: testCase.input,
-          expected_output: testCase.output,
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-            "X-RapidAPI-Key": import.meta.env.VITE_JUDGE0_API_KEY,
-            "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-          },
-        }
-      );
-
-      const Judgetoken = response.data.token;
-      return await pollForResult(Judgetoken);
-    })
+  const response = await api.post(
+    `/execute/${problemId}`,
+    { code: formatCode(code), language },
+    {
+      // batched judging of every test case plus originality check downstream;
+      // give the whole pipeline room instead of failing on a slow poll cycle
+      timeout: 3 * 60_000,
+    }
   );
 
-  return results;
+  return response.data.results as JudgeResult[];
 }
 
 async function addToDB(problemId: string | undefined, code: string, language: number) {
-  const token = window.localStorage.getItem("token");
-
-  const saveSubmissionResponse = await axios.post(
-    import.meta.env.VITE_DOMAIN + "/submissions/submit",
+  const saveSubmissionResponse = await api.post(
+    "/submissions/submit",
     {
       problemId: problemId,
       code: formatCode(code),
       language: language.toString(),
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${token}`,
-      },
     }
   );
   return saveSubmissionResponse;
@@ -89,7 +69,10 @@ export async function submitCode(
   selectedProblem: any,
   language: number,
   code: string,
-  onPhaseChange?: (phase: SubmitPhase) => void
+  onPhaseChange?: (phase: SubmitPhase) => void,
+  // awaited right before the irreversible on-chain mint; returning false
+  // cancels (the submission itself is already saved)
+  confirmMint?: () => Promise<boolean>
 ) {
   try {
     onPhaseChange?.("judging");
@@ -111,6 +94,17 @@ export async function submitCode(
         return { error: "Failed to save submission" };
       }
       const submissionId = saveSubmissionResponse.data.submissionId;
+
+      if (confirmMint) {
+        const confirmed = await confirmMint();
+        if (!confirmed) {
+          return {
+            cancelled: true,
+            error:
+              "Mint cancelled. Your solution was saved — you can still view it, but no certificate was created.",
+          };
+        }
+      }
 
       onPhaseChange?.("minting");
       let mintTxHash: string | undefined;
@@ -151,46 +145,15 @@ export async function submitCode(
     }
   } catch (error: any) {
     if (error.response && error.response.status === 400) {
-      return { error: "Your Solution is not unique" };
+      // surface the server's actual reason (uniqueness, rate limit,
+      // validation…) instead of assuming every 400 means "not unique"
+      const serverMsg =
+        error.response?.data?.message ||
+        error.response?.data?.msg ||
+        error.response?.data?.error;
+      return { error: serverMsg || "The server rejected this submission." };
     }
     console.error("Error submitting code:", error.message);
     return { error: "An error occurred while submitting your code." };
   }
-}
-
-async function pollForResult(Judgetoken: string) {
-  let result;
-  let attempts = 0;
-  const maxAttempts = 10;
-  const delay = 2000; // 2 seconds
-
-  while (attempts < maxAttempts) {
-    const response = await axios.get(
-      `https://judge0-ce.p.rapidapi.com/submissions/${Judgetoken}`,
-      {
-        headers: {
-          "X-RapidAPI-Key": import.meta.env.VITE_JUDGE0_API_KEY,
-          "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        },
-      }
-    );
-
-    result = response.data;
-
-    if (result.status.id >= 3) {
-      return {
-        status: result.status,
-        stdout: result.stdout ? result.stdout : null,
-        stderr: result.stderr ? result.stderr : null,
-        compile_output: result.compile_output ? result.compile_output : null,
-        time: result.time,
-        memory: result.memory,
-      };
-    }
-
-    attempts++;
-    await new Promise((resolve) => setTimeout(resolve, delay));
-  }
-
-  throw new Error("Polling timed out");
 }

@@ -1,0 +1,1119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1740" viewBox="0 0 1600 1740" role="img" aria-labelledby="title desc">
+  <title id="title">ChainCode six-component blue and yellow mixes</title>
+  <desc id="desc">All 64 assignments of ChainCode indigo and gold across the six visible components of the selected mark.</desc>
+  <defs>
+    <filter id="invert" color-interpolation-filters="sRGB">
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="-1" intercept="1"/>
+        <feFuncG type="linear" slope="-1" intercept="1"/>
+        <feFuncB type="linear" slope="-1" intercept="1"/>
+      </feComponentTransfer>
+    </filter>
+    <mask id="mark-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000" style="mask-type:luminance">
+      <rect width="1000" height="1000" fill="#000000"/>
+      <image width="1000" height="1000" href="logo-colorways/selected-mark-source.png" filter="url(#invert)"/>
+    </mask>
+    <style>
+      .kicker { font: 800 14px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: .18em; }
+      .heading { font: 750 34px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.025em; }
+      .sub { font: 450 15px Inter, ui-sans-serif, system-ui, sans-serif; }
+      .num { font: 800 12px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .06em; }
+      .code { font: 750 13px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; }
+      .tag { font: 750 8px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; }
+    </style>
+    <symbol id="m01" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m02" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m03" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m04" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m05" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m06" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m07" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m08" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m09" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m10" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m11" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m12" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m13" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m14" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m15" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m16" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m17" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m18" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m19" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m20" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m21" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m22" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m23" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m24" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m25" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m26" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m27" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m28" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m29" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m30" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m31" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m32" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m33" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m34" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m35" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m36" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m37" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m38" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m39" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m40" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m41" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m42" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m43" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m44" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m45" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m46" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m47" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m48" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#14102E"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m49" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m50" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m51" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m52" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m53" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m54" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m55" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m56" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m57" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m58" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m59" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m60" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#14102E"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m61" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m62" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#14102E"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+    <symbol id="m63" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#14102E"/>
+      </g>
+    </symbol>
+    <symbol id="m64" viewBox="0 0 1000 1000">
+      <g mask="url(#mark-mask)">
+        <rect x="0" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="500" y="0" width="500" height="400" fill="#D4A017"/>
+        <rect x="0" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="500" y="400" width="500" height="270" fill="#D4A017"/>
+        <rect x="0" y="670" width="500" height="330" fill="#D4A017"/>
+        <rect x="500" y="670" width="500" height="330" fill="#D4A017"/>
+      </g>
+    </symbol>
+  </defs>
+  <rect width="1600" height="1740" fill="#080A12"/>
+  <text x="33" y="40" class="kicker" fill="#D4A017">CHAINCODE / SIX-COMPONENT MIXER</text>
+  <text x="33" y="81" class="heading" fill="#F5F1E8">Every blue + yellow combination</text>
+  <text x="33" y="110" class="sub" fill="#9CA2B4">64 assignments · B = indigo #14102E · Y = gold #D4A017</text>
+  <text x="33" y="134" class="sub" fill="#9CA2B4">Code order: top-left, top-right · middle-left, middle-right · bottom-left, bottom-right</text>
+  <g transform="translate(33 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">01</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBBBB</text>
+    <use href="#m01" x="27" y="34" width="124" height="124"/>
+    <text x="89" y="165" text-anchor="middle" class="tag" fill="#14102E">MONO CONTROL</text>
+  </g>
+  <g transform="translate(225 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">02</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBBBY</text>
+    <use href="#m02" x="27" y="34" width="124" height="124"/>
+    <use href="#m02" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">03</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBBYB</text>
+    <use href="#m03" x="27" y="34" width="124" height="124"/>
+    <use href="#m03" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">04</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBBYY</text>
+    <use href="#m04" x="27" y="34" width="124" height="124"/>
+    <use href="#m04" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">05</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBYBB</text>
+    <use href="#m05" x="27" y="34" width="124" height="124"/>
+    <use href="#m05" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">06</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBYBY</text>
+    <use href="#m06" x="27" y="34" width="124" height="124"/>
+    <use href="#m06" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">07</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBYYB</text>
+    <use href="#m07" x="27" y="34" width="124" height="124"/>
+    <use href="#m07" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 154)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">08</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBBYYY</text>
+    <use href="#m08" x="27" y="34" width="124" height="124"/>
+    <use href="#m08" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(33 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">09</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYBBB</text>
+    <use href="#m09" x="27" y="34" width="124" height="124"/>
+    <use href="#m09" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(225 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">10</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYBBY</text>
+    <use href="#m10" x="27" y="34" width="124" height="124"/>
+    <use href="#m10" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">11</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYBYB</text>
+    <use href="#m11" x="27" y="34" width="124" height="124"/>
+    <use href="#m11" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">12</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYBYY</text>
+    <use href="#m12" x="27" y="34" width="124" height="124"/>
+    <use href="#m12" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">13</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYYBB</text>
+    <use href="#m13" x="27" y="34" width="124" height="124"/>
+    <use href="#m13" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">14</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYYBY</text>
+    <use href="#m14" x="27" y="34" width="124" height="124"/>
+    <use href="#m14" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">15</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYYYB</text>
+    <use href="#m15" x="27" y="34" width="124" height="124"/>
+    <use href="#m15" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 346)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">16</text>
+    <text x="46" y="25" class="code" fill="#14102E">BBYYYY</text>
+    <use href="#m16" x="27" y="34" width="124" height="124"/>
+    <use href="#m16" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(33 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">17</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBBBB</text>
+    <use href="#m17" x="27" y="34" width="124" height="124"/>
+    <use href="#m17" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(225 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">18</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBBBY</text>
+    <use href="#m18" x="27" y="34" width="124" height="124"/>
+    <use href="#m18" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">19</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBBYB</text>
+    <use href="#m19" x="27" y="34" width="124" height="124"/>
+    <use href="#m19" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">20</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBBYY</text>
+    <use href="#m20" x="27" y="34" width="124" height="124"/>
+    <use href="#m20" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">21</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBYBB</text>
+    <use href="#m21" x="27" y="34" width="124" height="124"/>
+    <use href="#m21" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">22</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBYBY</text>
+    <use href="#m22" x="27" y="34" width="124" height="124"/>
+    <use href="#m22" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">23</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBYYB</text>
+    <use href="#m23" x="27" y="34" width="124" height="124"/>
+    <use href="#m23" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 538)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">24</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYBYYY</text>
+    <use href="#m24" x="27" y="34" width="124" height="124"/>
+    <use href="#m24" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(33 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">25</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYBBB</text>
+    <use href="#m25" x="27" y="34" width="124" height="124"/>
+    <use href="#m25" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(225 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">26</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYBBY</text>
+    <use href="#m26" x="27" y="34" width="124" height="124"/>
+    <use href="#m26" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">27</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYBYB</text>
+    <use href="#m27" x="27" y="34" width="124" height="124"/>
+    <use href="#m27" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">28</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYBYY</text>
+    <use href="#m28" x="27" y="34" width="124" height="124"/>
+    <use href="#m28" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">29</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYYBB</text>
+    <use href="#m29" x="27" y="34" width="124" height="124"/>
+    <use href="#m29" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">30</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYYBY</text>
+    <use href="#m30" x="27" y="34" width="124" height="124"/>
+    <use href="#m30" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">31</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYYYB</text>
+    <use href="#m31" x="27" y="34" width="124" height="124"/>
+    <use href="#m31" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 730)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">32</text>
+    <text x="46" y="25" class="code" fill="#14102E">BYYYYY</text>
+    <use href="#m32" x="27" y="34" width="124" height="124"/>
+    <use href="#m32" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(33 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">33</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBBBB</text>
+    <use href="#m33" x="27" y="34" width="124" height="124"/>
+    <use href="#m33" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(225 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">34</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBBBY</text>
+    <use href="#m34" x="27" y="34" width="124" height="124"/>
+    <use href="#m34" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">35</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBBYB</text>
+    <use href="#m35" x="27" y="34" width="124" height="124"/>
+    <use href="#m35" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">36</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBBYY</text>
+    <use href="#m36" x="27" y="34" width="124" height="124"/>
+    <use href="#m36" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">37</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBYBB</text>
+    <use href="#m37" x="27" y="34" width="124" height="124"/>
+    <use href="#m37" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">38</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBYBY</text>
+    <use href="#m38" x="27" y="34" width="124" height="124"/>
+    <use href="#m38" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">39</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBYYB</text>
+    <use href="#m39" x="27" y="34" width="124" height="124"/>
+    <use href="#m39" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 922)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">40</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBBYYY</text>
+    <use href="#m40" x="27" y="34" width="124" height="124"/>
+    <use href="#m40" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(33 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">41</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYBBB</text>
+    <use href="#m41" x="27" y="34" width="124" height="124"/>
+    <use href="#m41" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(225 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">42</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYBBY</text>
+    <use href="#m42" x="27" y="34" width="124" height="124"/>
+    <use href="#m42" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">43</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYBYB</text>
+    <use href="#m43" x="27" y="34" width="124" height="124"/>
+    <use href="#m43" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">44</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYBYY</text>
+    <use href="#m44" x="27" y="34" width="124" height="124"/>
+    <use href="#m44" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">45</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYYBB</text>
+    <use href="#m45" x="27" y="34" width="124" height="124"/>
+    <use href="#m45" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">46</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYYBY</text>
+    <use href="#m46" x="27" y="34" width="124" height="124"/>
+    <use href="#m46" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">47</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYYYB</text>
+    <use href="#m47" x="27" y="34" width="124" height="124"/>
+    <use href="#m47" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 1114)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">48</text>
+    <text x="46" y="25" class="code" fill="#14102E">YBYYYY</text>
+    <use href="#m48" x="27" y="34" width="124" height="124"/>
+    <use href="#m48" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(33 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">49</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBBBB</text>
+    <use href="#m49" x="27" y="34" width="124" height="124"/>
+    <use href="#m49" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(225 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">50</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBBBY</text>
+    <use href="#m50" x="27" y="34" width="124" height="124"/>
+    <use href="#m50" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">51</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBBYB</text>
+    <use href="#m51" x="27" y="34" width="124" height="124"/>
+    <use href="#m51" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">52</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBBYY</text>
+    <use href="#m52" x="27" y="34" width="124" height="124"/>
+    <use href="#m52" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">53</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBYBB</text>
+    <use href="#m53" x="27" y="34" width="124" height="124"/>
+    <use href="#m53" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">54</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBYBY</text>
+    <use href="#m54" x="27" y="34" width="124" height="124"/>
+    <use href="#m54" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">55</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBYYB</text>
+    <use href="#m55" x="27" y="34" width="124" height="124"/>
+    <use href="#m55" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 1306)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">56</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYBYYY</text>
+    <use href="#m56" x="27" y="34" width="124" height="124"/>
+    <use href="#m56" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(33 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">57</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYBBB</text>
+    <use href="#m57" x="27" y="34" width="124" height="124"/>
+    <use href="#m57" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(225 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">58</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYBBY</text>
+    <use href="#m58" x="27" y="34" width="124" height="124"/>
+    <use href="#m58" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(417 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">59</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYBYB</text>
+    <use href="#m59" x="27" y="34" width="124" height="124"/>
+    <use href="#m59" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(609 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">60</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYBYY</text>
+    <use href="#m60" x="27" y="34" width="124" height="124"/>
+    <use href="#m60" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(801 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">61</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYYBB</text>
+    <use href="#m61" x="27" y="34" width="124" height="124"/>
+    <use href="#m61" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(993 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">62</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYYBY</text>
+    <use href="#m62" x="27" y="34" width="124" height="124"/>
+    <use href="#m62" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1185 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">63</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYYYB</text>
+    <use href="#m63" x="27" y="34" width="124" height="124"/>
+    <use href="#m63" x="143" y="142" width="22" height="22"/>
+  </g>
+  <g transform="translate(1377 1498)">
+    <rect width="178" height="178" rx="20" fill="#F5F1E8"/>
+    <text x="16" y="25" class="num" fill="#D4A017">64</text>
+    <text x="46" y="25" class="code" fill="#14102E">YYYYYY</text>
+    <use href="#m64" x="27" y="34" width="124" height="124"/>
+    <text x="89" y="165" text-anchor="middle" class="tag" fill="#14102E">MONO CONTROL</text>
+  </g>
+  <text x="33" y="1716" class="sub" fill="#777E91">Choose the number or six-letter code. Options 01 and 64 are monochrome controls; the remaining 62 use both colors.</text>
+</svg>

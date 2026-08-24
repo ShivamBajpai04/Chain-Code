@@ -1,7 +1,9 @@
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import api from "@/utils/api";
 import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import AnimatedCard from "@/components/ui/animatedCard";
+import Navbar from "@/components/navbar";
 interface NFTData {
   title: string;
   code: string;
@@ -11,15 +13,7 @@ interface NFTData {
 
 async function getNFT(id: string): Promise<NFTData> {
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_DOMAIN}/submissions/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await api.get(`/submissions/${id}`);
     // console.log(response.data);
     return {
       title: response.data.problem.title,
@@ -55,31 +49,44 @@ export const DNFT: React.FC = () => {
     }
   }, [id]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
-  }
-
-  if (!nft) {
-    return <div>No NFT data found.</div>;
-  }
-
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-3">
-      <AnimatedCard title={nft.title} code={nft.code} />
-      {nft.mintTxHash && (
-        <a
-          href={`https://sepolia.etherscan.io/tx/${nft.mintTxHash}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#e8c664] text-sm hover:underline"
+    <div className="app-ledger-grid flex min-h-screen flex-col text-[#f5f1e8]">
+      <Navbar />
+      <div className="flex-1 p-4 md:p-6">
+        <Link
+          to="/nft"
+          className="mb-4 inline-flex items-center gap-1.5 text-xs font-medium text-white/45 transition-colors hover:text-[#e8c664]"
         >
-          View on Etherscan
-        </a>
-      )}
+          <ArrowLeft className="h-3.5 w-3.5" />
+          My NFTs
+        </Link>
+        <div className="flex flex-col items-center gap-3 py-8">
+          {loading && (
+            <p className="f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+              Loading certificate…
+            </p>
+          )}
+          {!loading && error && <p className="text-sm text-[#c0392b]">{error}</p>}
+          {!loading && !error && !nft && (
+            <p className="text-sm text-white/45">No certificate data found.</p>
+          )}
+          {!loading && !error && nft && (
+            <>
+              <AnimatedCard title={nft.title} code={nft.code} seed={id} />
+              {nft.mintTxHash && (
+                <a
+                  href={`https://sepolia.etherscan.io/tx/${nft.mintTxHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-[#e8c664] hover:underline"
+                >
+                  View on Etherscan
+                </a>
+              )}
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

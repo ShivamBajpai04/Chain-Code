@@ -36,3 +36,16 @@ export function useAuthToken(): string | null {
 
   return token;
 }
+
+/** Decode the JWT payload (base64url) without a dependency. */
+export function getWalletAddress(): string | null {
+  const token = getToken();
+  if (!token) return null;
+  try {
+    const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    const payload = JSON.parse(atob(base64));
+    return payload?.user?.walletAddress ?? null;
+  } catch {
+    return null;
+  }
+}

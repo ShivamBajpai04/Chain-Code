@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "@/utils/api";
 import { useProblemContext } from "@/context/ProblemContext";
 import AnimatedCard from "./ui/animatedCard";
 import { useToast } from "@/hooks/use-toast";
@@ -36,10 +36,9 @@ export default function SubmissionsTab() {
     setError(null);
 
     try {
-      const url = `${import.meta.env.VITE_DOMAIN}/submissions/problem/${
-        selectedProblem._id
-      }`;
-      const response = await axios.get(url);
+      const response = await api.get(
+        `/submissions/problem/${selectedProblem._id}`
+      );
       setSubmissions(response.data);
     } catch (error: any) {
       setError(`Failed to fetch recent submissions: ${error.message}`);
@@ -91,28 +90,34 @@ export default function SubmissionsTab() {
 
   return (
     <div className="flex flex-1 flex-col overflow-auto p-2">
-      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-white/10 pb-3">
-        <p className="f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
-          {sorted.length} accepted · newest first
-        </p>
-        {selectedProblem.sample && (
-          <p className="f-mono text-[10px] uppercase tracking-[0.15em] text-[#e8c664]/70">
-            sandbox · clears 1h after each solve
+      <div className="mb-4 border-b border-white/10 pb-3">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <p className="f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+            {sorted.length} accepted · newest first
           </p>
-        )}
+          {selectedProblem.sample && (
+            <p className="f-mono text-[10px] uppercase tracking-[0.15em] text-[#e8c664]/70">
+              sandbox · clears 1h after each solve
+            </p>
+          )}
+        </div>
+        <p className="mt-1.5 text-xs text-white/40">
+          Every accepted solve mints a certificate — a piece of generative art rendered
+          deterministically from that submission's ID, minted as a real ERC-721 NFT on Sepolia.
+        </p>
       </div>
       <div className="flex flex-wrap justify-center gap-5 lg:justify-start">
         {visible.map((submission: any) => (
           <div key={submission._id} className="flex flex-col items-center gap-1.5">
             <AnimatedCard
-              title={
-                timeAgo(submission.createdAt) ||
-                selectedProblem?.title ||
-                "Untitled Problem"
-              }
+              title={selectedProblem?.title || "Untitled Problem"}
               code={submission.code}
               to={`/nft/${submission._id}`}
+              seed={submission._id}
             />
+            <p className="f-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+              {timeAgo(submission.createdAt)}
+            </p>
             {submission.mintTxHash && (
               <a
                 href={`https://sepolia.etherscan.io/tx/${submission.mintTxHash}`}

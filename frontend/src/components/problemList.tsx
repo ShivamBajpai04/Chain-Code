@@ -22,9 +22,11 @@ export default function ProblemList() {
   const [difficultyFilter, setDifficultyFilter] = useState<Difficulty | "All">("All");
   const problemsPerPage = 10;
 
+  const query = searchTerm.trim().toLowerCase();
   const filteredProblems = problems.filter(
     (problem) =>
-      problem.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (problem.title.toLowerCase().includes(query) ||
+        problem.topics?.some((topic) => topic.toLowerCase().includes(query))) &&
       (difficultyFilter === "All" || problem.difficulty === difficultyFilter)
   );
   const totalPages = Math.max(1, Math.ceil(filteredProblems.length / problemsPerPage));
@@ -53,7 +55,7 @@ export default function ProblemList() {
     <>
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Input
-          placeholder="Search problems..."
+          placeholder="Search by title or topic..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="sm:max-w-xs"
@@ -82,7 +84,7 @@ export default function ProblemList() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-white/[0.08]">
+      <div className="overflow-hidden rounded-lg border border-white/[0.08] bg-[#131020]/95 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.85)]">
         <div className="flex items-center gap-4 border-b border-white/[0.08] bg-white/[0.03] px-4 py-2 f-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
           <span className="w-8 text-right">#</span>
           <span className="flex-1">Title</span>
@@ -98,7 +100,7 @@ export default function ProblemList() {
               <button
                 key={problem._id}
                 onClick={() => handleProblemSelect(problem._id)}
-                className="flex w-full items-center gap-4 border-b border-white/[0.05] px-4 py-3 text-left transition-colors last:border-b-0 hover:bg-white/[0.04]"
+                className="flex w-full items-center gap-4 border-b border-white/[0.05] px-4 py-2.5 text-left transition-colors last:border-b-0 hover:bg-white/[0.04]"
               >
                 <span className="w-8 text-right f-mono text-[12px] text-white/35">
                   {(currentPage - 1) * problemsPerPage + i + 1}
@@ -130,11 +132,11 @@ export default function ProblemList() {
         )}
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-5 flex items-center justify-center gap-4">
         <Button onClick={() => setCurrentPage((p) => p - 1)} disabled={currentPage === 1}>
           Previous
         </Button>
-        <span className="f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+        <span className="min-w-28 text-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
           Page {currentPage} of {totalPages}
         </span>
         <Button onClick={() => setCurrentPage((p) => p + 1)} disabled={currentPage === totalPages}>

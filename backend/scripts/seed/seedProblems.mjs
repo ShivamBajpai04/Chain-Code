@@ -19,6 +19,17 @@ import { problemsF } from "./problems-f.mjs";
 
 const dryRun = process.argv.includes("--dry-run");
 
+const legacyTopicBackfills = new Map([
+  ["convert date to binary", ["Math"]],
+  ["rings and rods", ["Hash Table", "String"]],
+  ["count asterisks", ["String"]],
+  ["goal parser interpretation", ["String"]],
+  ["score of a string", ["String"]],
+  ["check if the sentence is pangram", ["Hash Table", "String"]],
+  ["to lower case", ["String"]],
+  ["number of changing keys", ["String"]],
+]);
+
 function buildDescription(p) {
   const lines = [];
   lines.push(`## ${p.title}`, "", `**Difficulty**: ${p.difficulty}  `, `**Topics**: ${p.topics}`, "");
@@ -71,6 +82,8 @@ async function main() {
   await mongoose.connect(uri);
   console.log("Connected to MongoDB");
 
+  const removed = await Problem.deleteMany({ title: "__chain_verify__" });
+
   const existing = await Problem.find({}, { title: 1, topics: 1 }).lean();
   const existingByTitle = new Map(existing.map((d) => [d.title.toLowerCase(), d]));
 
@@ -83,8 +96,21 @@ async function main() {
     const existingDoc = existingByTitle.get(p.title.toLowerCase());
     if (existingDoc) {
       skipped++;
-      if (!existingDoc.topics || existingDoc.topics.length === 0) {
-        await Problem.updateOne({ _id: existingDoc._id }, { $set: { topics } });
+      const repair = p.title === "Two Sum";
+      if (repair || !existingDoc.topics || existingDoc.topics.length === 0) {
+        await Problem.updateOne(
+          { _id: existingDoc._id },
+          {
+            $set: repair
+              ? {
+                  description: buildDescription(p),
+                  difficulty: p.difficulty,
+                  topics,
+                  testcases: p.tests.map((t) => ({ input: t.input, output: t.output })),
+                }
+              : { topics },
+          }
+        );
         backfilled++;
       }
       continue;
@@ -104,9 +130,17 @@ async function main() {
     }
   }
 
+  for (const doc of existing) {
+    if (doc.topics?.length) continue;
+    const topics = legacyTopicBackfills.get(doc.title.toLowerCase());
+    if (!topics) continue;
+    await Problem.updateOne({ _id: doc._id }, { $set: { topics } });
+    backfilled++;
+  }
+
   const total = await Problem.countDocuments();
   console.log(
-    `Inserted: ${inserted}, skipped (already existed): ${skipped}, backfilled topics: ${backfilled}, failed: ${failed}`
+    `Inserted: ${inserted}, skipped (already existed): ${skipped}, repaired/backfilled: ${backfilled}, removed verification rows: ${removed.deletedCount}, failed: ${failed}`
   );
   console.log(`Total problems in DB now: ${total}`);
 

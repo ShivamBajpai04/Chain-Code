@@ -24,7 +24,6 @@ dotenv.config();
 
 const auth = async (req, res, next) => {
   const token = req.header("Authorization"); // Bearer token
-  console.log("------------------", token);
   if (!token) // Check if token is present and starts with "Bearer "
     return res.status(401).json({ msg: "No token, authorization denied" });
 

@@ -9,6 +9,7 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 import authRoutes from "./routes/auth.js";
 import problemRoutes from "./routes/problem.js";
 import submissionRoutes from "./routes/submission.js";
+import executeRoutes from "./routes/execute.js";
 import nftRoutes from "./routes/nft.js";
 import pollRoutes from "./routes/poll.js";
 import govRoutes from "./routes/gov.js";
@@ -46,6 +47,7 @@ export function connectDB() {
 app.use("/api/auth", authRoutes);
 app.use("/api/problems", problemRoutes);
 app.use("/api/submissions", submissionRoutes);
+app.use("/api/execute", executeRoutes);
 app.use("/api/nft", nftRoutes);
 app.use("/api/poll", pollRoutes);
 app.use("/api/gov", govRoutes);

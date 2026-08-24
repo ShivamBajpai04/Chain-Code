@@ -2,20 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "@/utils/api";
 import AnimatedCard from "@/components/ui/animatedCard.tsx";
 import { BackgroundBeams } from "../ui/background-beams";
 import Navbar from "../navbar";
 
 async function getNFTs() {
-  const result = (
-    await axios.get(`${import.meta.env.VITE_DOMAIN}/submissions/user`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${localStorage.getItem("token")}`,
-      },
-    })
-  ).data;
+  const result = (await api.get("/submissions/user")).data;
   return result;
 }
 
@@ -35,12 +28,18 @@ const NFTPage: React.FC<{ onLogout?: () => void }> = ({ onLogout }) => {
   }, []);
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center overflow-hidden bg-[#14102e] antialiased">
+    <div className="app-ledger-grid min-h-screen w-full antialiased">
+      <Navbar onLogout={onLogout} />
+      <div className="relative flex w-full flex-col items-center overflow-hidden">
       <div className="relative z-10 p-8 w-full">
-        <Navbar onLogout={onLogout}/>
-        <h1 className="f-display mb-10 mt-6 text-center text-[clamp(2.25rem,5vw,4rem)] font-semibold tracking-tight text-[#f5f1e8]">
-          MY NFTS
+        <h1 className="f-display mt-6 text-center text-[clamp(2.25rem,5vw,4rem)] font-semibold tracking-tight text-[#f5f1e8]">
+          My NFTs
         </h1>
+        <p className="mx-auto mb-10 mt-2 max-w-lg text-center text-sm text-white/45">
+          Each certificate is generative art rendered deterministically from that solve's
+          submission ID — same solve, same art, forever — then minted as a real ERC-721 NFT on
+          Sepolia to your wallet.
+        </p>
 
         {isLoading && (
           <p className="py-16 text-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
@@ -66,7 +65,7 @@ const NFTPage: React.FC<{ onLogout?: () => void }> = ({ onLogout }) => {
           <div className="flex flex-wrap justify-center gap-8 md:gap-16">
             {nfts.map((nft: any, index: number) => (
               <div key={nft._id} className="flex flex-col items-center">
-                <AnimatedCard title={nft.problem.title} code={nft.code} to={`/nft/${nft._id}`} />
+                <AnimatedCard title={nft.problem.title} code={nft.code} to={`/nft/${nft._id}`} seed={nft._id} />
                 <p className="mt-2.5 f-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Certificate {String(index + 1).padStart(2, "0")}</p>
                 {nft.mintTxHash && (
                   <a
@@ -85,6 +84,7 @@ const NFTPage: React.FC<{ onLogout?: () => void }> = ({ onLogout }) => {
         )}
       </div>
       <BackgroundBeams />
+      </div>
     </div>
   );
 };

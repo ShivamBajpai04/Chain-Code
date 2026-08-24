@@ -14,7 +14,7 @@ export default function TryIt() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#14102e] f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+      <div className="app-ledger-grid-quiet flex min-h-screen items-center justify-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
         Loading sandbox…
       </div>
     );

@@ -12,6 +12,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -19,16 +20,20 @@ export default function Login({ onLogin }: LoginProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     if (!canSubmit) {
       setError("Enter a valid email and your password to continue.");
       return;
     }
     setError(null);
+    setIsSubmitting(true);
     try {
       await onLogin(email, password);
       navigate("/problems");
     } catch (err: any) {
       setError(err?.message || "Login failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -159,11 +164,11 @@ export default function Login({ onLogin }: LoginProps) {
 
             <button
               type="submit"
-              disabled={!canSubmit}
+              disabled={!canSubmit || isSubmitting}
               className="relative w-full overflow-hidden rounded-lg bg-gradient-to-b from-[#ecc76a] to-[#c89d4a] py-3 text-sm font-semibold text-[#14102e] shadow-[0_8px_22px_-6px_rgba(200,157,74,0.55)] transition-all duration-200 enabled:hover:-translate-y-px enabled:hover:shadow-[0_12px_28px_-6px_rgba(200,157,74,0.65)] disabled:cursor-not-allowed disabled:opacity-45"
             >
               <span className="absolute inset-x-0 top-0 h-px bg-white/40" />
-              Log in
+              {isSubmitting ? "Logging in…" : "Log in"}
             </button>
           </form>
 

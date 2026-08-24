@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ToastAction } from "@/components/ui/toast";
 import Editor from "@monaco-editor/react";
-import { Check, Loader2, X } from "lucide-react";
+import { Check, Loader2, RotateCcw, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useProblemContext } from "@/context/ProblemContext";
 import { submitCode, type SubmitPhase } from "@/utils/submitCode";
 import { useToast } from "@/hooks/use-toast";
+import { getWalletAddress } from "@/utils/auth";
 
 // Map of our language identifiers to Monaco Editor language identifiers
 const languageMap = {
@@ -26,6 +27,7 @@ const judge0LanguageMap = {
 
 interface ResultType {
   error?: string;
+  cancelled?: boolean;
   submissionId?: string;
   mintTxHash?: string;
   results?: Array<{
@@ -43,6 +45,31 @@ export default function CodeEditor() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [mintTakingLong, setMintTakingLong] = useState(false);
+  // pre-mint confirmation: mints are irreversible, so the destination wallet
+  // must be confirmed by the user before the on-chain call is made
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const confirmResolver = useRef<((ok: boolean) => void) | null>(null);
+
+  const requestMintConfirmation = () =>
+    new Promise<boolean>((resolve) => {
+      confirmResolver.current = resolve;
+      setConfirmOpen(true);
+    });
+
+  const settleMintConfirmation = (ok: boolean) => {
+    setConfirmOpen(false);
+    confirmResolver.current?.(ok);
+    confirmResolver.current = null;
+  };
+
+  // if we unmount while the confirmation dialog is open, release the
+  // awaiting submitCode instead of leaving its promise hanging forever
+  useEffect(() => {
+    return () => {
+      confirmResolver.current?.(false);
+      confirmResolver.current = null;
+    };
+  }, []);
 
   // the "verifying" step is honest about what actually happens for a
   // sandbox problem — the backend skips the AI check entirely, so don't
@@ -85,14 +112,14 @@ export default function CodeEditor() {
     return () => clearTimeout(timer);
   }, [phase]);
   useEffect(() => {
-    if (result?.error) {
+    if (result?.error && !result.cancelled) {
       toast({
         title: `${selectedProblem?.title ?? "Submission"} didn't go through`,
         description: result.error.toString(),
         variant: "destructive",
       });
     }
-  }, [result?.error]);
+  }, [result?.error, result?.cancelled]);
   useEffect(() => {
     if (result?.submissionId) {
       toast({
@@ -139,7 +166,8 @@ export default function CodeEditor() {
         selectedProblem,
         judge0LanguageMap[language as keyof typeof judge0LanguageMap],
         code,
-        setPhase
+        setPhase,
+        requestMintConfirmation
       );
       setResult(data);
     } catch (error: any) {
@@ -239,13 +267,74 @@ export default function CodeEditor() {
               </>
             )}
             {result.error && (
-              <p className="rounded-md border border-[#c0392b]/30 bg-[#c0392b]/10 px-3 py-1.5 text-[12px] text-[#d98880]">
-                {result.error}
-              </p>
+              <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-[#c0392b]/30 bg-[#c0392b]/10 px-3 py-1.5">
+                <p className="text-[12px] text-[#d98880]">{result.error}</p>
+                {/* retry only makes sense for failures without per-test
+                    results — a failed test run won't change on resubmit */}
+                {!result.results && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className="h-7 shrink-0 border-[#c0392b]/40 bg-transparent px-2.5 text-[11px] text-[#d98880] hover:bg-[#c0392b]/15 hover:text-[#d98880]"
+                  >
+                    <RotateCcw className="mr-1.5 h-3 w-3" />
+                    Retry
+                  </Button>
+                )}
+              </div>
             )}
           </div>
         )}
       </div>
+
+      {confirmOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+          onKeyDown={(e) => e.key === "Escape" && settleMintConfirmation(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mint-confirm-title"
+        >
+          <div className="w-full max-w-sm rounded-xl border border-white/[0.09] bg-[#1a1530] p-6 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.7)]">
+            <p className="f-mono text-[10px] uppercase tracking-[0.25em] text-[#e8c664]">
+              Before you mint
+            </p>
+            <h3
+              id="mint-confirm-title"
+              className="mt-2 f-display text-lg font-semibold tracking-tight text-[#f5f1e8]"
+            >
+              Mint to this wallet?
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/60">
+              Certificates are permanent — once sealed on-chain they can't be
+              moved or reissued.
+            </p>
+            <p className="mt-4 break-all rounded-md border border-white/[0.09] bg-black/25 px-3 py-2.5 f-mono text-[11px] text-white/70">
+              {getWalletAddress() ?? "No wallet address on this account"}
+            </p>
+            <div className="mt-5 flex justify-end gap-2.5">
+              <Button
+                type="button"
+                variant="outline"
+                autoFocus
+                onClick={() => settleMintConfirmation(false)}
+                className="border-white/[0.12] bg-transparent hover:bg-white/[0.06] hover:text-white"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                onClick={() => settleMintConfirmation(true)}
+                className="bg-gradient-to-b from-[#ecc76a] to-[#c89d4a] text-[#14102e] shadow-[0_8px_22px_-6px_rgba(200,157,74,0.55)] enabled:hover:-translate-y-px enabled:hover:shadow-[0_12px_28px_-6px_rgba(200,157,74,0.65)]"
+              >
+                Confirm &amp; mint
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

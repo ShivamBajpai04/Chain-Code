@@ -68,46 +68,44 @@ export default function Problems({ handleLogout }: ProblemsProps) {
   const handleLanguageChange = (value: string) => setLanguage(value);
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#14102e] text-[#f5f1e8]">
+    <div className="app-ledger-grid-quiet flex min-h-screen flex-col text-[#f5f1e8]">
       <Navbar onLogout={handleLogout} />
-      <div className="flex-1 overflow-auto p-4 md:p-6">
-        <Link
-          to="/problems"
-          className="mb-4 inline-flex items-center gap-1.5 text-xs font-medium text-white/45 transition-colors hover:text-[#e8c664]"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          All problems
-        </Link>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="min-w-0">
-            <Tabs defaultValue="description">
-              <TabsList className="mb-4">
-                <TabsTrigger value="description">Description</TabsTrigger>
-                <TabsTrigger value="submissions">All Submissions</TabsTrigger>
-              </TabsList>
-              <TabsContent value="description">
-                <DescriptionTab />
-              </TabsContent>
-              <TabsContent value="submissions">
-                <SubmissionsTab />
-              </TabsContent>
-            </Tabs>
-          </div>
-          <div className="min-w-0">
-            <Select value={language} onValueChange={handleLanguageChange}>
-              <SelectTrigger className="mb-4 w-[180px]">
-                <SelectValue placeholder="Select Language" />
-              </SelectTrigger>
-              <SelectContent>
-                {languages.map((lang) => (
-                  <SelectItem key={lang.value} value={lang.value}>
-                    {lang.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <CodeEditor />
-          </div>
+      <div className="grid gap-6 p-4 md:p-6 lg:h-[calc(100vh-4rem)] lg:grid-cols-2 lg:overflow-hidden lg:p-6">
+        <div className="min-w-0 rounded-xl border border-white/[0.08] bg-[#131020]/95 p-4 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.65)] lg:h-full lg:overflow-y-auto">
+          <Link
+            to="/problems"
+            className="mb-4 inline-flex items-center gap-1.5 text-xs font-medium text-white/45 transition-colors hover:text-[#e8c664]"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            All problems
+          </Link>
+          <Tabs defaultValue="description">
+            <TabsList className="mb-4">
+              <TabsTrigger value="description">Description</TabsTrigger>
+              <TabsTrigger value="submissions">All Submissions</TabsTrigger>
+            </TabsList>
+            <TabsContent value="description">
+              <DescriptionTab />
+            </TabsContent>
+            <TabsContent value="submissions">
+              <SubmissionsTab />
+            </TabsContent>
+          </Tabs>
+        </div>
+        <div className="min-w-0 rounded-xl border border-white/[0.08] bg-[#131020]/75 p-4 lg:h-full lg:overflow-y-auto">
+          <Select value={language} onValueChange={handleLanguageChange}>
+            <SelectTrigger className="mb-4 w-[180px]">
+              <SelectValue placeholder="Select Language" />
+            </SelectTrigger>
+            <SelectContent>
+              {languages.map((lang) => (
+                <SelectItem key={lang.value} value={lang.value}>
+                  {lang.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <CodeEditor />
         </div>
       </div>
     </div>

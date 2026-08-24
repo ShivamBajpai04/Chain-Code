@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import axios from "axios";
+import api from "@/utils/api";
 
 interface TestCase {
   input: string;
@@ -54,7 +54,7 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
       try {
         setIsLoading(true);
         setError(null);
-        const response = await axios.get(import.meta.env.VITE_DOMAIN+"/problems");
+        const response = await api.get("/problems");
         setProblems(response.data);
       } catch (error) {
         setError("Error fetching problems. Please try again later.");
@@ -70,7 +70,7 @@ export const ProblemProvider: React.FC<{ children: ReactNode }> = ({
   const fetchProblemById = async (id: string) => {
     try {
       setIsFetchingProblem(true);
-      const response = await axios.get(`${import.meta.env.VITE_DOMAIN}/problems/${id}`);
+      const response = await api.get(`/problems/${id}`);
       setSelectedProblem(response.data);
     } catch (error) {
       setError("Error fetching problem. Please try again later.");

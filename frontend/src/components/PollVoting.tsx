@@ -11,10 +11,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import axios from "axios";
+import api from "@/utils/api";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "./navbar";
-
 interface Poll {
   title: string;
   description: string;
@@ -36,11 +35,8 @@ export function PollVoting() {
     if (!id) return;
     setIsLoading(true);
     setLoadError(null);
-    axios
-      .get(`${import.meta.env.VITE_DOMAIN}/poll/${id}`, {
-        headers: { Authorization: `${window.localStorage.getItem("token")}` },
-      })
-      .then((res) => setPoll(res.data.poll))
+    api
+      .get(`/poll/${id}`)      .then((res) => setPoll(res.data.poll))
       .catch((err) => {
         setLoadError(err.response?.data?.message || "Couldn't load this poll.");
       })
@@ -49,15 +45,9 @@ export function PollVoting() {
 
   const castVote = async (): Promise<boolean> => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_DOMAIN}/vote/vote`,
-        { proposalId: id, support: vote === "agree" },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `${window.localStorage.getItem("token")}`,
-          },
-        }
+      const response = await api.post(
+        "/vote/vote",
+        { proposalId: id, support: vote === "agree" }
       );
       console.log(response.data);
       toast({
@@ -90,9 +80,18 @@ export function PollVoting() {
   };
 
   return (
-    <div className="min-h-screen bg-[#14102e] text-[#f5f1e8]">
+    <div className="app-ledger-grid min-h-screen text-[#f5f1e8]">
       <Navbar />
       <div className="p-4 md:p-6">
+        <div className="mx-auto mb-4 flex max-w-md items-center gap-3 rounded-md border border-[#c89d4a]/30 bg-[#c89d4a]/[0.06] px-4 py-2.5">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ecc76a] opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#c89d4a]" />
+          </span>
+          <p className="f-mono text-[10px] uppercase tracking-[0.25em] text-[#e8c664]">
+            Feature in progress
+          </p>
+        </div>
         {isLoading && (
           <p className="py-16 text-center f-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
             Loading poll…

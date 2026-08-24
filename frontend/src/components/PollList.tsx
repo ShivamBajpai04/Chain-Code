@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CreatePoll } from "./createPoll";
-import axios from "axios";
+import api from "@/utils/api";
 import { useToast } from "@/hooks/use-toast";
 import  Navbar  from "./navbar";
 
@@ -37,8 +37,7 @@ export function PollList({ onLogout }: { onLogout?: () => void }) {
     setLoading(true);
     setError(null);
     try {
-      const url = `${import.meta.env.VITE_DOMAIN}/poll/all`;
-      const response = await axios.get(url);
+      const response = await api.get("/poll/all");
       setPolls(response.data.polls);
     } catch (error: any) {
       setError(error.message);
@@ -48,8 +47,17 @@ export function PollList({ onLogout }: { onLogout?: () => void }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#14102e] text-[#f5f1e8]">
+    <div className="app-ledger-grid min-h-screen text-[#f5f1e8]">
       <Navbar onLogout={onLogout} />
+      <div className="mx-4 mt-4 flex items-center gap-3 rounded-md border border-[#c89d4a]/30 bg-[#c89d4a]/[0.06] px-4 py-2.5 md:mx-6 md:mt-6">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ecc76a] opacity-60" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#c89d4a]" />
+        </span>
+        <p className="f-mono text-[10px] uppercase tracking-[0.25em] text-[#e8c664]">
+          Polls · Feature in progress
+        </p>
+      </div>
       <div className="grid grid-cols-1 gap-5 p-4 md:p-6 lg:grid-cols-5">
         <div className="lg:col-span-3 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1">
           {loading && (

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">ChainCode</title>
+  <desc id="desc">Royal Gold interlocking double C mark on deep indigo</desc>
+
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="#14102e"/>
+
+  <path fill="#d4a017" d="M96 76c61 0 118 22 160 56-18 17-33 37-47 60-33-28-70-43-113-43V76Z"/>
+  <path fill="#d4a017" d="M416 76c-61 0-118 22-160 56 18 17 33 37 47 60 33-28 70-43 113-43V76Z"/>
+  <path fill="#d4a017" d="M209 192c-23 37-25 101 0 144 27-35 37-101 0-144Z"/>
+  <path fill="#d4a017" d="M303 192c23 37 25 101 0 144-27-35-37-101 0-144Z"/>
+  <path fill="#d4a017" d="M96 379c43 0 80-15 113-43 14 23 29 43 47 60-42 34-99 54-160 54v-71Z"/>
+  <path fill="#d4a017" d="M416 379c-43 0-80-15-113-43-14 23-29 43-47 60 42 34 99 54 160 54v-71Z"/>
+</svg>

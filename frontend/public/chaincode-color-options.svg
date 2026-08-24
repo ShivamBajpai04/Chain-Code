@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1040" height="1300" viewBox="0 0 1040 1300" role="img" aria-labelledby="title desc">
+  <title id="title">ChainCode color options</title>
+  <desc id="desc">Eight two-color palettes applied to the selected mirrored interlocking-C mark, including 32 pixel favicon previews.</desc>
+  <defs>
+    <!-- Each matrix maps black to the mark color and white to the background color. -->
+    <filter id="p1" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-.752942 0 0 0 .831373  0 -.564706 0 0 .627451  0 0 .090196 0 .090196  0 0 0 1 0"/></filter>
+    <filter id="p2" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-.090196 0 0 0 .133333  0 -.764706 0 0 .827451  0 0 -.807843 0 .933333  0 0 0 1 0"/></filter>
+    <filter id="p3" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-.654902 0 0 0 .717647  0 -.878431 0 0 .952941  0 0 -.239216 0 .290196  0 0 0 1 0"/></filter>
+    <filter id="p4" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-.870588 0 0 0 1  0 -.356863 0 0 .419608  0 0 -.184313 0 .368627  0 0 0 1 0"/></filter>
+    <filter id="p5" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-.411765 0 0 0 .474510  0 -.674510 0 0 .780392  0 0 -.760784 0 1  0 0 0 1 0"/></filter>
+    <filter id="p6" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-.352941 0 0 0 .411765  0 -.749020 0 0 .890196  0 0 -.588236 0 .701961  0 0 0 1 0"/></filter>
+    <filter id="p7" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-.870588 0 0 0 .960784  0 -.635294 0 0 .725490  0 0 -.168628 0 .258824  0 0 0 1 0"/></filter>
+    <filter id="p8" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values=".882353 0 0 0 .078431  0 .882353 0 0 .062745  0 0 .729412 0 .180392  0 0 0 1 0"/></filter>
+    <style>
+      .kicker { font: 700 14px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: .18em; }
+      .heading { font: 700 31px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.025em; }
+      .subtitle { font: 450 15px Inter, ui-sans-serif, system-ui, sans-serif; }
+      .number { font: 800 15px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: .1em; }
+      .name { font: 700 21px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.015em; }
+      .hex { font: 600 13px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .02em; }
+      .wordmark { font: 800 17px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: .11em; }
+      .micro { font: 700 10px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: .08em; }
+    </style>
+  </defs>
+
+  <rect width="1040" height="1300" fill="#080A12"/>
+  <text x="40" y="39" class="kicker" fill="#D4A017">CHAINCODE</text>
+  <text x="40" y="78" class="heading" fill="#F5F1E8">Choose the color system</text>
+  <text x="40" y="103" class="subtitle" fill="#9298AA">Selected mark · two colors per option · 32px favicon check included</text>
+
+  <!-- 01 — original brief -->
+  <g transform="translate(40 126)">
+    <rect width="468" height="270" rx="28" fill="#14102E"/>
+    <text x="24" y="34" class="number" fill="#D4A017">01</text>
+    <text x="66" y="34" class="name" fill="#D4A017">Royal Gold</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p1)"/>
+    <text x="207" y="108" class="wordmark" fill="#D4A017">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#D4A017">#14102E  /  #D4A017</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#14102E" stroke="#D4A017" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p1)"/>
+    <text x="285" y="196" class="micro" fill="#D4A017">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#D4A017">32 × 32</text>
+  </g>
+
+  <!-- 02 -->
+  <g transform="translate(532 126)">
+    <rect width="468" height="270" rx="28" fill="#0B1020"/>
+    <text x="24" y="34" class="number" fill="#22D3EE">02</text>
+    <text x="66" y="34" class="name" fill="#22D3EE">Protocol Cyan</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p2)"/>
+    <text x="207" y="108" class="wordmark" fill="#22D3EE">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#22D3EE">#0B1020  /  #22D3EE</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#0B1020" stroke="#22D3EE" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p2)"/>
+    <text x="285" y="196" class="micro" fill="#22D3EE">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#22D3EE">32 × 32</text>
+  </g>
+
+  <!-- 03 -->
+  <g transform="translate(40 414)">
+    <rect width="468" height="270" rx="28" fill="#10130D"/>
+    <text x="24" y="34" class="number" fill="#B7F34A">03</text>
+    <text x="66" y="34" class="name" fill="#B7F34A">Runtime Lime</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p3)"/>
+    <text x="207" y="108" class="wordmark" fill="#B7F34A">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#B7F34A">#10130D  /  #B7F34A</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#10130D" stroke="#B7F34A" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p3)"/>
+    <text x="285" y="196" class="micro" fill="#B7F34A">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#B7F34A">32 × 32</text>
+  </g>
+
+  <!-- 04 -->
+  <g transform="translate(532 414)">
+    <rect width="468" height="270" rx="28" fill="#21102F"/>
+    <text x="24" y="34" class="number" fill="#FF6B5E">04</text>
+    <text x="66" y="34" class="name" fill="#FF6B5E">Signal Coral</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p4)"/>
+    <text x="207" y="108" class="wordmark" fill="#FF6B5E">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#FF6B5E">#21102F  /  #FF6B5E</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#21102F" stroke="#FF6B5E" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p4)"/>
+    <text x="285" y="196" class="micro" fill="#FF6B5E">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#FF6B5E">32 × 32</text>
+  </g>
+
+  <!-- 05 -->
+  <g transform="translate(40 702)">
+    <rect width="468" height="270" rx="28" fill="#101B3D"/>
+    <text x="24" y="34" class="number" fill="#79C7FF">05</text>
+    <text x="66" y="34" class="name" fill="#79C7FF">Ledger Ice</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p5)"/>
+    <text x="207" y="108" class="wordmark" fill="#79C7FF">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#79C7FF">#101B3D  /  #79C7FF</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#101B3D" stroke="#79C7FF" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p5)"/>
+    <text x="285" y="196" class="micro" fill="#79C7FF">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#79C7FF">32 × 32</text>
+  </g>
+
+  <!-- 06 -->
+  <g transform="translate(532 702)">
+    <rect width="468" height="270" rx="28" fill="#0F241D"/>
+    <text x="24" y="34" class="number" fill="#69E3B3">06</text>
+    <text x="66" y="34" class="name" fill="#69E3B3">Verified Mint</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p6)"/>
+    <text x="207" y="108" class="wordmark" fill="#69E3B3">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#69E3B3">#0F241D  /  #69E3B3</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#0F241D" stroke="#69E3B3" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p6)"/>
+    <text x="285" y="196" class="micro" fill="#69E3B3">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#69E3B3">32 × 32</text>
+  </g>
+
+  <!-- 07 -->
+  <g transform="translate(40 990)">
+    <rect width="468" height="270" rx="28" fill="#171717"/>
+    <text x="24" y="34" class="number" fill="#F5B942">07</text>
+    <text x="66" y="34" class="name" fill="#F5B942">Carbon Amber</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p7)"/>
+    <text x="207" y="108" class="wordmark" fill="#F5B942">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#F5B942">#171717  /  #F5B942</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#171717" stroke="#F5B942" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p7)"/>
+    <text x="285" y="196" class="micro" fill="#F5B942">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#F5B942">32 × 32</text>
+  </g>
+
+  <!-- 08 — light inverse -->
+  <g transform="translate(532 990)">
+    <rect width="468" height="270" rx="28" fill="#F5F1E8"/>
+    <text x="24" y="34" class="number" fill="#14102E">08</text>
+    <text x="66" y="34" class="name" fill="#14102E">Warm Inverse</text>
+    <image x="20" y="51" width="168" height="168" href="logo-colorways/selected-mark-source.png" filter="url(#p8)"/>
+    <text x="207" y="108" class="wordmark" fill="#14102E">CHAINCODE</text>
+    <text x="207" y="138" class="hex" fill="#14102E">#F5F1E8  /  #14102E</text>
+    <rect x="207" y="169" width="64" height="64" rx="15" fill="#F5F1E8" stroke="#14102E" stroke-width="1"/>
+    <image x="223" y="185" width="32" height="32" href="logo-colorways/selected-mark-source.png" filter="url(#p8)"/>
+    <text x="285" y="196" class="micro" fill="#14102E">FAVICON</text>
+    <text x="285" y="215" class="hex" fill="#14102E">32 × 32</text>
+  </g>
+</svg>
