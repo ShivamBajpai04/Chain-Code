@@ -56,6 +56,19 @@ app.use("/api/vote", voteRoutes);
 // Health check
 app.get("/api", (req, res) => res.json({ ok: true, service: "chaincode-api" }));
 
+// Central error middleware — must be last. Converts thrown errors (including
+// JSON parse failures from express.json) into consistent JSON responses
+// instead of Vercel's HTML error page.
+app.use((err, req, res, _next) => {
+  if (err.type === "entity.parse.failed" || err instanceof SyntaxError) {
+    return res.status(400).json({ msg: "Invalid JSON body" });
+  }
+  console.error(`[${req.method} ${req.path}]`, err.stack || err.message);
+  res.status(err.status || 500).json({
+    msg: process.env.NODE_ENV === "production" ? "Server error" : err.message,
+  });
+});
+
 // Ensure a connection attempt has started before the request handler runs
 await connectDB().catch(() => {});
 

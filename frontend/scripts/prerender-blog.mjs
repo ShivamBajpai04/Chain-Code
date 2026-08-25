@@ -102,6 +102,34 @@ function shell(templateHtml, { title, description, url, jsonLd, bodyHtml }) {
 
 const posts = loadPosts();
 
+// ---- Landing page prerender (crawler-visible hero copy; SPA mounts over it) ----
+const landingHtml = `
+<main>
+  <p>On-chain proof of original code</p>
+  <h1>Write it once. Own it forever.</h1>
+  <p>Your solution runs in a sandbox against hidden tests, gets checked against every prior submission, and mints as an NFT certificate with your wallet stamped beside it.</p>
+  <h2>How ChainCode works</h2>
+  <ol>
+    <li><strong>Solve challenges.</strong> Pick a problem from the ledger and write your solution. It runs against hidden tests in the Judge0 sandbox before anyone sees it.</li>
+    <li><strong>Originality validation.</strong> Your approach is compared with every prior submission to the problem. Only solutions that differ in substance pass the check.</li>
+    <li><strong>Mint &amp; earn.</strong> Accepted solutions mint as NFT certificates anyone can verify on-chain.</li>
+  </ol>
+</main>`;
+writeFileSync(join(root, "dist", "index.html"),
+  shell(template, {
+    title: "Chain-Code — solve challenges, mint verified code certificates",
+    description:
+      "Solve coding challenges in a sandboxed judge, pass an originality check, and mint your accepted solution as an on-chain NFT certificate tied to your wallet.",
+    url: SITE + "/",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Chain-Code",
+      url: SITE + "/",
+    },
+    bodyHtml: landingHtml,
+  }));
+
 // Blog index
 mkdirSync(join(root, "dist", "blog"), { recursive: true });
 const listItems = posts.map((p) => `
@@ -115,6 +143,27 @@ writeFileSync(join(root, "dist", "blog", "index.html"),
     jsonLd: { "@context": "https://schema.org", "@type": "Blog", name: "Chain-Code blog", url: `${SITE}/blog` },
     bodyHtml: `<h1>Writing from the Chain-Code workshop</h1>${listItems}`,
   }));
+
+function faqSchema(html) {
+  // Question-shaped H2 followed by a paragraph => FAQPage entry
+  const items = [];
+  const blocks = html.split(/(?=<h2>)/);
+  for (const b of blocks) {
+    const q = b.match(/^<h2>([^<]*\?[^<]*)<\/h2>/);
+    if (!q) continue;
+    const a = b.match(/<\/h2>\s*<p>([\s\S]*?)<\/p>/);
+    if (a) items.push({
+      "@type": "Question",
+      name: q[1],
+      acceptedAnswer: { "@type": "Answer", text: a[1].replace(/<[^>]+>/g, "") },
+    });
+  }
+  return items.length ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items,
+  } : null;
+}
 
 // Post pages
 for (const p of posts) {
@@ -133,12 +182,14 @@ for (const p of posts) {
     url: `${SITE}/blog/${p.slug}`,
     ...(steps ? { step: steps } : {}),
   };
+  const faq = faqSchema(p.html);
+  const allJsonLd = faq ? [jsonLd, faq] : jsonLd;
   writeFileSync(join(dir, "index.html"),
     shell(template, {
       title: p.title,
       description: p.description,
       url: `${SITE}/blog/${p.slug}`,
-      jsonLd,
+      jsonLd: allJsonLd,
       bodyHtml: `<article><p>${p.date}</p>${p.html}</article>`,
     }));
 }
