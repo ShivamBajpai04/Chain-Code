@@ -4,7 +4,11 @@ import ReactMarkdown from "react-markdown";
 import { useSeo } from "../../utils/useSeo";
 
 // Raw-import every post; frontmatter parsed at module load.
-const modules = import.meta.glob("../content/blog/*.mdx", { as: "raw" });
+// Path is relative to THIS file (src/components/pages/) → frontend/content/blog/
+const modules = import.meta.glob("../../../content/blog/*.mdx", {
+  query: "?raw",
+  import: "default",
+});
 
 type Post = {
   slug: string;
