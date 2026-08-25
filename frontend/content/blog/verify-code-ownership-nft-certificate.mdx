@@ -1,0 +1,64 @@
+---
+title: How to verify code ownership with an NFT certificate
+description: A practical walkthrough of minting your accepted solution as an on-chain certificate, what goes into the NFT metadata, and how anyone can verify it was you.
+primaryKeyword: verify code ownership
+secondaryKeywords: nft code certificate, on-chain code ownership, mint solution as nft
+date: 2026-08-25
+author: Chain-Code
+canonical: https://chaincode-xi.vercel.app/blog/verify-code-ownership-nft-certificate
+slug: verify-code-ownership-nft-certificate
+---
+
+# How to verify code ownership with an NFT certificate
+
+Want to verify code ownership after you solve a challenge? A screenshot proves nothing. An NFT certificate anchors your accepted submission to a wallet you control. This guide shows how Chain-Code does it, what actually goes on-chain, and how a third party can confirm authorship without trusting the platform's word for it.
+
+## Why screenshots prove nothing about code ownership
+
+A screenshot is trivially editable. A public repo tells you who pushed code last, not who authored a passing solution first. Recruiters and challenge hosts run into this constantly: the work exists, but attribution rests on someone's say-so.
+
+The fix is boring cryptography plus a public ledger. Hash the exact source of the accepted submission. Store that hash in a token tied to your wallet. Now authorship has a timestamp and an owner that nobody can quietly rewrite.
+
+## What gets minted, exactly
+
+Chain-Code mints after three gates pass: judging, originality checking, and the mint transaction itself. The UI walks through these phases honestly, including a reassurance toast if verification takes over 30 seconds, because on-chain confirmation times vary.
+
+The certificate is not your whole source file living on Ethereum. Gas makes that silly — storing even a kilobyte of calldata costs real money at typical gas prices. Instead the NFT metadata records:
+
+- a hash of your accepted source,
+- the problem identifier and language,
+- the wallet address that solved it,
+- the timestamp of acceptance.
+
+Anyone with your source file can hash it locally and compare against the certificate. Match means the token was minted from this exact code.
+
+## Step-by-step: minting your first certificate
+
+1. Solve a problem in the [editor](/try). Your drafts are saved per problem and per language, so a browser crash costs you nothing.
+2. Submit. The judge runs your code against hidden test cases in a sandbox before anything touches a chain.
+3. Watch the tracker. It shows judging, verifying (the originality check), then minting. If minting stalls past five minutes, the app tells you it may still complete and to check My NFTs later instead of lying about success.
+4. Open the certificate. Each one deep-links to its Etherscan transaction, so you can see the raw contract event yourself.
+
+## How to verify code ownership of a certificate you didn't mint
+
+Say someone sends you a certificate link and you want proof. Three checks:
+
+1. Open the Etherscan link on the certificate. Confirm the `mint` event came from the platform's contract.
+2. Get the claimed source file from the author.
+3. Hash it and compare against the hash in the token's metadata.
+
+That is the whole procedure. No account on Chain-Code required, no API call to us. The ledger is the record.
+
+## Can an NFT certificate be faked?
+
+Only by breaking one of two things: the hash function or the chain's history. An attacker cannot mint a certificate for code they do not have, because the metadata hash would not match any file they could later produce. They cannot edit an existing token's metadata, because NFT metadata written through the contract is immutable after minting. The realistic attack is social rather than cryptographic: claiming someone else's wallet, or presenting a hash of different code than the demo shows. Both fail the three-step verification above, which is why the procedure ends with comparing hashes yourself instead of reading the certificate page's word for it.
+
+## Limits worth knowing
+
+An NFT certificate proves that this exact code existed at that time and belongs to this wallet. It does not prove you never collaborated, and it does not stop someone from independently writing similar code. The originality check catches near-identical submissions at judgment time, but independent convergence on the same algorithm will always be possible. Certificates raise the cost of false claims; they do not make them impossible.
+
+## Where to go next
+
+Try the flow yourself on the [problems list](/problems), or read how the execution sandbox keeps judged code safe in our post on how to [run untrusted code safely](/blog/run-untrusted-code-safely-sandbox-tutorial). If you want the comparison angle, we cover Judge0 versus Piston in detail too.
+
+A closing note for the skeptics, who are the right people to be reading this: everything claimed here is checkable without trusting this article. The contract address is public. The mint event is public. The hash comparison takes one command. That is the point of putting certificates on-chain instead of in a database — not fashion, but the removal of the sentence "you'll just have to take our word for it" from every future conversation about your work.

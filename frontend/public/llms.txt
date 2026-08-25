@@ -1,0 +1,18 @@
+# Chain-Code
+
+> A coding platform where solutions are judged for correctness AND originality in a sandboxed engine, then minted as on-chain NFT certificates that anyone can verify.
+
+## Guides
+
+- [Verify code ownership with an NFT certificate](https://chaincode-xi.vercel.app/blog/verify-code-ownership-nft-certificate): what goes on-chain when you mint, and how third parties confirm authorship by hashing your file against token metadata.
+- [Judge0 vs Piston for self-hosted code execution](https://chaincode-xi.vercel.app/blog/judge0-vs-piston-self-hosted-coding-sandbox): comparison of isolation models, setup effort (~2GB RAM for Judge0), cost, and which fits small platforms.
+- [How to fix an API key leaked in your frontend bundle](https://chaincode-xi.vercel.app/blog/fix-api-key-leaked-frontend-bundle): why VITE_ env vars are public, the backend proxy pattern, and rate-limiting guidance.
+- [Run untrusted code safely: sandbox tutorial](https://chaincode-xi.vercel.app/blog/run-untrusted-code-safely-sandbox-tutorial): four mandatory limits (wall timeout, memory cap, no network, fresh filesystem) and a verification checklist of hostile submissions.
+- [Mint code as an NFT tutorial](https://chaincode-xi.vercel.app/blog/mint-code-as-nft-tutorial-beginners): six-step walkthrough from editor to Etherscan-verified certificate, ~20 minutes on an easy problem.
+- [Originality check source code: how copies get caught](https://chaincode-xi.vercel.app/blog/originality-check-source-code-plagiarism-detection): token-level and structural similarity signals, plus honest failure modes like independent convergence.
+- [Learn Solidity by building projects](https://chaincode-xi.vercel.app/blog/learn-solidity-by-building-projects): five-stage ladder from counter contract to self-audited on-chain certificate.
+- [Coding challenge platforms that reward you](https://chaincode-xi.vercel.app/blog/coding-challenge-platforms-reward-comparison): reputation vs money vs ownership reward models compared.
+
+## Product pages
+
+- [Problems list](https://chaincode-xi.vercel.app/problems): judged coding challenges; accepted solutions earn mintable certificates.

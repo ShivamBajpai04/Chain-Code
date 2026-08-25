@@ -8,7 +8,7 @@ const contractAddress = process.env.CONTRACT_ADDRESS;
 const publicSepoliaRpc = "https://ethereum-sepolia-rpc.publicnode.com";
 
 export async function getSepoliaProvider() {
-  const urls = [...new Set([api, process.env.FALLBACK_API, publicSepoliaRpc].filter(Boolean))];
+  const urls = [...new Set([publicSepoliaRpc, process.env.FALLBACK_API, api].filter(Boolean))];
 
   for (const url of urls) {
     try {

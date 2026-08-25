@@ -1,0 +1,55 @@
+---
+title: API key leaked in frontend bundle? The fix
+description: Vite and CRA ship every VITE_ env var to the browser. How to find leaked API keys, why bundlers cannot hide them, and the backend proxy pattern that fixes it.
+primaryKeyword: api key leaked in frontend bundle
+secondaryKeywords: vite env vars exposed to browser, hide api key react app, backend proxy api key
+date: 2026-08-27
+author: Chain-Code
+canonical: https://chaincode-xi.vercel.app/blog/fix-api-key-leaked-frontend-bundle
+slug: fix-api-key-leaked-frontend-bundle
+---
+
+# How to fix an API key leaked in your frontend bundle
+
+Here is an uncomfortable fact about React apps: any variable starting with `VITE_` in your `.env` file gets baked into the JavaScript you ship to every visitor. We learned this the hard way with our code-execution key. If you have an API key leaked in frontend bundle output, extractable by anyone who opens dev tools, this is the fix we applied step by step.
+
+## Why bundlers can't hide an API key leaked in frontend bundle output
+
+A bundler does text substitution at build time. When Vite sees `import.meta.env.VITE_JUDGE0_API_KEY`, it replaces it with the literal string from `.env`, right there in the output JS. Open your deployed site, view source, search for the value, and there it is.
+
+This surprises people because `.env` feels like a secrets file. For frontend builds, treat `VITE_`-prefixed variables as public constants. Anything in them might as well be printed on your homepage. There is no obfuscation, no build flag, no trick that changes this; the browser has to receive the key to use it, so anyone with the browser has the key.
+
+The exposure window matters too. Keys land in bundles on every deploy, get cached by CDNs, archived by web archives, and stored in every visitor's browser cache. Even if you rotate within hours of a leak, scrapers harvesting public bundle archives may have already copied it. Rotation speed is your real defense metric, not detection cleverness.
+
+## Step-by-step fix: move the call behind your backend
+
+1. **Audit what you exposed.** Search your built assets (`dist/assets/*.js`) for each secret's value. If found, rotate the key at the provider first — removing it from new deploys does not un-leak history.
+2. **Create a backend route** that accepts the request your frontend used to make directly. In Chain-Code's case that meant a `/submit` endpoint wrapping Judge0 instead of the browser calling RapidAPI.
+3. **Move the key to server-side config.** The key lives only in the backend environment now, never prefixed with anything the frontend build reads.
+4. **Repoint the frontend.** The browser calls your own endpoint with its normal auth token (in our case the JWT issued at login). It never sees the third-party credential.
+5. **Add rate limiting on the new route**, keyed by user ID rather than IP. Otherwise the leak becomes quota theft through your own door.
+6. **Redeploy and re-audit.** Rebuild, grep the fresh bundle for old values, confirm nothing matches, then confirm the rotated key works end to end.
+
+## What this buys beyond security
+
+The backend route is also where batching gets easy. Our original code submitted one Judge0 request per test case, polled serially, and burned five calls per five-test problem. Once calls passed through our server, we could batch test cases into one submission with a generated driver script and cache identical submissions. That pattern is covered more fully in our [Judge0 vs Piston comparison](/blog/judge0-vs-piston-self-hosted-coding-sandbox).
+
+## Limits of this approach
+
+A backend proxy hides credentials but makes your server the bottleneck and the attack surface. Rate limit carefully, cap request sizes, and log anomalous usage. If your backend goes down, judging goes down with it — which beats strangers burning your quota, but plan uptime accordingly.
+
+Two failure modes show up in practice. First, teams add the proxy route but forget to remove the old client-side call path, so the key stays shipped while everyone believes the problem is fixed — always re-audit the built bundle after the migration, not just the source code. Second, proxy routes without auth become free execution APIs for anyone who finds them: put your normal session token check in front of the route before you consider the work done.
+
+There is also a cost asymmetry worth naming. A leaked Judge0-class key costs you quota; a leaked payment-provider or database key costs you money directly. The same proxy pattern applies to both, but urgency differs by an order of magnitude. Triage accordingly.
+
+## Verify your own project tonight
+
+Run this against your build output before you sleep:
+
+```bash
+grep -r "$YOUR_SECRET_VALUE" dist/assets/
+```
+
+Any hit means rotation plus the proxy migration above. If you want to see the result of doing this properly, the [problems page](/problems) runs entirely on server-mediated execution now.
+
+Make the audit a habit rather than an incident response: add a bundle-scan step to your deploy pipeline that greps for known secret patterns and fails the build on a match. Five minutes of CI setup prevents the next key from shipping in the first place, and unlike manual checks it never gets skipped on a busy Friday.

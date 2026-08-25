@@ -1,0 +1,62 @@
+---
+title: Judge0 vs Piston for self-hosted code execution
+description: Comparing the two open-source sandboxes for untrusted user code: setup effort, isolation model, language coverage, and which fits a small platform's budget.
+primaryKeyword: judge0 vs piston
+secondaryKeywords: self-hosted code execution, sandbox for untrusted code, judge0 docker compose, piston api self host
+date: 2026-08-26
+author: Chain-Code
+canonical: https://chaincode-xi.vercel.app/blog/judge0-vs-piston-self-hosted-code-execution
+slug: judge0-vs-piston-self-hosted-coding-sandbox
+---
+
+# Judge0 vs Piston for self-hosted code execution
+
+If your platform runs user-submitted code, you face a decision fast: call a hosted API and hope the free tier lasts, or host a [sandbox for untrusted code](/blog/judge0-vs-piston-self-hosted-coding-sandbox) yourself. The two names that come up are Judge0 CE and Piston. We compared both while building Chain-Code's judging pipeline, including cost, isolation guarantees, and operational burden. Short version: Piston is easier to stand up; Judge0 is what you grow into.
+
+## Why not just keep calling RapidAPI?
+
+Chain-Code originally called Judge0 through RapidAPI directly from the browser. Two problems made that untenable. First, the API key shipped in the JavaScript bundle, so anyone could extract it and burn our quota. Second, one submission per test case meant a five-test problem ate five calls, serially polled. A demo afternoon could exhaust the free tier.
+
+Whatever you choose between these two, move the calls behind your backend first. The browser should never hold an execution API key.
+
+## What each engine actually is
+
+Judge0 CE wraps `isolate`, the same kernel-level sandbox used by competitive programming judges. It enforces per-run limits on CPU time, memory, wall time, and process count using cgroups and namespaces. It speaks a REST API with submission queuing built in.
+
+Piston is MIT-licensed, lighter, and also uses container/kernel isolation (it runs each execution in an isolated namespace with resource limits). It supports around 60 languages out of the box and has a simple run-in-one-call API. There is a community-hosted public instance, rate-limited and without an SLA.
+
+## Judge0 vs Piston where it matters
+
+| Dimension | Judge0 CE | Piston |
+|---|---|---|
+| Isolation | isolate (cgroups, namespaces, seccomp) | namespaces + cgroups via its runner |
+| Self-host effort | 1–2 days incl. HTTPS; needs ~2GB RAM VPS | hours; lighter footprint |
+| Languages | ~60 configured | ~60 bundled |
+| Queuing | built-in submission queue/status polling | none; you build it |
+| Cost | $5–10/mo VPS | free public instance, or same VPS tier |
+
+The language counts look like a tie because they roughly are. Both cover every mainstream language plus the niche ones people submit for fun. Pick on operations, not language lists.
+
+## When to pick which
+
+Pick **Piston** if you want something working today: a small VPS, docker compose up, done in an afternoon. Accept that you own queueing, caching, and retries yourself.
+
+Pick **Judge0** when volume grows or you need per-test-case semantics, compile/run separation, or its status codes. Its official docker-compose gets you there, but read the memory requirements before provisioning. Under 2GB it will OOM under modest load.
+
+One middle path worth doing regardless of engine: put a thin cache layer in your backend keyed on `(problem, source hash)` so identical resubmissions never re-execute, and batch all test cases into a single submission with a generated driver script instead of N calls. That change cut our API usage roughly by test-case-count on repeat submissions — for a five-test problem resubmitted three times while debugging, fifteen executions collapse into one.
+
+## Which should you self-host first?
+
+If you are deciding today with no other context, start with Piston: its install is measured in hours, the memory floor is lower, and a platform doing light traffic will not miss Judge0's queueing because volume never gets high enough to need it. Switch when you can name the specific feature pulling you over — per-test-case status codes, compile/run separation, or sustained throughput above what a single Piston instance serves comfortably. Migration costs little if your backend already wraps execution behind one interface, which it should regardless of engine choice.
+
+## What we chose and why
+
+Chain-Code stayed on the Judge0 API shape but moved calls server-side, with the cache-and-batch pattern above as the follow-up. For a solo project burning zero budget, that was the honest trade: no VPS bill yet, no key leak. If judging traffic triples, the plan is self-hosted Judge0 on a $10 VPS, because we already speak its API and its `isolate` base has years of adversarial use behind it.
+
+## Verify it yourself
+
+Do not trust either project's README claims about security. Read how `isolate` works, check Piston's docs on its namespace setup, and run your own escape attempts: fork bombs, infinite output, network calls to internal metadata endpoints. An afternoon of hostile testing tells you more than any comparison table, including this one.
+
+## Related reading
+
+We cover the full migration from browser-side API keys in [how to fix an API key leaked in your frontend bundle](/blog/fix-api-key-leaked-frontend-bundle) (upcoming), and the broader ownership story in [verify code ownership](/blog/verify-code-ownership-nft-certificate).

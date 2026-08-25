@@ -1,0 +1,56 @@
+---
+title: Originality check source code: how copies get caught
+description: What happens between passing tests and minting. How submissions are compared against accepted solutions, which similarity signals get flagged, where it fails.
+primaryKeyword: originality check source code
+secondaryKeywords: source code plagiarism detection, code similarity detection, catch copied programming solutions
+date: 2026-08-30
+author: Chain-Code
+canonical: https://chaincode-xi.vercel.app/blog/originality-check-source-code-plagiarism-detection
+slug: originality-check-source-code-plagiarism-detection
+---
+
+# Originality check source code: how copying gets caught
+
+Passing tests proves your code works. It does not prove you wrote it. Between those two facts sits an originality check on source code: every Chain-Code submission is compared against previously accepted solutions before a certificate can [mint](/blog/mint-code-as-nft-tutorial-beginners). This explains what that comparison actually looks for, and honestly, where it misses.
+
+## Why test-passing alone invites copying
+
+If the only gate were hidden test cases, the winning strategy would be to collect other people's accepted solutions and resubmit them. Tests cannot distinguish two programs with identical text; they only see behavior. Certificates would then certify nothing except that someone, somewhere, once solved the problem. An [originality check on source code](/blog/originality-check-source-code-plagiarism-detection) closes that hole by making the text itself part of the judgment.
+
+## The signals a copy leaves behind
+
+Copying source code leaves fingerprints even when someone tries to disguise it:
+
+- **Token-level match.** Strip whitespace, comments, and identifier names; compare the token stream. Renaming `variableOne` to `x` changes nothing here. Two submissions whose normalized streams match above roughly 90% are effectively certain copies.
+- **Structural similarity.** Two solutions with identical control-flow shape but different names and formatting score high regardless of surface edits. Reordering independent functions fools neither stream nor structure comparison.
+- **Near-miss patterns.** Same algorithm with reordered functions or swapped loops still clusters together statistically. A student who "fixes" a copied solution by changing loop direction has changed nothing that matters.
+
+None of these signals are exotic. They are the same families of techniques used by academic plagiarism tools — MOSS has compared student code on token fingerprints since the 1990s — applied to judged submissions instead of essays.
+
+## Can the originality check be fooled?
+
+Partially, and it is worth being precise about how. A determined copier who rewrites a solution with different variable names, restructured loops, and reordered helpers defeats surface checks but not structural ones. Someone who genuinely re-derives the algorithm in their own style produces code that is legitimately theirs even if it resembles existing solutions — which is correct behavior, not a bypass. The check is calibrated so that honest independent work passes: thresholds tolerate the natural convergence of short solutions while catching text-level theft. What it cannot do is read minds, so it certifies uniqueness of submitted text, not purity of thought.
+
+## Step-by-step: what happens to your submission
+
+1. **Tests run first.** A failed submission never reaches the originality stage, so honest failures cost nothing.
+2. **Normalize the source.** Comments, whitespace, and local naming get stripped so cosmetics cannot dodge the check.
+3. **Compare against the corpus of accepted solutions** for the same problem and language. Comparing across languages would drown real copies in false positives.
+4. **Score similarity and apply the threshold.** Above the line, the submission is rejected with a clear reason rather than silently shadow-banned.
+5. **Mint only on a clean pass**, which is why certificates carry weight: each one represents a unique pass through both gates.
+
+## What the originality check source code comparison misses
+
+Two failure modes deserve honesty. First, independent convergence: two people solving "reverse a linked list" will often produce near-identical twenty-line solutions because there is basically one way to write it. Thresholds must tolerate that, which means genuinely independent similar code sometimes gets flagged. Second, motivated adaptation: someone who rewrites a copied solution in their own style with different structure can slip past statistical checks. The gate raises the cost of cheating substantially; it does not make it impossible, and any platform claiming otherwise is selling something.
+
+A third limit is corpus cold-start. The comparison only catches copies of solutions already in the accepted set, so the very first submission of a new problem faces a thinner reference corpus than the hundredth. This self-corrects as problems age, but early certificates rest on lighter evidence — one more reason the hash-based verification procedure matters regardless.
+
+## Why this matters more on-chain
+
+A certificate is a permanent public claim. Minting copied code as an NFT would put fraud on a public ledger with your wallet attached. The originality gate runs precisely because the artifact downstream is unforgivable to fake. That is also why rejected submissions can be retried with honest work — the system's goal is clean certificates, not punishments.
+
+There is an asymmetry worth noticing: a false positive costs you one retry, while a false negative puts someone else's work permanently on chain under a fraudulent claim. Thresholds therefore lean strict by design. If your honest solution ever gets flagged, resubmitting with a comment explaining your approach or splitting a dense function into two named ones usually resolves it — and those edits improve readability anyway.
+
+## Try the full pipeline
+
+The flow from editor to verified certificate takes about twenty minutes on an easy problem. Start from the [problems list](/problems), or first read the security foundation in [run untrusted code safely](/blog/run-untrusted-code-safely-sandbox-tutorial).

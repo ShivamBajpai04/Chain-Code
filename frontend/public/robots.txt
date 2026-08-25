@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chaincode-xi.vercel.app/sitemap.xml
