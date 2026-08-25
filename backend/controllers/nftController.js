@@ -93,6 +93,19 @@ export const mintNFT = async (req, res) => {
     if (!submission) {
       return res.status(404).json({ error: "Submission not found" });
     }
+
+    // Ownership gate — you can only mint your own work (audit finding #4)
+    if (String(submission.user) !== String(req.user.user.id)) {
+      return res.status(403).json({ error: "You can only mint your own submissions." });
+    }
+
+    // Double-mint guard — a certificate already exists for this submission
+    if (submission.minted) {
+      return res.status(409).json({
+        error: "This submission is already minted.",
+        mintTxHash: submission.mintTxHash || undefined,
+      });
+    }
     const tx = await MyToken.safeMint(walletAddress, tokenURI);
     const recipt = await tx.wait();
 

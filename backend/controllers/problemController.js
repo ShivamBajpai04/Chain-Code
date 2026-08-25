@@ -14,7 +14,9 @@ export const createProblem = async (req, res) => {
 
 export const getAllProblems = async (req, res) => {
   try {
-    const problems = await Problem.find();
+    // Same rule as by-id: hidden testcases are server-side judging material,
+    // never shipped to any client (audit finding #3).
+    const problems = await Problem.find().select("-testcases");
     res.json(problems);
   } catch (err) {
     res.status(500).send("Server error");
