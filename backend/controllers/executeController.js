@@ -24,7 +24,7 @@ const MAX_CODE_LENGTH = 100_000;
 
 export const executeCode = async (req, res) => {
   try {
-    if (rateLimited(req.user.id)) {
+    if (rateLimited(req.user?.user?.id || req.ip)) {
       return res.status(429).json({ error: "Too many executions — slow down a moment." });
     }
 

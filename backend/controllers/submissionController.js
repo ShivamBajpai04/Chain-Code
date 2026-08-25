@@ -102,6 +102,17 @@ export const getSubmissionById = async (req, res) => {
       return res.status(404).json({ error: "Submission not found" });
     }
 
+    // IDOR fix (audit finding #6): source code is only readable by its owner.
+    // Non-owners get the certificate metadata (title, mint info) but a sealed
+    // code field — public verification works via hash + Etherscan instead.
+    const isOwner =
+      req.user?.user?.id &&
+      String(submission.user) === String(req.user.user.id);
+    if (!isOwner) {
+      const { code, ...rest } = submission.toObject();
+      return res.json({ ...rest, code: null });
+    }
+
     res.json(submission);
   } catch (error) {
     console.error("Error fetching submission:", error);

@@ -72,7 +72,18 @@ export const DNFT: React.FC = () => {
           )}
           {!loading && !error && nft && (
             <>
-              <AnimatedCard title={nft.title} code={nft.code} seed={id} />
+              {nft.code ? (
+                <AnimatedCard title={nft.title} code={nft.code} seed={id} />
+              ) : (
+                <div className="flex h-48 w-72 flex-col items-center justify-center gap-3 rounded-md border border-white/10 bg-white/[0.03] p-4 text-center">
+                  <p className="f-mono text-[10px] uppercase tracking-[0.2em] text-[#d4a017]">
+                    Sealed certificate
+                  </p>
+                  <p className="text-xs leading-snug" style={{ color: "rgba(245,241,232,0.45)" }}>
+                    Source is private. Authenticity is verifiable on-chain via the mint transaction below.
+                  </p>
+                </div>
+              )}
               {nft.mintTxHash && (
                 <a
                   href={`https://sepolia.etherscan.io/tx/${nft.mintTxHash}`}
