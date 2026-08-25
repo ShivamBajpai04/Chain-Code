@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- NOTE: domain is a placeholder. BLOCKED-WAITING-HUMAN: replace with production domain. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://chaincode-xi.vercel.app/</loc><priority>1.0</priority></url>
   <url><loc>https://chaincode-xi.vercel.app/blog</loc><priority>0.8</priority></url>
-  <url><loc>https://chaincode-xi.vercel.app/blog/verify-code-ownership-nft-certificate</loc>
-  <url><loc>https://chaincode-xi.vercel.app/blog/judge0-vs-piston-self-hosted-coding-sandbox</loc>
-  <url><loc>https://chaincode-xi.vercel.app/blog/fix-api-key-leaked-frontend-bundle</loc>
-  <url><loc>https://chaincode-xi.vercel.app/blog/run-untrusted-code-safely-sandbox-tutorial</loc>
-  <url><loc>https://chaincode-xi.vercel.app/blog/mint-code-as-nft-tutorial-beginners</loc>
-  <url><loc>https://chaincode-xi.vercel.app/blog/originality-check-source-code-plagiarism-detection</loc>
-  <url><loc>https://chaincode-xi.vercel.app/blog/learn-solidity-by-building-projects</loc>
-  <url><loc>https://chaincode-xi.vercel.app/blog/coding-challenge-platforms-reward-comparison</loc><priority>0.7</priority></url><priority>0.7</priority></url><priority>0.7</priority></url><priority>0.7</priority></url><priority>0.7</priority></url><priority>0.7</priority></url><priority>0.7</priority></url><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/verify-code-ownership-nft-certificate</loc><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/judge0-vs-piston-self-hosted-coding-sandbox</loc><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/fix-api-key-leaked-frontend-bundle</loc><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/run-untrusted-code-safely-sandbox-tutorial</loc><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/mint-code-as-nft-tutorial-beginners</loc><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/originality-check-source-code-plagiarism-detection</loc><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/learn-solidity-by-building-projects</loc><priority>0.7</priority></url>
+  <url><loc>https://chaincode-xi.vercel.app/blog/coding-challenge-platforms-reward-comparison</loc><priority>0.7</priority></url>
 </urlset>
