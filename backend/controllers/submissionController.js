@@ -113,8 +113,20 @@ export const getSubmissionsByProblemId = async (req, res) => {
   const { problemId } = req.params;
 
   try {
-    const submissions = await Submission.find({ problem: problemId });
-    res.json(submissions);
+    // Security: never expose full source of others' submissions — it defeats
+    // the originality gate. Only the owner sees their own code in listings.
+    const isOwner = (s) =>
+      req.user?.user?.id && String(s.user?._id || s.user) === String(req.user.user.id);
+
+    const submissions = await Submission.find({ problem: problemId })
+      .populate("user", "username walletAddress")
+      .lean();
+
+    const safe = submissions.map((s) => ({
+      ...s,
+      ...(isOwner(s) ? {} : { code: undefined }),
+    }));
+    res.json(safe);
   } catch (error) {
     console.error("Error fetching submissions for problem:", error);
     res

@@ -34,7 +34,8 @@ const auth = async (req, res, next) => {
     req.user = decoded; // Attach the decoded user information to the request
     next(); // Proceed to the next middleware or route handler
   } catch (err) {
-    console.log(err);
+    // Log error type only — never token material (audit finding #6)
+    console.warn("JWT verification failed:", err.name || "unknown");
     res.status(401).json({ msg: "Token is not valid" });
   }
 };

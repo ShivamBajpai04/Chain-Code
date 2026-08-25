@@ -109,12 +109,23 @@ export default function SubmissionsTab() {
       <div className="flex flex-wrap justify-center gap-5 lg:justify-start">
         {visible.map((submission: any) => (
           <div key={submission._id} className="flex flex-col items-center gap-1.5">
-            <AnimatedCard
-              title={selectedProblem?.title || "Untitled Problem"}
-              code={submission.code}
-              to={`/nft/${submission._id}`}
-              seed={submission._id}
-            />
+            {submission.code ? (
+              <AnimatedCard
+                title={selectedProblem?.title || "Untitled Problem"}
+                code={submission.code}
+                to={`/nft/${submission._id}`}
+                seed={submission._id}
+              />
+            ) : (
+              <div className="flex h-40 w-56 flex-col items-center justify-center gap-2 rounded-md border border-white/10 bg-white/[0.03] p-3 text-center">
+                <p className="f-mono text-[10px] uppercase tracking-[0.2em] text-[#d4a017]">
+                  Sealed submission
+                </p>
+                <p className="text-xs leading-snug" style={{ color: "rgba(245,241,232,0.45)" }}>
+                  Source stays private — only the owner and the originality judge can read it.
+                </p>
+              </div>
+            )}
             <p className="f-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
               {timeAgo(submission.createdAt)}
             </p>
