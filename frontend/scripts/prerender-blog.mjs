@@ -139,7 +139,7 @@ for (const p of posts) {
       description: p.description,
       url: `${SITE}/blog/${p.slug}`,
       jsonLd,
-      bodyHtml: `<article><p>${p.date}</p><h1>${esc(p.title)}</h1>${p.html}</article>`,
+      bodyHtml: `<article><p>${p.date}</p>${p.html}</article>`,
     }));
 }
 console.log(`Prerendered /blog + ${posts.length} posts into dist/blog/`);
