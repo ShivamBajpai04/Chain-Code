@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
+
+# Generative engine guidance (ChatGPT, Perplexity, AI Overviews)
+# See: /llms.txt — curated page list with descriptions for AI crawlers
 Sitemap: https://chaincode-xi.vercel.app/sitemap.xml
