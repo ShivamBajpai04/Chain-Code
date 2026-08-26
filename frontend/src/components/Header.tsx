@@ -16,6 +16,8 @@ const loggedInLinks = [
   { to: "/nft", label: "My NFTs" },
 ];
 
+const FEEDBACK_MAILTO = "mailto:shivammahajan.mail@gmail.com?subject=ChainCode%20Feedback";
+
 export default function Header({ onLogout }: { onLogout?: () => void }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -73,6 +75,12 @@ export default function Header({ onLogout }: { onLogout?: () => void }) {
                 {link.label}
               </Link>
             ))}
+            <a
+              href={FEEDBACK_MAILTO}
+              className="text-sm font-medium text-white/55 transition-colors duration-200 hover:text-[#d4a017]"
+            >
+              Feedback
+            </a>
           </nav>
         </div>
 
@@ -144,6 +152,12 @@ export default function Header({ onLogout }: { onLogout?: () => void }) {
                   {link.label}
                 </Link>
               ))}
+              <a
+                href={FEEDBACK_MAILTO}
+                className="py-3 text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"
+              >
+                Feedback
+              </a>
               {token ? (
                 <>
                   <button

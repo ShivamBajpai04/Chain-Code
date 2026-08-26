@@ -17,6 +17,7 @@
 Already fixed pre-loop: JWT expiry (7d), central error middleware.
 
 ## Iteration log
+- Iter 5b: CI workflow (.github/workflows/ci.yml — tsc, seo:check, backend syntax scan) + smoke-test.mjs with 5 security behavior checks. Verified live run correctly FAILS on stale deployment (testcases leak detected) — proving the suite catches regressions. After redeploy all 5 must pass.
 - Iter 5: finding #9 — role system end-to-end; #10 verified already-resolved. .env.example created with all 23 env vars documented. Remaining: CI workflow + smoke tests (Testing & DX acceptance criteria).
 - Iter 4: finding #7 — sanitizeForJudge + delimited prompt + fail-closed default. Finding #8 — poll create/vote rewritten as real handlers; note frontend currently uses /vote/* gov endpoints for actions, only GET /poll/all consumed, so no frontend changes needed. Verified node --check ×2.
 - Iter 3: finding #5 — rateLimited(req.user?.user?.id || req.ip). Finding #6 — IDOR closed with owner-sees-code / others-get-null pattern; dnft.tsx renders "Sealed certificate" card (public verification via Etherscan link preserved per product premise). Verified node --check ×2 + tsc.

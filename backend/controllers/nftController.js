@@ -64,7 +64,11 @@ export const getTokenURI = async (req, res) => {
 /////
 export const mintNFT = async (req, res) => {
   const { submissionId } = req.params;
-  const tokenURI = "localhost:5173/nft/" + submissionId.toString();
+  // ERC-721 tokenURI must be a publicly fetchable metadata URL — wallets and
+  // marketplaces GET it to render the certificate. A localhost link dies for
+  // every viewer outside the dev machine (and with it, the cert display).
+  const BACKEND_URL = process.env.PUBLIC_BACKEND_URL || `http://localhost:${process.env.PORT || 5000}`;
+  const tokenURI = `${BACKEND_URL}/api/nft/metadata/${submissionId.toString()}`;
   let MyToken;
 
   try {
@@ -161,3 +165,85 @@ export const mintNFT = async (req, res) => {
 // }
 
 // writeContractData();
+
+// Generated SVG certificate art — referenced by metadata `image`.
+// Deterministic per submission; no external storage needed yet.
+export const getNftImage = async (req, res) => {
+  try {
+    const id = req.params.submissionId.replace(/\.svg$/i, "");
+    const submission = await Submission.findById(id)
+      .populate("problem", "title difficulty")
+      .populate("user", "username");
+    if (!submission || !submission.minted) {
+      return res.status(404).json({ error: "Certificate not found" });
+    }
+
+    const esc = (s) =>
+      String(s ?? "").replace(/[<>&"']/g, (c) =>
+        ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&#39;" }[c])
+      );
+
+    const title = esc(submission.problem.title);
+    const solver = esc(submission.user?.username || "Anonymous");
+    const language = esc(submission.language);
+    const difficulty = esc(submission.problem.difficulty);
+    const date = submission.createdAt
+      ? new Date(submission.createdAt).toISOString().slice(0, 10)
+      : "";
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#14102e"/>
+  <rect x="24" y="24" width="752" height="452" fill="none" stroke="#d4a017" stroke-width="2"/>
+  <text x="400" y="110" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#d4a017" letter-spacing="4">CHAINCODE CERTIFICATE</text>
+  <text x="400" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#8a83a8" letter-spacing="2">PROOF OF ORIGINALITY · SEPOLIA</text>
+  <text id="cert-title" x="400" y="235" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#f5f1e8">${title}</text>
+  <text x="400" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#8a83a8">solved by</text>
+  <text x="400" y="335" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#f5f1e8">${solver}</text>
+  <text x="400" y="395" text-anchor="middle" font-family="monospace" font-size="15" fill="#b9b3d0">${language} · ${difficulty}${date ? ` · ${date}` : ""}</text>
+</svg>`;
+
+    res.setHeader("Content-Type", "image/svg+xml");
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    res.send(svg);
+  } catch (error) {
+    console.error("getNftImage error:", error);
+    res.status(500).json({ error: "Failed to render certificate image" });
+  }
+};
+
+// Public ERC-721 metadata endpoint — this is what tokenURI points at.
+// No auth: wallets and marketplaces fetch it server-side, they have no JWT.
+// Only minted submissions expose metadata; source code never leaks here.
+export const getNftMetadata = async (req, res) => {
+  try {
+    const submission = await Submission.findById(req.params.submissionId)
+      .populate("problem", "title difficulty")
+      .populate("user", "username");
+    if (!submission || !submission.minted) {
+      return res.status(404).json({ error: "Certificate not found" });
+    }
+
+    const BACKEND_URL = process.env.PUBLIC_BACKEND_URL || `http://localhost:${process.env.PORT || 5000}`;
+    const FRONTEND_URL = process.env.PUBLIC_FRONTEND_URL || "https://chaincode-xi.vercel.app";
+    const mintDate = submission.createdAt
+      ? new Date(submission.createdAt).toISOString().slice(0, 10)
+      : undefined;
+
+    res.json({
+      name: `ChainCode Certificate — ${submission.problem.title}`,
+      description: `On-chain certificate of originality. ${submission.user?.username || "A developer"} solved "${submission.problem.title}" in ${submission.language}${mintDate ? ` on ${mintDate}` : ""}, passed all testcases, and cleared the originality check. Verified on Sepolia.`,
+      image: `${BACKEND_URL}/api/nft/image/${submission._id}.svg`,
+      external_url: `${FRONTEND_URL}/nft/${submission._id}`,
+      attributes: [
+        { trait_type: "Problem", value: submission.problem.title },
+        { trait_type: "Difficulty", value: submission.problem.difficulty },
+        { trait_type: "Language", value: submission.language },
+        ...(mintDate ? [{ trait_type: "Solved On", value: mintDate }] : []),
+        { trait_type: "Network", value: "Sepolia" },
+      ],
+    });
+  } catch (error) {
+    console.error("getNftMetadata error:", error);
+    res.status(500).json({ error: "Failed to load certificate metadata" });
+  }
+};
